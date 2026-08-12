@@ -8,222 +8,451 @@
 <style>
 :root{
  --bg:#05110e;--panel:#0a1b16;--panel2:#0d251e;--text:#eafff7;
- --muted:#8caea4;--line:#173d32;--accent:#3fe6ad;--yellow:#ffe36a;
+ --muted:#8eafa5;--line:#174338;--accent:#43f0b6;--yellow:#ffe55f;
+ --purple:#5b156f;--cyan:#61f5cf;--danger:#ff987f;
 }
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
-header{position:sticky;top:0;z-index:30;background:rgba(5,17,14,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:10px 10px 9px}
-.headrow{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
-.title{font-size:20px;font-weight:850}.sub{font-size:11px;color:var(--muted);margin-top:2px}
-.mainprice{text-align:right;font-size:28px;font-weight:850;white-space:nowrap}
-.marketlines{margin-top:7px;display:grid;grid-template-columns:1fr;gap:3px;font-size:11px;color:var(--muted)}
-.marketlines b{color:var(--text);font-weight:700}
-.holiday{color:#ffc978!important;font-weight:800}
-.controls{display:flex;gap:7px;overflow:auto;padding-top:9px;-webkit-overflow-scrolling:touch}
-button{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:9px;padding:8px 11px;font-weight:700;white-space:nowrap}
-button.active{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
-main{padding:9px 7px 35px}
-.snapshot{font-size:11px;color:var(--muted);padding:2px 3px 8px;line-height:1.45}
+button{font:inherit}
+header{position:sticky;top:0;z-index:50;background:rgba(5,17,14,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.topbar{display:grid;grid-template-columns:minmax(280px,1fr) minmax(320px,1.2fr) minmax(260px,.8fr);gap:12px;padding:12px}
+.brand{font-size:22px;font-weight:900}.brand span{font-size:12px;color:var(--muted)}
+.small{font-size:11px;color:var(--muted);line-height:1.45}
+.scenario{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:9px 12px;min-height:76px}
+.scenarioTitle{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.scenarioMain{font-size:18px;font-weight:850;margin-top:3px}
+.scenarioLevels{font-size:12px;margin-top:4px;color:#d6f6eb}
+.priceBox{text-align:right;cursor:pointer;border-radius:12px;padding:2px 4px}
+.priceBox:hover{background:rgba(67,240,182,.06)}
+.bigprice{font-size:34px;font-weight:900;line-height:1}
+.sessionBadge{display:inline-block;margin-top:5px;padding:3px 7px;border:1px solid var(--line);border-radius:99px;font-size:10px;font-weight:800}
+.priceTime{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.35}
+.marketstrip{display:grid;grid-template-columns:repeat(4,minmax(190px,1fr));gap:7px;padding:0 12px 10px}
+.marketcard{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:8px 10px;min-height:78px}
+.mtitle{display:flex;justify-content:space-between;gap:8px;font-size:10px;color:var(--muted)}
+.mprice{font-size:19px;font-weight:850;margin-top:3px}
+.mmeta{font-size:10px;color:var(--muted);line-height:1.4;margin-top:2px}
+.holiday{color:#ffc66d;font-weight:800}
+.controls{display:flex;gap:7px;overflow:auto;padding:0 12px 10px;-webkit-overflow-scrolling:touch}
+.ctrl{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:8px 11px;font-weight:750;white-space:nowrap;cursor:pointer}
+.ctrl.active{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+main{padding:10px 8px 40px}
+.info{font-size:11px;color:var(--muted);line-height:1.45;padding:0 3px 8px}
+.insights{display:grid;grid-template-columns:260px 1fr;gap:8px;margin-bottom:10px}
+.insightList{background:var(--panel);border:1px solid var(--line);border-radius:13px;max-height:270px;overflow:auto}
+.insightItem{width:100%;text-align:left;border:0;border-bottom:1px solid rgba(23,67,56,.6);background:transparent;color:var(--text);padding:9px 10px;cursor:pointer}
+.insightItem:last-child{border-bottom:0}
+.insightItem.active{background:#103128}
+.insightItem.event{border-left:3px solid var(--danger)}
+.iTitle{font-size:11px;font-weight:800}
+.iStrength{font-size:9px;color:var(--muted);margin-top:2px}
+.insightDetail{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:12px;min-height:130px}
+.insightDetail h3{margin:0 0 7px;font-size:15px}
+.insightDetail p{margin:0;color:#c9e8de;font-size:12px;line-height:1.55}
 .legend{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:10px;padding:0 3px 8px}
-.grad{width:145px;height:9px;border-radius:20px;background:linear-gradient(90deg,#52146f,#184a62,#167d70,#9ebd43,#ffe75d)}
-.wrap{overflow:auto;border:1px solid var(--line);border-radius:13px;background:var(--panel);max-height:73vh;-webkit-overflow-scrolling:touch}
+.grad{width:150px;height:9px;border-radius:20px;background:linear-gradient(90deg,#5a146f,#19495e,#1a806f,#a4bc40,#ffe655)}
+.wrap{position:relative;overflow:auto;border:1px solid var(--line);border-radius:13px;background:var(--panel);max-height:72vh;-webkit-overflow-scrolling:touch}
 table{border-collapse:separate;border-spacing:0;width:max-content;min-width:100%;font-size:10px}
-th,td{height:32px;min-width:88px;border-right:1px solid rgba(23,61,50,.55);border-bottom:1px solid rgba(23,61,50,.55);text-align:center;padding:0}
-thead th{position:sticky;top:0;z-index:8;background:#0b211b;height:39px;padding:4px}
-.strike{position:sticky;left:0;z-index:7;background:#0b211b!important;min-width:58px;width:58px;font-weight:800}
-thead .strike{z-index:10}
-.nearspot .strike{color:var(--yellow)}
-td.cell{position:relative;cursor:pointer}
+th,td{height:32px;min-width:88px;border-right:1px solid rgba(23,67,56,.55);border-bottom:1px solid rgba(23,67,56,.55);text-align:center;padding:0}
+thead th{position:sticky;top:0;z-index:9;background:#0b211b;height:40px;padding:4px}
+.strike{position:sticky;left:0;z-index:8;background:#0b211b!important;min-width:78px;width:78px;font-weight:850}
+thead .strike{z-index:11}
+td.cell{position:relative;cursor:pointer;transition:opacity .15s,filter .15s}
 .bar{position:absolute;inset:3px 2px;border-radius:5px;opacity:.92}
-.val{position:relative;z-index:2;font-weight:750;font-variant-numeric:tabular-nums;text-shadow:0 1px 2px #000}
+.val{position:relative;z-index:2;font-weight:800;font-variant-numeric:tabular-nums;text-shadow:0 1px 2px #000}
+.spotRow .strike{color:var(--yellow)}
+.spotMark{display:block;font-size:8px;color:var(--yellow);margin-top:1px;white-space:nowrap}
+.dim td.cell{opacity:.16;filter:saturate(.5)}
+td.cell.focused{opacity:1!important;filter:none!important;outline:2px solid var(--yellow);outline-offset:-2px}
+tr.focusedRow td.cell{opacity:1!important;filter:none!important}
 .card{display:none;margin-top:10px;background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:11px}
 .card.show{display:block}.card h3{margin:0 0 8px;font-size:14px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
 .kv{background:#0d211b;border-radius:8px;padding:8px}.kv b{display:block;font-size:12px}.kv span{font-size:10px;color:var(--muted)}
-.note{font-size:10px;color:var(--muted);padding:10px 3px;line-height:1.4}
-.error{text-align:center;padding:28px 14px;color:#ffb9b9}
+.note{font-size:10px;color:var(--muted);padding:10px 3px;line-height:1.45}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:100;display:none;padding:18px}
+.modal.show{display:flex;align-items:center;justify-content:center}
+.modalBox{max-width:850px;width:100%;max-height:88vh;overflow:auto;background:#081914;border:1px solid var(--line);border-radius:16px;padding:16px}
+.modalBox h2{margin:0 0 10px}.modalBox h3{font-size:13px;margin:15px 0 5px}.modalBox p,.modalBox li{font-size:12px;color:#c9e8de;line-height:1.5}
+.close{float:right;background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:6px 9px;cursor:pointer}
+.error{text-align:center;padding:30px 14px;color:#ffb9b9}
+@media(max-width:900px){
+ .topbar{grid-template-columns:1fr 1fr}.scenario{grid-row:2;grid-column:1/3}.priceBox{grid-column:2}
+ .marketstrip{grid-template-columns:1fr 1fr}
+ .insights{grid-template-columns:210px 1fr}
+}
 @media(max-width:600px){
- header{padding-top:max(9px,env(safe-area-inset-top))}
- .mainprice{font-size:25px}
+ .topbar{grid-template-columns:1fr auto;padding-top:max(10px,env(safe-area-inset-top))}
+ .scenario{grid-row:2;grid-column:1/3}
+ .bigprice{font-size:30px}
+ .marketstrip{display:flex;overflow:auto}.marketcard{min-width:230px}
+ .insights{grid-template-columns:1fr}.insightList{display:flex;max-height:none;overflow:auto}
+ .insightItem{min-width:200px;border-bottom:0;border-right:1px solid var(--line)}
+ .grid{grid-template-columns:1fr 1fr}
  th,td{min-width:84px}
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js"></script>
 </head>
 <body>
 <header>
- <div class="headrow">
+ <div class="topbar">
   <div>
-   <div class="title">NBIS <span style="font-size:12px;color:var(--muted);font-weight:650">VEX / GEX</span></div>
-   <div class="sub" id="priceUpdate">Загрузка…</div>
+   <div class="brand">NBIS <span>VEX / GEX heatmap</span></div>
+   <div class="small" id="globalUpdate">Загрузка рыночной ленты…</div>
   </div>
-  <div class="mainprice" id="spot">—</div>
+  <div class="scenario" id="scenario">
+   <div class="scenarioTitle">Модельный сценарий</div>
+   <div class="scenarioMain">Загрузка…</div>
+  </div>
+  <div class="priceBox" id="priceBox" title="Нажми, чтобы перейти к текущей цене в таблице">
+   <div class="bigprice" id="bigprice">—</div>
+   <span class="sessionBadge" id="sessionBadge">—</span>
+   <div class="priceTime" id="priceTime">—</div>
+  </div>
  </div>
 
- <div class="marketlines">
-   <div id="usLine">NASDAQ: —</div>
-   <div id="preLine">Premarket: —</div>
-   <div id="euLine">Europe: —</div>
+ <div class="marketstrip">
+  <div class="marketcard" id="preCard"></div>
+  <div class="marketcard" id="regCard"></div>
+  <div class="marketcard" id="postCard"></div>
+  <div class="marketcard" id="euCard"></div>
  </div>
 
  <div class="controls">
-   <button class="mode active" data-mode="previous_close">Prev close</button>
-   <button class="mode" data-mode="current">Current</button>
-   <button class="metric active" data-metric="vex">VEX</button>
-   <button class="metric" data-metric="gex">GEX</button>
-   <button class="metric" data-metric="oi">OI</button>
-   <button class="metric" data-metric="iv">IV</button>
-   <button id="reload">↻</button>
+   <button class="ctrl mode active" data-mode="previous_close">Предыдущий срез</button>
+   <button class="ctrl mode" data-mode="current">Текущий срез</button>
+   <button class="ctrl metric active" data-metric="vex">VEX</button>
+   <button class="ctrl metric" data-metric="gex">GEX</button>
+   <button class="ctrl metric" data-metric="oi">OI</button>
+   <button class="ctrl metric" data-metric="iv">IV</button>
+   <button class="ctrl" id="excel">Экспорт Excel</button>
+   <button class="ctrl" id="help">?</button>
+   <button class="ctrl" id="reload">↻</button>
  </div>
 </header>
 
 <main>
- <div class="snapshot" id="snapshotInfo"></div>
- <div class="legend"><span>−</span><div class="grad"></div><span>+</span><span id="legendUnit"></span></div>
- <div class="wrap"><div id="content"><div class="error">Загрузка…</div></div></div>
+ <div class="info" id="snapshotInfo"></div>
+
+ <section class="insights">
+  <div class="insightList" id="insightList"></div>
+  <div class="insightDetail" id="insightDetail">
+   <h3>Инсайты</h3>
+   <p>Выбери вывод слева. Таблица автоматически сфокусируется на соответствующей зоне.</p>
+  </div>
+ </section>
+
+ <div class="legend"><span>−</span><div class="grad"></div><span>+</span><span id="legendUnit">VEX</span></div>
+
+ <div class="wrap" id="tableWrap">
+   <div id="content"><div class="error">Загрузка…</div></div>
+ </div>
+
  <div class="card" id="details"></div>
+
  <div class="note">
-   OI: OCC, расчёты предыдущего торгового дня. IV: Yahoo. NET VEX/GEX = эвристика calls − puts, а не известная позиция дилеров.
+   OI — количество открытых опционных контрактов (1 контракт обычно = 100 акций), источник OCC.
+   VEX/GEX — модельные экспозиции; знак NET построен эвристически как calls − puts и не является наблюдаемой позицией дилеров.
  </div>
 </main>
 
-<script>
-let DATA=null, METRIC="vex", MODE="previous_close";
+<div class="modal" id="helpModal">
+ <div class="modalBox">
+  <button class="close" id="closeHelp">Закрыть</button>
+  <h2>Как читать карту</h2>
+  <h3>VEX</h3>
+  <p><b>Vanna Exposure</b> — чувствительность совокупной дельты к изменению implied volatility. На карте используется «крупная» шкала, близкая по порядку к Heatseeker: <code>vanna × OI × 100 × spot</code>, то есть на единичное изменение IV. В деталях также показывается VEX на 1 волатильностный пункт = VEX × 0,01.</p>
+  <h3>GEX</h3>
+  <p><b>Gamma Exposure</b> — изменение хеджа при движении цены. Мы отображаем долларовую gamma-экспозицию для движения spot на 1%.</p>
+  <h3>OI</h3>
+  <p><b>Open Interest</b> — число открытых контрактов. Значение 5 000 означает 5 000 контрактов, а не долларов. OCC публикует OI после расчётов предыдущего торгового дня.</p>
+  <h3>IV</h3>
+  <p><b>Implied Volatility</b> — implied volatility опциона. 65% означает IV = 0,65.</p>
+  <h3>Цвета</h3>
+  <p>Жёлтый — сильная положительная экспозиция; фиолетовый — сильная отрицательная; бирюзовый — около нуля. Масштаб робастный: цвет нормируется по сильным значениям, чтобы один экстремальный узел не «погасил» всю карту.</p>
+  <h3>Инсайты и события</h3>
+  <p>⚡ означает резкое изменение VEX/GEX/OI или цены относительно предыдущего расчётного среза. Такие события хранятся 7 дней, ранжируются по силе и автоматически удаляются из рабочей ленты.</p>
+  <h3>Источники</h3>
+  <ul>
+   <li>Котировки NBIS, pre/regular/post и YDX.DE: Yahoo Finance через yfinance.</li>
+   <li>OI: OCC Series Search.</li>
+   <li>IV и option chain: Yahoo Finance через yfinance.</li>
+  </ul>
+  <p>Это исследовательская модель, а не инвестиционная рекомендация. Дилерская сторона сделки из публичного OI напрямую неизвестна.</p>
+ </div>
+</div>
 
-function fmtNum(x,metric){
+<script>
+let DATA=null, MARKET=null, METRIC="vex", MODE="previous_close", ACTIVE_INSIGHT=null;
+
+const RU_DAYS=["воскресенье","понедельник","вторник","среда","четверг","пятница","суббота"];
+const SESSIONS={premarket:"ПРЕМАРКЕТ",regular:"ОСНОВНАЯ СЕССИЯ",postmarket:"ПОСТМАРКЕТ",closed:"РЫНОК ЗАКРЫТ",holiday:"ВЫХОДНОЙ",none:"НЕТ КОТИРОВКИ"};
+
+function fmtPrice(x,cur="$"){return x==null||!isFinite(x)?"—":cur+Number(x).toFixed(2)}
+function fmtNum(x,m){
  if(x==null||!isFinite(x))return "—";
- if(metric==="iv")return (x*100).toFixed(1)+"%";
- if(metric==="oi")return Math.round(x).toLocaleString("en-US");
+ if(m==="iv")return (x*100).toFixed(1)+"%";
+ if(m==="oi")return Math.round(x).toLocaleString("ru-RU");
  const a=Math.abs(x),s=x<0?"−":"+";
  if(a>=1e9)return s+(a/1e9).toFixed(2)+"B";
  if(a>=1e6)return s+(a/1e6).toFixed(2)+"M";
  if(a>=1e3)return s+(a/1e3).toFixed(1)+"K";
  return (x<0?"−":"")+a.toFixed(0);
 }
-function fmtPrice(x,currency="$"){
- return x==null||!isFinite(x)?"—":currency+Number(x).toFixed(2);
-}
-function fmtTime(iso,tz){
+function dayDate(iso,tz){
  if(!iso)return "—";
- return new Date(iso).toLocaleString("ru-RU",{
-   timeZone:tz,day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"
- });
+ const d=new Date(iso);
+ const weekday=new Intl.DateTimeFormat("ru-RU",{timeZone:tz,weekday:"long"}).format(d);
+ const date=new Intl.DateTimeFormat("ru-RU",{timeZone:tz,day:"2-digit",month:"long",year:"numeric"}).format(d);
+ return `${weekday}, ${date}`;
 }
-function marketState(m){
- if(!m)return "";
- if(m.holiday)return " · <span class='holiday'>выходной</span>";
- if(m.status==="open")return " · торги";
- if(m.status==="pre")return " · до открытия";
- return " · закрыто";
+function clock(iso,tz){
+ if(!iso)return "—";
+ return new Intl.DateTimeFormat("ru-RU",{timeZone:tz,hour:"2-digit",minute:"2-digit",hour12:false}).format(new Date(iso));
 }
-function renderPrices(){
- const p=DATA.prices||{},us=p.us||{},eu=p.eu||{};
- const reg=us.regular;
- document.getElementById("spot").textContent=reg?fmtPrice(reg.price,"$"):fmtPrice(DATA.spot,"$");
- document.getElementById("priceUpdate").textContent=
-   reg?"Цена обновлена "+fmtTime(reg.time,"America/New_York")+" ET":"Цена: нет свежей котировки";
-
- document.getElementById("usLine").innerHTML=
-   `<b>NASDAQ</b>: ${reg?fmtPrice(reg.price,"$"):"—"} · ${reg?fmtTime(reg.time,"America/New_York")+" ET":"—"}${marketState(us.market)}`;
-
- const pre=us.premarket;
- document.getElementById("preLine").innerHTML=
-   `<b>Premarket</b>: ${pre?fmtPrice(pre.price,"$"):"—"}${pre?" · "+fmtTime(pre.time,"America/New_York")+" ET":""}${us.market?.holiday?" · <span class='holiday'>выходной</span>":""}`;
-
- const er=eu.regular;
- const eur=er?fmtPrice(er.price,"€"):"—";
- const usd=eu.usd_price!=null?` ($${Number(eu.usd_price).toFixed(2)})`:"";
- document.getElementById("euLine").innerHTML=
-   `<b>${eu.exchange||"Europe"} ${eu.symbol||"YDX"}</b>: ${eur}${usd}${er?" · "+fmtTime(er.time,"Europe/Berlin")+" CET/CEST":""}${marketState(eu.market)}`;
+function timeDual(iso,primaryTz,primaryLabel){
+ if(!iso)return "—";
+ return `${clock(iso,primaryTz)} ${primaryLabel} / ${clock(iso,"Europe/Moscow")} МСК`;
 }
-function colorFor(v,maxAbs,metric){
- if(v==null||!isFinite(v))return "transparent";
- if(metric==="oi"||metric==="iv"){
+function ageText(iso){
+ if(!iso)return "";
+ const sec=(Date.now()-new Date(iso).getTime())/1000;
+ if(sec<90)return "меньше 2 мин назад";
+ if(sec<3600)return `${Math.round(sec/60)} мин назад`;
+ if(sec<86400)return `${Math.round(sec/3600)} ч назад`;
+ return `${Math.round(sec/86400)} дн. назад`;
+}
+function holidayText(m){return m?.holiday?" · <span class='holiday'>ВЫХОДНОЙ</span>":""}
+function cardHtml(title,q,source,tz,tzLabel,extra="",market=null){
+ const price=q?.price!=null?fmtPrice(q.price,title.includes("Xetra")?"€":"$"):"—";
+ const date=q?.time?dayDate(q.time,tz):"нет данных";
+ const tm=q?.time?timeDual(q.time,tz,tzLabel):"—";
+ return `<div class="mtitle"><b>${title}</b><span>${source}</span></div>
+  <div class="mprice">${price}${extra}</div>
+  <div class="mmeta">${date}<br>${tm}${holidayText(market)}${q?.time?` · ${ageText(q.time)}`:""}</div>`;
+}
+function renderMarket(){
+ if(!MARKET)return;
+ const us=MARKET.us||{},eu=MARKET.eu||{},a=MARKET.active_us||{};
+ document.getElementById("bigprice").textContent=fmtPrice(a.price,"$");
+ document.getElementById("sessionBadge").textContent=SESSIONS[us.current_session]||String(us.current_session||"—").toUpperCase();
+
+ let arrow="";
+ const mv=a.move_from_last_update;
+ if(mv&&isFinite(mv.percent)){
+   arrow=mv.percent>0?` ↑ ${mv.percent.toFixed(2)}%`:mv.percent<0?` ↓ ${Math.abs(mv.percent).toFixed(2)}%`:" → 0.00%";
+ }
+ document.getElementById("priceTime").innerHTML=
+   `${a.time?dayDate(a.time,"America/New_York"):"—"}<br>${a.time?timeDual(a.time,"America/New_York","ET"):"—"}${arrow}`;
+
+ document.getElementById("globalUpdate").innerHTML=
+   `Лента обновлена: ${dayDate(MARKET.updated_utc,"America/New_York")} · ${timeDual(MARKET.updated_utc,"America/New_York","ET")} · ${ageText(MARKET.updated_utc)}<br>Источник котировок: Yahoo Finance via yfinance`;
+
+ document.getElementById("preCard").innerHTML=cardHtml("Premarket",us.premarket,"Yahoo", "America/New_York","ET","",us.market);
+ document.getElementById("regCard").innerHTML=cardHtml("NASDAQ",us.regular,"Yahoo", "America/New_York","ET","",us.market);
+ document.getElementById("postCard").innerHTML=cardHtml("Postmarket",us.postmarket,"Yahoo", "America/New_York","ET","",us.market);
+
+ const euExtra=eu.usd_price!=null?` <span style="font-size:13px;color:var(--muted)">($${Number(eu.usd_price).toFixed(2)})</span>`:"";
+ document.getElementById("euCard").innerHTML=cardHtml(
+   `${eu.exchange||"Xetra"} ${eu.symbol||"YDX"}`,eu.regular,"Yahoo",
+   "Europe/Berlin","CET/CEST",euExtra,eu.market
+ );
+}
+function hexToRgb(h){h=h.replace("#","");return [parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)]}
+function rgbToHex(r,g,b){return "#"+[r,g,b].map(x=>Math.max(0,Math.min(255,Math.round(x))).toString(16).padStart(2,"0")).join("")}
+function blend(a,b,t){const A=hexToRgb(a),B=hexToRgb(b);return rgbToHex(A[0]+(B[0]-A[0])*t,A[1]+(B[1]-A[1])*t,A[2]+(B[2]-A[2])*t)}
+function colorHex(v,maxAbs,m){
+ if(v==null||!isFinite(v))return "#091B16";
+ if(m==="oi"||m==="iv"){
    const t=Math.max(0,Math.min(1,v/(maxAbs||1)));
-   return `hsl(${165-70*t} ${55+20*t}% ${25+26*t}%)`;
+   return blend("#176F64","#FFE655",t);
  }
  const t=Math.max(-1,Math.min(1,v/(maxAbs||1)));
- if(t<0){const u=-t;return `hsl(${205+75*u} ${55+15*u}% ${29-7*u}%)`}
- return `hsl(${165-110*t} ${55+25*t}% ${29+21*t}%)`;
+ return t<0?blend("#197A70","#5B156F",-t):blend("#197A70","#FFE655",t);
 }
-function render(){
- if(!DATA)return;
- renderPrices();
-
- const exps=DATA.expirations||[],rows=DATA.rows||[];
- document.getElementById("snapshotInfo").innerHTML=
-   `<b>${DATA.snapshot_label||MODE}</b> · OI settlement: ${DATA.oi_settlement_date||"—"} · `+
-   `${rows.length} strikes (${DATA.diagnostics?.min_strike??"—"} … ${DATA.diagnostics?.max_strike??"—"}) · `+
-   `${exps.length} expirations · snapshot ${fmtTime(DATA.updated_et,"America/New_York")} ET`;
-
+function currentScale(metric){
  let vals=[];
- rows.forEach(r=>exps.forEach(e=>{
-   const c=r.values?.[e];
-   if(c&&isFinite(c[METRIC]))vals.push((METRIC==="oi"||METRIC==="iv")?c[METRIC]:Math.abs(c[METRIC]));
+ (DATA?.rows||[]).forEach(r=>(DATA.expirations||[]).forEach(e=>{
+   const c=r.values?.[e]; if(c&&isFinite(c[metric])) vals.push(metric==="oi"||metric==="iv"?c[metric]:Math.abs(c[metric]));
  }));
  vals.sort((a,b)=>a-b);
- const maxAbs=vals.length?(vals[Math.floor(vals.length*.97)]||vals[vals.length-1]||1):1;
+ return vals.length?(vals[Math.floor(vals.length*.97)]||vals[vals.length-1]||1):1;
+}
+function renderScenario(){
+ const s=DATA?.scenario;
+ if(!s)return;
+ document.getElementById("scenario").innerHTML=
+  `<div class="scenarioTitle">Модельный сценарий · уверенность ${s.confidence??0}%</div>
+   <div class="scenarioMain">${s.bias||"—"}</div>
+   <div class="scenarioLevels">Базовый уровень: ${s.primary!=null?"$"+s.primary:"—"} · альтернативный: ${s.alternative!=null?"$"+s.alternative:"—"}</div>
+   <div class="small">${s.text||""}</div>`;
+}
+function renderInsights(){
+ const list=document.getElementById("insightList"), arr=DATA?.insights||[];
+ if(!arr.length){list.innerHTML='<div class="small" style="padding:12px">Пока нет инсайтов.</div>';return}
+ list.innerHTML=arr.map((x,i)=>`<button class="insightItem ${x.kind==="event"?"event":""}" data-i="${i}">
+   <div class="iTitle">${x.title}</div><div class="iStrength">сила ${Math.round(x.strength||0)}/100</div></button>`).join("");
+ list.querySelectorAll(".insightItem").forEach(b=>b.onclick=()=>selectInsight(Number(b.dataset.i)));
+}
+function selectInsight(i){
+ const x=(DATA?.insights||[])[i];if(!x)return;
+ ACTIVE_INSIGHT=x;
+ document.querySelectorAll(".insightItem").forEach((b,j)=>b.classList.toggle("active",j===i));
+ document.getElementById("insightDetail").innerHTML=
+   `<h3>${x.title} <span class="small">· сила ${Math.round(x.strength||0)}/100</span></h3><p>${x.text}</p>`;
+ applyFocus(x.focus);
+}
+function expBetween(exp,a,b){if(!a&&!b)return true;return (!a||exp>=a)&&(!b||exp<=b)}
+function applyFocus(f){
+ document.querySelectorAll("#content tbody tr").forEach(tr=>tr.classList.remove("focusedRow"));
+ document.querySelectorAll("td.cell").forEach(td=>td.classList.remove("focused"));
+ document.querySelector("#content tbody")?.classList.remove("dim");
+ if(!f)return;
 
+ const cells=[...document.querySelectorAll("td.cell")];
+ let matched=[];
+ cells.forEach(td=>{
+   const s=Number(td.dataset.s),e=td.dataset.e;
+   const ok=s>=Number(f.strike_min??-Infinity)&&s<=Number(f.strike_max??Infinity)&&expBetween(e,f.exp_min,f.exp_max);
+   if(ok){td.classList.add("focused");matched.push(td)}
+ });
+ document.querySelector("#content tbody")?.classList.add("dim");
+ matched.forEach(td=>td.parentElement.classList.add("focusedRow"));
+ if(matched[0])matched[0].scrollIntoView({behavior:"smooth",block:"center",inline:"center"});
+}
+function focusSpot(){
+ if(!DATA)return;
+ const rows=DATA.rows||[];
+ let best=null,dist=Infinity;
+ rows.forEach(r=>{const d=Math.abs(r.strike-DATA.spot);if(d<dist){dist=d;best=r.strike}});
+ if(best==null)return;
+ const idx=rows.findIndex(r=>r.strike===best);
+ const lo=rows[Math.min(rows.length-1,idx+2)]?.strike??best;
+ const hi=rows[Math.max(0,idx-2)]?.strike??best;
+ applyFocus({strike_min:Math.min(lo,hi),strike_max:Math.max(lo,hi)});
+ const tr=document.querySelector(`tr[data-strike="${CSS.escape(String(best))}"]`);
+ tr?.scrollIntoView({behavior:"smooth",block:"center"});
+}
+function renderTable(){
+ const exps=DATA.expirations||[],rows=DATA.rows||[],maxAbs=currentScale(METRIC);
  let nearest=0,dist=Infinity;
  rows.forEach((r,i)=>{const d=Math.abs(r.strike-DATA.spot);if(d<dist){dist=d;nearest=i}});
+ const mv=MARKET?.active_us?.move_from_last_update?.percent;
+ const arrow=mv>0?"↑":mv<0?"↓":"→";
 
  let h="<table><thead><tr><th class='strike'>Strike</th>";
- exps.forEach(e=>h+=`<th>${e.slice(2)}</th>`);
- h+="</tr></thead><tbody>";
+ exps.forEach(e=>h+=`<th>${e.slice(2)}</th>`); h+="</tr></thead><tbody>";
  rows.forEach((r,i)=>{
-   h+=`<tr class="${i===nearest?"nearspot":""}"><th class="strike">${r.strike}</th>`;
+   const spotMark=i===nearest?`<span class="spotMark">${arrow} $${Number(MARKET?.active_us?.price??DATA.spot).toFixed(2)}</span>`:"";
+   h+=`<tr data-strike="${r.strike}" class="${i===nearest?"spotRow":""}"><th class="strike">${r.strike}${spotMark}</th>`;
    exps.forEach(e=>{
-     const c=r.values?.[e];
-     if(!c){h+="<td></td>";return}
-     const v=c[METRIC],bg=colorFor(v,maxAbs,METRIC);
-     h+=`<td class="cell" data-s="${r.strike}" data-e="${e}"><div class="bar" style="background:${bg}"></div><span class="val">${fmtNum(v,METRIC)}</span></td>`;
-   });
-   h+="</tr>";
+     const c=r.values?.[e]; if(!c){h+="<td></td>";return}
+     const v=c[METRIC],bg=colorHex(v,maxAbs,METRIC);
+     h+=`<td class="cell" data-s="${r.strike}" data-e="${e}" style="background:${bg}">
+       <span class="val">${fmtNum(v,METRIC)}</span></td>`;
+   });h+="</tr>";
  });
  h+="</tbody></table>";
  document.getElementById("content").innerHTML=h;
- document.getElementById("legendUnit").textContent=METRIC==="oi"?"Open interest":METRIC==="iv"?"IV":"exposure";
-
+ document.getElementById("legendUnit").textContent=
+  METRIC==="vex"?"VEX · $-экспозиция / единицу IV":METRIC==="gex"?"GEX · $ на 1% движения":METRIC==="oi"?"OI · контракты":"IV · %";
  document.querySelectorAll("td.cell").forEach(td=>td.onclick=()=>showDetails(Number(td.dataset.s),td.dataset.e));
 }
 function showDetails(s,e){
  const r=DATA.rows.find(x=>Number(x.strike)===Number(s)),c=r?.values?.[e];if(!c)return;
  const d=document.getElementById("details");
  d.innerHTML=`<h3>NBIS ${s} · ${e}</h3><div class="grid">
-  <div class="kv"><b>${fmtNum(c.vex,"vex")}</b><span>Net VEX</span></div>
-  <div class="kv"><b>${fmtNum(c.gex,"gex")}</b><span>Net GEX</span></div>
-  <div class="kv"><b>${fmtNum(c.call.oi,"oi")}</b><span>Call OI (OCC) · IV ${fmtNum(c.call.iv,"iv")}</span></div>
-  <div class="kv"><b>${fmtNum(c.put.oi,"oi")}</b><span>Put OI (OCC) · IV ${fmtNum(c.put.iv,"iv")}</span></div>
+  <div class="kv"><b>${fmtNum(c.vex,"vex")}</b><span>Net VEX · единица IV</span></div>
+  <div class="kv"><b>${fmtNum(c.vex_1volpt,"vex")}</b><span>Net VEX · 1 vol point</span></div>
+  <div class="kv"><b>${fmtNum(c.gex,"gex")}</b><span>Net GEX · 1% spot</span></div>
+  <div class="kv"><b>${fmtNum(c.call.oi,"oi")}</b><span>Call OI · контрактов</span></div>
+  <div class="kv"><b>${fmtNum(c.put.oi,"oi")}</b><span>Put OI · контрактов</span></div>
+  <div class="kv"><b>${fmtNum(c.iv,"iv")}</b><span>Взвешенная IV</span></div>
+  <div class="kv"><b>${fmtNum(c.call.volume,"oi")}</b><span>Call volume · контрактов</span></div>
+  <div class="kv"><b>${fmtNum(c.put.volume,"oi")}</b><span>Put volume · контрактов</span></div>
   <div class="kv"><b>${fmtNum(c.call.vex,"vex")}</b><span>Call VEX</span></div>
-  <div class="kv"><b>${fmtNum(c.put.vex,"vex")}</b><span>Put VEX</span></div>
  </div>`;
  d.classList.add("show");d.scrollIntoView({behavior:"smooth",block:"nearest"});
 }
-async function load(){
- const path=MODE==="previous_close"?"data/previous_close.json":"data/latest.json";
- document.getElementById("snapshotInfo").textContent="Загрузка "+MODE+"…";
+function render(){
+ if(!DATA)return;
+ renderScenario();renderInsights();renderTable();
+ document.getElementById("snapshotInfo").innerHTML=
+  `<b>${DATA.snapshot_label}</b> · OI по расчётам: ${DATA.oi_settlement_date} · ${DATA.diagnostics?.strike_count||0} страйков (${DATA.diagnostics?.min_strike} … ${DATA.diagnostics?.max_strike}) · ${DATA.diagnostics?.expiration_count||0} экспираций · данные модели: ${dayDate(DATA.updated_et,"America/New_York")} · ${timeDual(DATA.updated_et,"America/New_York","ET")}`;
+}
+async function loadMarket(){
  try{
-   let r=await fetch(path+"?t="+Date.now(),{cache:"no-store"});
-   if(!r.ok&&MODE==="previous_close"){
-     r=await fetch("data/latest.json?t="+Date.now(),{cache:"no-store"});
-   }
-   if(!r.ok)throw new Error("snapshot not found");
-   DATA=await r.json();
-   if(!DATA.rows||DATA.rows.length===0)throw new Error("snapshot empty");
-   render();
+  const r=await fetch("data/market.json?t="+Date.now(),{cache:"no-store"});
+  if(!r.ok)throw new Error("market.json");
+  MARKET=await r.json();renderMarket(); if(DATA)renderTable();
+ }catch(e){console.error(e)}
+}
+async function loadSnapshot(){
+ const path=MODE==="previous_close"?"data/previous_close.json":"data/latest.json";
+ document.getElementById("snapshotInfo").textContent="Загрузка…";
+ try{
+  const r=await fetch(path+"?t="+Date.now(),{cache:"no-store"});
+  if(!r.ok)throw new Error("Срез ещё не создан");
+  DATA=await r.json();
+  if(!DATA.rows?.length)throw new Error("Срез пустой");
+  ACTIVE_INSIGHT=null;render();
  }catch(e){
-   document.getElementById("content").innerHTML=`<div class="error">${e.message}<br><small>Запусти GitHub Action для выбранного snapshot.</small></div>`;
+  document.getElementById("content").innerHTML=`<div class="error">${e.message}<br><small>Запусти GitHub Action в режиме ${MODE}.</small></div>`;
  }
+}
+function aoaForMetric(metric){
+ const exps=DATA.expirations||[];
+ const aoa=[["Strike",...exps]];
+ DATA.rows.forEach(r=>{
+  aoa.push([r.strike,...exps.map(e=>r.values?.[e]?.[metric]??null)]);
+ });
+ return aoa;
+}
+function exportExcel(){
+ if(!DATA)return;
+ if(typeof XLSX==="undefined"){alert("Библиотека Excel не загрузилась. Обнови страницу.");return}
+ const wb=XLSX.utils.book_new();
+ ["vex","gex","oi","iv"].forEach(metric=>{
+  const aoa=aoaForMetric(metric),ws=XLSX.utils.aoa_to_sheet(aoa);
+  const scale=currentScale(metric);
+  const range=XLSX.utils.decode_range(ws["!ref"]);
+  for(let R=0;R<=range.e.r;R++){
+   for(let C=0;C<=range.e.c;C++){
+    const ref=XLSX.utils.encode_cell({r:R,c:C}),cell=ws[ref];if(!cell)continue;
+    cell.s={font:{name:"Arial",sz:10,color:{rgb:"F1FFF9"}},alignment:{horizontal:"center",vertical:"center"}};
+    if(R===0||C===0){
+      cell.s.fill={patternType:"solid",fgColor:{rgb:"0B211B"}};
+      cell.s.font={name:"Arial",sz:10,bold:true,color:{rgb:"F1FFF9"}};
+    }else if(typeof cell.v==="number"){
+      const hex=colorHex(cell.v,scale,metric).replace("#","");
+      cell.s.fill={patternType:"solid",fgColor:{rgb:hex.toUpperCase()}};
+      cell.z=metric==="iv"?"0.0%":metric==="oi"?"#,##0":"#,##0";
+    }
+   }
+  }
+  ws["!cols"]=[{wch:10},...(DATA.expirations||[]).map(()=>({wch:13}))];
+  XLSX.utils.book_append_sheet(wb,ws,metric.toUpperCase());
+ });
+ XLSX.writeFile(wb,`NBIS_${MODE}_${new Date().toISOString().slice(0,10)}.xlsx`);
 }
 document.querySelectorAll(".metric").forEach(b=>b.onclick=()=>{
  document.querySelectorAll(".metric").forEach(x=>x.classList.remove("active"));
- b.classList.add("active");METRIC=b.dataset.metric;render();
+ b.classList.add("active");METRIC=b.dataset.metric;renderTable();
 });
 document.querySelectorAll(".mode").forEach(b=>b.onclick=()=>{
  document.querySelectorAll(".mode").forEach(x=>x.classList.remove("active"));
- b.classList.add("active");MODE=b.dataset.mode;load();
+ b.classList.add("active");MODE=b.dataset.mode;loadSnapshot();
 });
-document.getElementById("reload").onclick=load;
-load();
+document.getElementById("priceBox").onclick=focusSpot;
+document.getElementById("excel").onclick=exportExcel;
+document.getElementById("reload").onclick=()=>{loadMarket();loadSnapshot()};
+document.getElementById("help").onclick=()=>document.getElementById("helpModal").classList.add("show");
+document.getElementById("closeHelp").onclick=()=>document.getElementById("helpModal").classList.remove("show");
+document.getElementById("helpModal").onclick=e=>{if(e.target.id==="helpModal")e.currentTarget.classList.remove("show")};
+
+Promise.all([loadMarket(),loadSnapshot()]);
 </script>
 </body>
 </html>
