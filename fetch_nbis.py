@@ -116,13 +116,17 @@ def previous_us_session(now_utc):
 def history(symbol, period, interval, prepost=False):
     return yf.Ticker(symbol).history(
         period=period, interval=interval, auto_adjust=False,
-        prepost=prepost, repair=True, raise_errors=False,
+        prepost=prepost, repair=False, raise_errors=False,
     )
 
 def session_points_us():
     """Latest PRE / REGULAR / POST prices over the most recent 5 days."""
-    df = history(TICKER, "5d", "1m", True)
     out = {"premarket": None, "regular": None, "postmarket": None}
+    try:
+        df = history(TICKER, "5d", "1m", True)
+    except Exception as e:
+        print("Extended-hours quote warning:", e)
+        return out
     if df is None or df.empty:
         return out
 
@@ -149,7 +153,11 @@ def session_points_us():
     return out
 
 def latest_regular(symbol, period="5d", interval="1m"):
-    df = history(symbol, period, interval, False)
+    try:
+        df = history(symbol, period, interval, False)
+    except Exception as e:
+        print(f"Regular quote warning {symbol}:", e)
+        return None
     if df is None or df.empty:
         return None
     s = df["Close"].dropna()
