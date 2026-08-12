@@ -40,6 +40,7 @@ PROB_RETENTION_DAYS = 7
 MAX_PROB_SNAPSHOTS = 90
 MAX_PROB_EVENTS = 140
 RISK_FREE_RATE = float(os.getenv("RISK_FREE_RATE", "0.04"))
+PROB_MODEL_VERSION = "expiry-surface-v2"
 
 HTTP_HEADERS = {
     "User-Agent": "Mozilla/5.0 (compatible; NBIS-VEX-personal-dashboard/3.0)",
@@ -698,51 +699,190 @@ def build_structural_insights(snapshot, events):
     return insights[:40], scenario
 
 
+
 def valid_prob_iv(v):
     x = safe_num(v)
-    return 0.05 <= x <= 3.0
+    return 0.08 <= x <= 3.0
 
 
-def probability_iv_for_cell(cell, direction):
-    """Use strike-local skew when plausible, with robust fallbacks."""
-    if not cell:
+def placeholder_prob_iv(v):
+    """Yahoo sometimes returns exact binary-looking IV ladders on stale/empty quotes."""
+    x = safe_num(v)
+    if x <= 0:
+        return True
+    sentinels = (
+        0.03125, 0.0625, 0.125, 0.25, 0.5, 1.0,
+        0.0312596875, 0.062509375, 0.12500875, 0.2500075, 0.500005, 1.000005,
+    )
+    return any(abs(x-s) <= 0.000035 for s in sentinels)
+
+
+def weighted_median(pairs):
+    """pairs = [(value, weight), ...]."""
+    arr = sorted(
+        (float(v), max(0.0, float(w)))
+        for v, w in pairs
+        if valid_prob_iv(v) and math.isfinite(float(w)) and float(w) > 0
+    )
+    if not arr:
         return None
-    preferred = cell.get("call", {}).get("iv") if direction == "up" else cell.get("put", {}).get("iv")
-    other = cell.get("put", {}).get("iv") if direction == "up" else cell.get("call", {}).get("iv")
-    blended = cell.get("iv")
-    for v in (preferred, blended, other):
-        if valid_prob_iv(v):
-            return float(v)
-    return None
+    total = sum(w for _, w in arr)
+    if total <= 0:
+        return arr[len(arr)//2][0]
+    half = total / 2.0
+    acc = 0.0
+    for v, w in arr:
+        acc += w
+        if acc >= half:
+            return v
+    return arr[-1][0]
 
 
-def expiry_fallback_iv(snapshot, exp, target):
-    candidates = []
+def expiry_reference_iv(snapshot, exp):
+    """Build one robust IV reference per expiry.
+
+    The probability distribution must be coherent. We therefore do NOT feed a
+    different raw Yahoo IV into every target. We estimate a robust expiry-level
+    volatility from the near-ATM surface and use local option cells only as
+    context/drivers.
+    """
     spot = safe_num(snapshot.get("spot"))
+    if spot <= 0:
+        return None
+
+    clean = []
+    fallback = []
+    quoted_clean = 0
+
     for row in snapshot.get("rows", []):
+        K = safe_num(row.get("strike"))
+        if K <= 0:
+            continue
         cell = row.get("values", {}).get(exp)
         if not cell:
             continue
-        dist = abs(safe_num(row.get("strike")) - target) / max(spot, 1.0)
-        for v in (
-            cell.get("iv"),
-            cell.get("call", {}).get("iv"),
-            cell.get("put", {}).get("iv"),
-        ):
-            if valid_prob_iv(v):
-                candidates.append((dist, float(v)))
-    if not candidates:
+
+        logm = abs(math.log(K / spot))
+        # Probability reference should be driven by the useful central surface,
+        # not by very far tails with stale sentinel IVs.
+        if logm > 0.30:
+            continue
+
+        proximity = math.exp(-7.0 * logm)
+        total_oi = max(0.0, safe_num(cell.get("oi")))
+        blended = cell.get("iv")
+
+        # Blended cell IV is useful because it often avoids one stale side
+        # dominating the estimate. Keep its weight modest.
+        if valid_prob_iv(blended):
+            w = proximity * (0.75 + 0.06 * min(6.0, math.log1p(total_oi)))
+            fallback.append((float(blended), w))
+            if not placeholder_prob_iv(blended):
+                clean.append((float(blended), w * 1.10))
+
+        for side_name in ("call", "put"):
+            side = cell.get(side_name, {}) or {}
+            iv = side.get("iv")
+            if not valid_prob_iv(iv):
+                continue
+
+            bid = safe_num(side.get("bid"))
+            ask = safe_num(side.get("ask"))
+            volume = max(0.0, safe_num(side.get("volume")))
+            oi = max(0.0, safe_num(side.get("oi")))
+            has_quote = bid > 0 or ask > 0
+
+            # Prefer the OTM side of the smile and quotes with actual markets.
+            otm = (side_name == "call" and K >= spot) or (side_name == "put" and K <= spot)
+            w = proximity
+            w *= 1.30 if otm else 0.72
+            w *= 1.40 if has_quote else 0.78
+            w *= 0.85 + 0.05 * min(6.0, math.log1p(oi))
+            w *= 1.00 + 0.04 * min(6.0, math.log1p(volume))
+
+            fallback.append((float(iv), w))
+            if not placeholder_prob_iv(iv):
+                clean.append((float(iv), w))
+                if has_quote:
+                    quoted_clean += 1
+
+    source = clean if len(clean) >= 4 else fallback
+    ref = weighted_median(source)
+    if ref is None:
         return None
-    candidates.sort(key=lambda x: x[0])
-    vals = sorted(v for _, v in candidates[:12])
-    return vals[len(vals)//2]
+
+    # One robust second pass removes isolated residual spikes around the median.
+    filtered = [
+        (v, w) for v, w in source
+        if max(0.08, ref * 0.55) <= v <= min(3.0, ref * 1.80)
+    ]
+    ref2 = weighted_median(filtered) if len(filtered) >= 3 else ref
+    ref = ref2 if ref2 is not None else ref
+
+    # Keep extreme accidental term-structure jumps from becoming a binary CDF.
+    ref = min(max(float(ref), 0.10), 2.50)
+    quality = "high" if len(clean) >= 10 and quoted_clean >= 4 else ("medium" if len(clean) >= 4 else "fallback")
+    return {
+        "reference_iv": ref,
+        "quality": quality,
+        "clean_samples": len(clean),
+        "samples": len(source),
+        "quoted_clean_samples": quoted_clean,
+    }
+
+
+def build_expiry_models(snapshot, expirations):
+    """Build and gently regularize the expiry IV term structure."""
+    raw = {}
+    refs = []
+    for exp in expirations:
+        m = expiry_reference_iv(snapshot, exp)
+        if m and valid_prob_iv(m.get("reference_iv")):
+            raw[exp] = m
+            refs.append(float(m["reference_iv"]))
+
+    if not refs:
+        return {}
+
+    refs_sorted = sorted(refs)
+    global_med = refs_sorted[len(refs_sorted)//2]
+    out = {}
+    spot = safe_num(snapshot.get("spot"))
+    asof = probability_asof_et(snapshot)
+
+    for exp in expirations:
+        m = dict(raw.get(exp) or {})
+        ref = m.get("reference_iv")
+        if ref is None:
+            ref = global_med
+            m.update({
+                "quality": "fallback",
+                "clean_samples": 0,
+                "samples": 0,
+                "quoted_clean_samples": 0,
+            })
+
+        # Allow meaningful term structure, but reject accidental 4x jumps caused
+        # by stale Yahoo placeholders.
+        lo = max(0.10, global_med * 0.55)
+        hi = min(2.50, global_med * 1.80)
+        ref = min(max(float(ref), lo), hi)
+
+        try:
+            exp_dt = datetime.strptime(exp, "%Y-%m-%d").replace(hour=16, tzinfo=NY)
+            T = max(0.0, (exp_dt - asof).total_seconds() / (365.0*24*3600))
+        except Exception:
+            T = 0.0
+
+        m["reference_iv"] = ref
+        m["dte"] = round(T * 365.0, 3)
+        m["expected_move"] = round(spot * ref * math.sqrt(T), 4) if T > 0 else 0.0
+        out[exp] = m
+    return out
 
 
 def lognormal_level_probabilities(spot, target, T, sigma, r=RISK_FREE_RATE):
-    """Risk-neutral-ish GBM probabilities: terminal beyond target and first touch.
-
-    These are model-implied probabilities, not calibrated real-world frequencies.
-    """
+    """Risk-neutral-ish GBM terminal and first-touch probabilities."""
     if spot <= 0 or target <= 0 or T <= 0 or sigma <= 0:
         return None
     sigma = min(max(float(sigma), 0.05), 3.0)
@@ -754,7 +894,6 @@ def lognormal_level_probabilities(spot, target, T, sigma, r=RISK_FREE_RATE):
 
     if target >= spot:
         close_p = norm_cdf((mu*T - a) / sd)
-        # P(max X_t >= a), X_t = mu*t + sigma*W_t
         expo = max(-60.0, min(60.0, 2.0 * mu * a / (sigma*sigma)))
         touch_p = (
             norm_cdf((mu*T - a) / sd)
@@ -772,14 +911,12 @@ def lognormal_level_probabilities(spot, target, T, sigma, r=RISK_FREE_RATE):
         )
         direction = "down"
 
-    return {
-        "direction": direction,
-        "close": max(0.0, min(1.0, close_p)),
-        "touch": max(0.0, min(1.0, touch_p)),
-    }
+    close_p = max(0.0, min(1.0, close_p))
+    touch_p = max(close_p, min(1.0, touch_p))
+    return {"direction": direction, "close": close_p, "touch": touch_p}
 
 
-def probability_target_levels(snapshot, max_targets=12):
+def probability_target_levels(snapshot, max_targets=13):
     """Round levels + strong nearby option nodes; compact enough for a matrix."""
     spot = safe_num(snapshot.get("spot"))
     if spot <= 0:
@@ -790,7 +927,6 @@ def probability_target_levels(snapshot, max_targets=12):
     if not eligible:
         return []
 
-    # Round $10 levels nearest to listed strikes.
     wanted = set()
     r0 = int(math.floor(lo / 10.0) * 10)
     r1 = int(math.ceil(hi / 10.0) * 10)
@@ -819,13 +955,10 @@ def probability_target_levels(snapshot, max_targets=12):
         scored.append((score, k))
     scored.sort(reverse=True)
     wanted.update(k for _, k in scored[:5])
-
-    # Always include the listed strike nearest to spot.
     wanted.add(min(eligible, key=lambda k: abs(k-spot)))
 
     vals = sorted(wanted)
     if len(vals) > max_targets:
-        # Keep structurally strong values and good coverage around spot.
         strong = {k for _, k in scored[:5]}
         ranked = sorted(vals, key=lambda k: (k not in strong, abs(k-spot)))[:max_targets]
         vals = sorted(ranked)
@@ -833,7 +966,7 @@ def probability_target_levels(snapshot, max_targets=12):
 
 
 def probability_asof_et(snapshot):
-    """Timestamp represented by the probability matrix, not merely file generation time."""
+    """Timestamp represented by the probability matrix, not file generation time."""
     if snapshot.get("mode") == "previous_close":
         try:
             d = datetime.strptime(snapshot["previous_us_session"], "%Y-%m-%d")
@@ -846,9 +979,9 @@ def probability_asof_et(snapshot):
         return datetime.now(NY)
 
 
-def probability_cell(snapshot, target, exp):
+def probability_cell(snapshot, target, exp, expiry_model):
     spot = safe_num(snapshot.get("spot"))
-    if spot <= 0:
+    if spot <= 0 or not expiry_model:
         return None
     try:
         exp_dt = datetime.strptime(exp, "%Y-%m-%d").replace(hour=16, tzinfo=NY)
@@ -859,30 +992,31 @@ def probability_cell(snapshot, target, exp):
     if T <= 0:
         return None
 
-    row = min(snapshot.get("rows", []), key=lambda r: abs(safe_num(r.get("strike"))-target), default=None)
-    if not row:
-        return None
-    actual_strike = safe_num(row.get("strike"))
-    cell = row.get("values", {}).get(exp)
-    direction = "up" if target >= spot else "down"
-    iv = probability_iv_for_cell(cell, direction)
-    if iv is None:
-        iv = expiry_fallback_iv(snapshot, exp, target)
-    if iv is None:
+    iv = safe_num(expiry_model.get("reference_iv"))
+    if not valid_prob_iv(iv):
         return None
 
     probs = lognormal_level_probabilities(spot, target, T, iv)
     if not probs:
         return None
+
+    row = min(snapshot.get("rows", []), key=lambda r: abs(safe_num(r.get("strike"))-target), default=None)
+    actual_strike = safe_num(row.get("strike")) if row else target
+    cell = row.get("values", {}).get(exp) if row else None
     call = (cell or {}).get("call", {})
     put = (cell or {}).get("put", {})
+
     return {
         "target": target,
         "source_strike": actual_strike,
         "direction": probs["direction"],
-        "close": round(probs["close"], 6),
-        "touch": round(probs["touch"], 6),
+        "close": round(probs["close"], 8),
+        "touch": round(probs["touch"], 8),
+        "raw_close": round(probs["close"], 8),
+        "raw_touch": round(probs["touch"], 8),
         "iv": round(iv, 6),
+        "iv_quality": expiry_model.get("quality", "fallback"),
+        "expected_move": safe_num(expiry_model.get("expected_move")),
         "dte": round(T*365.0, 3),
         "drivers": {
             "vex": safe_num((cell or {}).get("vex")),
@@ -896,20 +1030,59 @@ def probability_cell(snapshot, target, exp):
     }
 
 
+def enforce_probability_monotonicity(matrix, targets, expirations, spot):
+    """Guarantee a coherent CDF on both sides of spot for every expiry."""
+    adjusted = 0
+    for exp in expirations:
+        upper = sorted([t for t in targets if t >= spot])
+        lower = sorted([t for t in targets if t < spot], reverse=True)
+
+        for side_targets in (upper, lower):
+            for kind in ("close", "touch"):
+                prev = 1.0
+                for target in side_targets:
+                    cell = matrix.get(f"{target:g}", {}).get(exp)
+                    if not cell or cell.get(kind) is None:
+                        continue
+                    v = max(0.0, min(1.0, float(cell[kind])))
+                    nv = min(v, prev)
+                    if abs(nv-v) > 1e-12:
+                        adjusted += 1
+                        cell[kind] = round(nv, 8)
+                        cell["monotonic_adjusted"] = True
+                    prev = nv
+
+        # Touch probability can never be below terminal beyond-target probability.
+        for target in targets:
+            cell = matrix.get(f"{target:g}", {}).get(exp)
+            if not cell:
+                continue
+            if cell.get("touch", 0) < cell.get("close", 0):
+                cell["touch"] = cell["close"]
+                cell["monotonic_adjusted"] = True
+                adjusted += 1
+    return adjusted
+
+
 def probability_snapshot(snapshot):
     targets = probability_target_levels(snapshot)
     expirations = snapshot.get("expirations", [])[:4]
+    expiry_models = build_expiry_models(snapshot, expirations)
     matrix = {}
+
     for target in targets:
         row = {}
         for exp in expirations:
-            v = probability_cell(snapshot, target, exp)
+            v = probability_cell(snapshot, target, exp, expiry_models.get(exp))
             if v:
                 row[exp] = v
         if row:
             matrix[f"{target:g}"] = row
+
+    adjusted = enforce_probability_monotonicity(matrix, targets, expirations, safe_num(snapshot.get("spot")))
     asof_et = probability_asof_et(snapshot)
     return {
+        "model_version": PROB_MODEL_VERSION,
         "time": asof_et.astimezone(UTC).isoformat(),
         "time_et": asof_et.isoformat(),
         "generated_utc": snapshot["updated_utc"],
@@ -917,14 +1090,60 @@ def probability_snapshot(snapshot):
         "expirations": expirations,
         "targets": targets,
         "matrix": matrix,
+        "expiry_models": expiry_models,
+        "monotonic_adjustments": adjusted,
         "method": {
-            "label": "model-implied GBM probability from strike-local IV surface",
+            "label": "model-implied GBM probability from robust expiry-level IV surface",
             "close": "terminal probability beyond target at expiry",
             "touch": "first-passage probability of touching target before expiry",
             "rate": RISK_FREE_RATE,
-            "note": "OI/volume/VEX/GEX are context drivers; the probability itself is generated from spot, time and IV, pending historical calibration.",
+            "iv": "one robust near-ATM reference IV per expiry; Yahoo sentinel-like IV values are down-weighted/filtered",
+            "monotonic": "probabilities are constrained to a coherent monotone CDF on each side of spot",
+            "note": "OI/volume/VEX/GEX are context drivers; they do not arbitrarily add percentage points to probability.",
         },
     }
+
+
+def latest_usable_probability_from_history():
+    doc = read_json(PROB_HISTORY, {}) or {}
+    snaps = [
+        s for s in doc.get("snapshots", [])
+        if s.get("model_version") == PROB_MODEL_VERSION and s.get("matrix")
+    ]
+    return snaps[-1] if snaps else None
+
+
+def option_session_probability_for_current(snapshot, market_tape):
+    """During pre/post market keep the last genuine option-session probability."""
+    session = (market_tape.get("us") or {}).get("current_session") or "closed"
+    if session == "regular":
+        prob = probability_snapshot(snapshot)
+        prob["status"] = "regular_live"
+        return prob
+
+    base = latest_usable_probability_from_history()
+    if base:
+        prob = json.loads(json.dumps(base))
+        source = "probability_history"
+    else:
+        prev = read_json(PREV_CLOSE, {}) or {}
+        if prev.get("rows"):
+            prob = probability_snapshot(prev)
+            source = "previous_close"
+        else:
+            # Last-resort only: show as indicative and label it explicitly.
+            prob = probability_snapshot(snapshot)
+            source = "indicative_fallback"
+
+    prob["status"] = "last_option_session" if source != "indicative_fallback" else "indicative_fallback"
+    prob["source"] = source
+    prob["context"] = {
+        "session": session,
+        "spot": snapshot.get("spot"),
+        "spot_time": snapshot.get("spot_basis_time"),
+        "snapshot_updated_et": snapshot.get("updated_et"),
+    }
+    return prob
 
 
 def prob_value(snap, target, exp, kind):
@@ -939,7 +1158,7 @@ def probability_insights(current, previous=None, day_first=None):
     candidates = []
     for target in current.get("targets", []):
         for exp in current.get("expirations", []):
-            cell = current.get("matrix", {}).get(str(target), {}).get(exp)
+            cell = current.get("matrix", {}).get(f"{float(target):g}", {}).get(exp)
             if not cell:
                 continue
             for kind in ("close", "touch"):
@@ -983,7 +1202,7 @@ def probability_insights(current, previous=None, day_first=None):
             if direction == "up" and target <= spot: continue
             if direction == "down" and target >= spot: continue
             for exp in current.get("expirations", [])[:2]:
-                c = current.get("matrix", {}).get(str(target), {}).get(exp)
+                c = current.get("matrix", {}).get(f"{float(target):g}", {}).get(exp)
                 if c:
                     pool.append((c.get("touch",0), target, exp, c))
         if pool:
@@ -1008,8 +1227,13 @@ def update_probability_history(snapshot, cur=None):
         return None
 
     doc = read_json(PROB_HISTORY, {}) or {}
-    old = doc.get("snapshots", [])
     cur = cur or probability_snapshot(snapshot)
+    old = [
+        s for s in doc.get("snapshots", [])
+        if s.get("model_version") == cur.get("model_version")
+    ]
+    if len(old) != len(doc.get("snapshots", [])):
+        print("Probability history model changed; old incompatible snapshots ignored")
 
     # Previous snapshot and first snapshot of current ET day.
     prev = old[-1] if old else None
@@ -1018,7 +1242,10 @@ def update_probability_history(snapshot, cur=None):
     first = same_day[0] if same_day else prev
     cur["insights"] = probability_insights(cur, prev, first)
 
-    events = list(doc.get("events", []))
+    events = [
+        e for e in doc.get("events", [])
+        if e.get("model_version") == cur.get("model_version")
+    ]
     if prev:
         for ins in cur["insights"]:
             if ins.get("strength",0) >= 60 and ("за час" in ins.get("text", "")):
@@ -1026,6 +1253,7 @@ def update_probability_history(snapshot, cur=None):
                     "id": ins["id"], "time": cur["time"], "title": "⚡ " + ins["title"],
                     "text": ins["text"], "strength": ins["strength"],
                     "prob_focus": ins.get("prob_focus"),
+                    "model_version": cur.get("model_version"),
                 })
 
     cutoff = datetime.fromisoformat(cur["time"]).timestamp() - PROB_RETENTION_DAYS*86400
@@ -1206,11 +1434,18 @@ def build_snapshot(mode, market_tape):
     snapshot["scenario"] = scenario
     snapshot["recent_events"] = events[:30]
 
-    # Every snapshot owns its probability matrix. History is only an overlay for deltas/events.
-    prob = probability_snapshot(snapshot)
+    # Every selected snapshot exposes a probability matrix. During pre/post market,
+    # current P% intentionally stays anchored to the last genuine option-session matrix.
+    if mode == "current":
+        prob = option_session_probability_for_current(snapshot, market_tape)
+    else:
+        prob = probability_snapshot(snapshot)
+        prob["status"] = "previous_close"
+
     prob["insights"] = probability_insights(prob)
     snapshot["probability"] = prob
-    if mode == "current":
+
+    if mode == "current" and prob.get("status") == "regular_live":
         enriched = update_probability_history(snapshot, prob)
         if enriched is not None:
             snapshot["probability"] = enriched
