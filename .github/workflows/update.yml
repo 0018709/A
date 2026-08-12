@@ -2,14 +2,28 @@ name: Update NBIS options heatmap
 
 on:
   workflow_dispatch:
+    inputs:
+      mode:
+        description: "Snapshot mode"
+        required: true
+        default: "previous_close"
+        type: choice
+        options:
+          - previous_close
+          - current
+
   schedule:
+    # Hourly candidate windows. Script step below checks New York local time.
     - cron: "37 13-21 * * 1-5"
+    # Daily previous-close capture. Both UTC possibilities cover EDT/EST;
+    # the local-time gate keeps only ~08:45 ET.
+    - cron: "45 12,13 * * 1-5"
 
 permissions:
   contents: write
 
 concurrency:
-  group: nbis-hourly-update
+  group: nbis-options-update
   cancel-in-progress: false
 
 jobs:
@@ -20,8 +34,8 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Check New York market hour
-        id: market
+      - name: Decide scheduled mode
+        id: decide
         shell: bash
         run: |
           python - <<'PY'
@@ -29,47 +43,56 @@ jobs:
           from zoneinfo import ZoneInfo
           import os
 
+          event = os.environ.get("GITHUB_EVENT_NAME", "")
           now = datetime.now(ZoneInfo("America/New_York"))
 
-          ok = (
-              now.weekday() < 5
-              and (now.hour > 9 or (now.hour == 9 and now.minute >= 30))
-              and now.hour < 16
-          )
+          if event == "workflow_dispatch":
+              mode = "${{ inputs.mode }}"
+              run = True
+          elif now.minute >= 40 and now.minute <= 50 and now.hour == 8:
+              mode = "previous_close"
+              run = True
+          elif now.minute >= 32 and now.minute <= 42 and 9 <= now.hour <= 16:
+              mode = "current"
+              run = True
+          else:
+              mode = "current"
+              run = False
 
           print("New York time:", now.isoformat())
+          print("Mode:", mode, "Run:", run)
 
           with open(os.environ["GITHUB_OUTPUT"], "a") as f:
-              f.write(f"run={'true' if ok else 'false'}\n")
+              f.write(f"run={'true' if run else 'false'}\n")
+              f.write(f"mode={mode}\n")
           PY
 
       - name: Set up Python
-        if: steps.market.outputs.run == 'true' || github.event_name == 'workflow_dispatch'
+        if: steps.decide.outputs.run == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
           cache: "pip"
 
       - name: Install dependencies
-        if: steps.market.outputs.run == 'true' || github.event_name == 'workflow_dispatch'
+        if: steps.decide.outputs.run == 'true'
         run: pip install -r requirements.txt
 
-      - name: Fetch NBIS data and calculate VEX/GEX
-        if: steps.market.outputs.run == 'true' || github.event_name == 'workflow_dispatch'
-        run: python fetch_nbis.py
+      - name: Fetch NBIS and calculate heatmap
+        if: steps.decide.outputs.run == 'true'
+        run: python fetch_nbis.py --mode "${{ steps.decide.outputs.mode }}"
 
-      - name: Commit updated snapshot
-        if: steps.market.outputs.run == 'true' || github.event_name == 'workflow_dispatch'
+      - name: Commit updated snapshots
+        if: steps.decide.outputs.run == 'true'
         shell: bash
         run: |
           git config user.name "nbis-vex-bot"
           git config user.email "actions@users.noreply.github.com"
-
           git add data/
 
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Update NBIS options snapshot"
+            git commit -m "Update NBIS ${{ steps.decide.outputs.mode }} snapshot"
             git push origin HEAD:main
           fi
