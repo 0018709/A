@@ -31,10 +31,14 @@ PREV_CLOSE = DATA_DIR / "previous_close.json"
 MARKET = DATA_DIR / "market.json"
 EVENTS = DATA_DIR / "events.json"
 PREV_METRICS = DATA_DIR / "prev_metrics.json"
+PROB_HISTORY = DATA_DIR / "probability_history.json"
 
 MAX_EXPIRATIONS = int(os.getenv("MAX_EXPIRATIONS", "0"))  # 0 = all
 EVENT_RETENTION_DAYS = 7
 MAX_EVENTS = 120
+PROB_RETENTION_DAYS = 7
+MAX_PROB_SNAPSHOTS = 90
+MAX_PROB_EVENTS = 140
 RISK_FREE_RATE = float(os.getenv("RISK_FREE_RATE", "0.04"))
 
 HTTP_HEADERS = {
@@ -62,6 +66,9 @@ def iso_dt(v):
 
 def norm_pdf(x):
     return math.exp(-0.5 * x * x) / math.sqrt(2.0 * math.pi)
+
+def norm_cdf(x):
+    return 0.5 * (1.0 + math.erf(x / math.sqrt(2.0)))
 
 def bs_gamma_vanna(S, K, T, sigma, r=RISK_FREE_RATE, q=0.0):
     if S <= 0 or K <= 0 or T <= 0 or sigma <= 0 or not math.isfinite(sigma):
@@ -690,6 +697,347 @@ def build_structural_insights(snapshot, events):
     }
     return insights[:40], scenario
 
+
+def valid_prob_iv(v):
+    x = safe_num(v)
+    return 0.05 <= x <= 3.0
+
+
+def probability_iv_for_cell(cell, direction):
+    """Use strike-local skew when plausible, with robust fallbacks."""
+    if not cell:
+        return None
+    preferred = cell.get("call", {}).get("iv") if direction == "up" else cell.get("put", {}).get("iv")
+    other = cell.get("put", {}).get("iv") if direction == "up" else cell.get("call", {}).get("iv")
+    blended = cell.get("iv")
+    for v in (preferred, blended, other):
+        if valid_prob_iv(v):
+            return float(v)
+    return None
+
+
+def expiry_fallback_iv(snapshot, exp, target):
+    candidates = []
+    spot = safe_num(snapshot.get("spot"))
+    for row in snapshot.get("rows", []):
+        cell = row.get("values", {}).get(exp)
+        if not cell:
+            continue
+        dist = abs(safe_num(row.get("strike")) - target) / max(spot, 1.0)
+        for v in (
+            cell.get("iv"),
+            cell.get("call", {}).get("iv"),
+            cell.get("put", {}).get("iv"),
+        ):
+            if valid_prob_iv(v):
+                candidates.append((dist, float(v)))
+    if not candidates:
+        return None
+    candidates.sort(key=lambda x: x[0])
+    vals = sorted(v for _, v in candidates[:12])
+    return vals[len(vals)//2]
+
+
+def lognormal_level_probabilities(spot, target, T, sigma, r=RISK_FREE_RATE):
+    """Risk-neutral-ish GBM probabilities: terminal beyond target and first touch.
+
+    These are model-implied probabilities, not calibrated real-world frequencies.
+    """
+    if spot <= 0 or target <= 0 or T <= 0 or sigma <= 0:
+        return None
+    sigma = min(max(float(sigma), 0.05), 3.0)
+    sd = sigma * math.sqrt(T)
+    if sd <= 0:
+        return None
+    a = math.log(target / spot)
+    mu = r - 0.5 * sigma * sigma
+
+    if target >= spot:
+        close_p = norm_cdf((mu*T - a) / sd)
+        # P(max X_t >= a), X_t = mu*t + sigma*W_t
+        expo = max(-60.0, min(60.0, 2.0 * mu * a / (sigma*sigma)))
+        touch_p = (
+            norm_cdf((mu*T - a) / sd)
+            + math.exp(expo) * norm_cdf((-mu*T - a) / sd)
+        )
+        direction = "up"
+    else:
+        close_p = norm_cdf((a - mu*T) / sd)
+        b = -a
+        mu_y = -mu
+        expo = max(-60.0, min(60.0, 2.0 * mu_y * b / (sigma*sigma)))
+        touch_p = (
+            norm_cdf((mu_y*T - b) / sd)
+            + math.exp(expo) * norm_cdf((-mu_y*T - b) / sd)
+        )
+        direction = "down"
+
+    return {
+        "direction": direction,
+        "close": max(0.0, min(1.0, close_p)),
+        "touch": max(0.0, min(1.0, touch_p)),
+    }
+
+
+def probability_target_levels(snapshot, max_targets=12):
+    """Round levels + strong nearby option nodes; compact enough for a matrix."""
+    spot = safe_num(snapshot.get("spot"))
+    if spot <= 0:
+        return []
+    strikes = sorted(set(safe_num(x) for x in snapshot.get("strikes", []) if safe_num(x) > 0))
+    lo, hi = spot * 0.68, spot * 1.36
+    eligible = [k for k in strikes if lo <= k <= hi]
+    if not eligible:
+        return []
+
+    # Round $10 levels nearest to listed strikes.
+    wanted = set()
+    r0 = int(math.floor(lo / 10.0) * 10)
+    r1 = int(math.ceil(hi / 10.0) * 10)
+    for r in range(r0, r1 + 1, 10):
+        nearest = min(eligible, key=lambda k: abs(k-r))
+        if abs(nearest-r) <= 2.51:
+            wanted.add(nearest)
+
+    exps = snapshot.get("expirations", [])[:4]
+    scored = []
+    for row in snapshot.get("rows", []):
+        k = safe_num(row.get("strike"))
+        if k not in eligible:
+            continue
+        vex = gex = oi = vol = 0.0
+        for exp in exps:
+            c = row.get("values", {}).get(exp)
+            if not c:
+                continue
+            vex = max(vex, abs(safe_num(c.get("vex"))))
+            gex = max(gex, abs(safe_num(c.get("gex"))))
+            oi = max(oi, safe_num(c.get("oi")))
+            vol = max(vol, safe_num(c.get("call", {}).get("volume")) + safe_num(c.get("put", {}).get("volume")))
+        proximity = 1.0 / (1.0 + abs(k-spot)/(spot*0.08))
+        score = math.log1p(vex) + 0.8*math.log1p(gex) + 0.7*math.log1p(oi) + 0.35*math.log1p(vol) + 3*proximity
+        scored.append((score, k))
+    scored.sort(reverse=True)
+    wanted.update(k for _, k in scored[:5])
+
+    # Always include the listed strike nearest to spot.
+    wanted.add(min(eligible, key=lambda k: abs(k-spot)))
+
+    vals = sorted(wanted)
+    if len(vals) > max_targets:
+        # Keep structurally strong values and good coverage around spot.
+        strong = {k for _, k in scored[:5]}
+        ranked = sorted(vals, key=lambda k: (k not in strong, abs(k-spot)))[:max_targets]
+        vals = sorted(ranked)
+    return vals
+
+
+def probability_cell(snapshot, target, exp):
+    spot = safe_num(snapshot.get("spot"))
+    if spot <= 0:
+        return None
+    try:
+        exp_dt = datetime.strptime(exp, "%Y-%m-%d").replace(hour=16, tzinfo=NY)
+        now_et = datetime.fromisoformat(snapshot["updated_et"])
+    except Exception:
+        return None
+    T = (exp_dt - now_et).total_seconds() / (365.0*24*3600)
+    if T <= 0:
+        return None
+
+    row = min(snapshot.get("rows", []), key=lambda r: abs(safe_num(r.get("strike"))-target), default=None)
+    if not row:
+        return None
+    actual_strike = safe_num(row.get("strike"))
+    cell = row.get("values", {}).get(exp)
+    direction = "up" if target >= spot else "down"
+    iv = probability_iv_for_cell(cell, direction)
+    if iv is None:
+        iv = expiry_fallback_iv(snapshot, exp, target)
+    if iv is None:
+        return None
+
+    probs = lognormal_level_probabilities(spot, target, T, iv)
+    if not probs:
+        return None
+    call = (cell or {}).get("call", {})
+    put = (cell or {}).get("put", {})
+    return {
+        "target": target,
+        "source_strike": actual_strike,
+        "direction": probs["direction"],
+        "close": round(probs["close"], 6),
+        "touch": round(probs["touch"], 6),
+        "iv": round(iv, 6),
+        "dte": round(T*365.0, 3),
+        "drivers": {
+            "vex": safe_num((cell or {}).get("vex")),
+            "gex": safe_num((cell or {}).get("gex")),
+            "oi": int(safe_num((cell or {}).get("oi"))),
+            "call_volume": int(safe_num(call.get("volume"))),
+            "put_volume": int(safe_num(put.get("volume"))),
+            "call_oi": int(safe_num(call.get("oi"))),
+            "put_oi": int(safe_num(put.get("oi"))),
+        },
+    }
+
+
+def probability_snapshot(snapshot):
+    targets = probability_target_levels(snapshot)
+    expirations = snapshot.get("expirations", [])[:4]
+    matrix = {}
+    for target in targets:
+        row = {}
+        for exp in expirations:
+            v = probability_cell(snapshot, target, exp)
+            if v:
+                row[exp] = v
+        if row:
+            matrix[f"{target:g}"] = row
+    return {
+        "time": snapshot["updated_utc"],
+        "time_et": snapshot["updated_et"],
+        "spot": snapshot["spot"],
+        "expirations": expirations,
+        "targets": targets,
+        "matrix": matrix,
+        "method": {
+            "label": "model-implied GBM probability from strike-local IV surface",
+            "close": "terminal probability beyond target at expiry",
+            "touch": "first-passage probability of touching target before expiry",
+            "rate": RISK_FREE_RATE,
+            "note": "OI/volume/VEX/GEX are context drivers; the probability itself is generated from spot, time and IV, pending historical calibration.",
+        },
+    }
+
+
+def prob_value(snap, target, exp, kind):
+    try:
+        return snap.get("matrix", {}).get(f"{float(target):g}", {}).get(exp, {}).get(kind)
+    except Exception:
+        return None
+
+
+def probability_insights(current, previous=None, day_first=None):
+    insights = []
+    candidates = []
+    for target in current.get("targets", []):
+        for exp in current.get("expirations", []):
+            cell = current.get("matrix", {}).get(str(target), {}).get(exp)
+            if not cell:
+                continue
+            for kind in ("close", "touch"):
+                cur = cell.get(kind)
+                if cur is None:
+                    continue
+                prev = prob_value(previous or {}, target, exp, kind)
+                first = prob_value(day_first or {}, target, exp, kind)
+                dp = None if prev is None else cur-prev
+                dd = None if first is None else cur-first
+                candidates.append((abs(dp or 0), abs(dd or 0), target, exp, kind, cur, dp, dd, cell))
+
+    # Largest hourly/day changes first.
+    for _, _, target, exp, kind, cur, dp, dd, cell in sorted(candidates, key=lambda z: (z[0], z[1]), reverse=True)[:12]:
+        if dp is None and dd is None:
+            continue
+        delta_score = max(abs(dp or 0), abs(dd or 0))
+        if delta_score < 0.025:
+            continue
+        noun = "касания" if kind == "touch" else "закрытия"
+        sign = "выросла" if (dp or dd or 0) >= 0 else "снизилась"
+        pieces = [f"P({noun}) {cur*100:.1f}%"]
+        if dp is not None:
+            pieces.append(f"за час {dp*100:+.1f} п.п.")
+        if dd is not None:
+            pieces.append(f"за день {dd*100:+.1f} п.п.")
+        insights.append({
+            "id": f"prob-{kind}-{target}-{exp}-{current['time']}",
+            "kind": "probability",
+            "title": f"P {sign} · ${target:g} · {exp}",
+            "strength": min(100, round(45 + delta_score*280)),
+            "text": ". ".join(pieces) + ".",
+            "prob_focus": {"target": target, "exp": exp, "kind": kind},
+        })
+
+    # Current notable upside/downside levels.
+    spot = safe_num(current.get("spot"))
+    for direction in ("up", "down"):
+        pool = []
+        for target in current.get("targets", []):
+            if direction == "up" and target <= spot: continue
+            if direction == "down" and target >= spot: continue
+            for exp in current.get("expirations", [])[:2]:
+                c = current.get("matrix", {}).get(str(target), {}).get(exp)
+                if c:
+                    pool.append((c.get("touch",0), target, exp, c))
+        if pool:
+            p, target, exp, c = max(pool)
+            insights.append({
+                "id": f"prob-level-{direction}-{target}-{exp}-{current['time']}",
+                "kind": "probability",
+                "title": f"Ближайший вероятностный уровень · ${target:g}",
+                "strength": min(100, round(35+p*65)),
+                "text": f"Касание до {exp}: {p*100:.1f}%; закрытие за уровнем: {c.get('close',0)*100:.1f}%.",
+                "prob_focus": {"target": target, "exp": exp, "kind": "touch"},
+            })
+    insights.sort(key=lambda x: x.get("strength",0), reverse=True)
+    return insights[:30]
+
+
+def update_probability_history(snapshot):
+    """Store hourly probability snapshots for seven days. Only valid during US cash option hours."""
+    now_et = datetime.fromisoformat(snapshot["updated_et"])
+    if now_et.weekday() >= 5 or not (dtime(9,30) <= now_et.time() <= dtime(16,5)):
+        print("Probability history skipped outside regular US option session")
+        return
+
+    doc = read_json(PROB_HISTORY, {}) or {}
+    old = doc.get("snapshots", [])
+    cur = probability_snapshot(snapshot)
+
+    # Previous snapshot and first snapshot of current ET day.
+    prev = old[-1] if old else None
+    day_key = now_et.date().isoformat()
+    same_day = [s for s in old if str(s.get("time_et", ""))[:10] == day_key]
+    first = same_day[0] if same_day else prev
+    cur["insights"] = probability_insights(cur, prev, first)
+
+    events = list(doc.get("events", []))
+    if prev:
+        for ins in cur["insights"]:
+            if ins.get("strength",0) >= 60 and ("за час" in ins.get("text", "")):
+                events.insert(0, {
+                    "id": ins["id"], "time": cur["time"], "title": "⚡ " + ins["title"],
+                    "text": ins["text"], "strength": ins["strength"],
+                    "prob_focus": ins.get("prob_focus"),
+                })
+
+    cutoff = datetime.fromisoformat(cur["time"]).timestamp() - PROB_RETENTION_DAYS*86400
+    snapshots = []
+    for s in old + [cur]:
+        try: ts = datetime.fromisoformat(s["time"]).timestamp()
+        except Exception: continue
+        if ts >= cutoff: snapshots.append(s)
+    snapshots = snapshots[-MAX_PROB_SNAPSHOTS:]
+
+    seen=set(); kept=[]
+    for e in events:
+        if e.get("id") in seen: continue
+        try: ts=datetime.fromisoformat(e["time"]).timestamp()
+        except Exception: continue
+        if ts < cutoff: continue
+        seen.add(e["id"]); kept.append(e)
+    kept=kept[:MAX_PROB_EVENTS]
+
+    out = {
+        "updated_utc": cur["time"],
+        "retention_days": PROB_RETENTION_DAYS,
+        "snapshots": snapshots,
+        "events": kept,
+    }
+    write_json(PROB_HISTORY, out)
+    print("Wrote", PROB_HISTORY, "snapshots", len(snapshots))
+
 def build_snapshot(mode, market_tape):
     now_utc = datetime.now(UTC)
     now_et = now_utc.astimezone(NY)
@@ -840,6 +1188,8 @@ def build_snapshot(mode, market_tape):
     snapshot["insights"] = insights
     snapshot["scenario"] = scenario
     snapshot["recent_events"] = events[:30]
+    if mode == "current":
+        update_probability_history(snapshot)
     return snapshot
 
 def main():

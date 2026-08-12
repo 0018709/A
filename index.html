@@ -20,33 +20,33 @@ button{font:inherit}
 header{position:sticky;top:0;z-index:50;background:rgba(5,17,14,.975);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .topbar{
  display:grid;
- grid-template-columns:minmax(180px,.65fr) minmax(330px,1.25fr) minmax(400px,1.35fr) minmax(160px,.55fr);
+ grid-template-columns:minmax(180px,.62fr) minmax(330px,1.22fr) minmax(330px,1.00fr) minmax(165px,.55fr);
  gap:8px;padding:7px 8px 5px;align-items:stretch;
 }
 .brandBox{padding:4px 2px}
-.brand{font-size:18px;font-weight:900;line-height:1}.brand span{font-size:9px;color:var(--muted)}
-.small{font-size:9.5px;color:var(--muted);line-height:1.35}
+.brand{font-size:20px;font-weight:900;line-height:1}.brand span{font-size:10px;color:var(--muted)}
+.small{font-size:10px;color:var(--muted);line-height:1.35}
 .scenario{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:7px 10px;min-height:62px}
-.scenarioTitle{font-size:9.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.045em}
-.scenarioMain{font-size:15.5px;font-weight:850;margin-top:2px;line-height:1.05}
-.scenarioLevels{font-size:10.5px;margin-top:3px;color:#d6f6eb}
-.scenarioTime{font-size:9px;color:var(--muted);margin-top:3px}
+.scenarioTitle{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.045em}
+.scenarioMain{font-size:17px;font-weight:850;margin-top:2px;line-height:1.05}
+.scenarioLevels{font-size:11.5px;margin-top:3px;color:#d6f6eb}
+.scenarioTime{font-size:9.8px;color:var(--muted);margin-top:3px}
 .quoteRail{
  background:var(--panel);border:1px solid var(--line);border-radius:10px;
- padding:6px 8px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px 10px;
- align-content:center;min-height:62px;
+ padding:6px 9px;display:grid;grid-template-columns:1fr;gap:2px;
+ align-content:center;min-height:72px;
 }
-.qline{font-size:10px;color:#d9eee7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.qline b{font-size:10px}
-.qline .qprice{font-weight:900;font-size:10.5px}
+.qline{font-size:10.8px;color:#d9eee7;white-space:normal;overflow:visible;line-height:1.28}
+.qline b{font-size:10.8px}
+.qline .qprice{font-weight:900;font-size:11.4px}
 .qline.pre .qprice,.qline.pre b{color:#d8bf48}
 .qline.post .qprice,.qline.post b{color:#b8734d}
-.qmeta{color:var(--muted);font-size:8.4px}
+.qmeta{color:var(--muted);font-size:9.2px}
 .priceBox{text-align:right;cursor:pointer;border-radius:10px;padding:5px 4px;min-height:62px}
 .priceBox:hover{background:rgba(67,240,182,.05)}
-.bigprice{font-size:29px;font-weight:900;line-height:.95}
-.sessionBadge{display:inline-block;margin-top:4px;padding:2px 6px;border:1px solid var(--line);border-radius:99px;font-size:7.8px;font-weight:850}
-.priceTime{font-size:8px;color:var(--muted);margin-top:3px;line-height:1.3}
+.bigprice{font-size:31px;font-weight:900;line-height:.95}
+.sessionBadge{display:inline-block;margin-top:4px;padding:2px 6px;border:1px solid var(--line);border-radius:99px;font-size:8.8px;font-weight:850}
+.priceTime{font-size:9px;color:var(--muted);margin-top:3px;line-height:1.3}
 .controls{
  display:flex;gap:4px;overflow:auto;padding:0 8px 5px;
  -webkit-overflow-scrolling:touch;scrollbar-width:none;
@@ -106,6 +106,15 @@ tr.focusedRow td.cell{opacity:1!important;filter:none!important}
 .ttTitle{font-size:10px;font-weight:850;margin-bottom:5px}
 .ttGrid{display:grid;grid-template-columns:1fr 1fr;gap:3px 8px}
 .ttKey{color:var(--muted)}.ttVal{font-weight:750;text-align:right}
+.probToolbar{display:flex;gap:4px;align-items:center;padding:5px 6px;background:#091c17;border-bottom:1px solid var(--line);position:sticky;left:0;z-index:12}
+.probKind{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:6px;padding:3px 7px;font-size:9px;cursor:pointer}
+.probKind.active{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.probExplain{font-size:8.5px;color:var(--muted);margin-left:4px}
+.probCell .val{font-size:calc(var(--table-font) + 0.5px)}
+.probDelta{display:block;font-size:6.8px;line-height:1;margin-top:1px;font-weight:800}
+.probUp{color:#8fe2a7}.probDown{color:#ff9b78}.probFlat{color:var(--muted)}
+.probFocused{outline:2px solid var(--yellow)!important;outline-offset:-2px;opacity:1!important;filter:none!important}
+.probDim td.probCell{opacity:.18;filter:saturate(.55)}
 .insights{display:block;margin-top:7px}
 .insightList{
  background:var(--panel);border:1px solid var(--line);border-radius:10px;
@@ -133,8 +142,8 @@ tr.focusedRow td.cell{opacity:1!important;filter:none!important}
 .error{text-align:center;padding:28px 14px;color:#ffb9b9}
 
 @media(max-width:1050px){
- .topbar{grid-template-columns:minmax(150px,.7fr) minmax(300px,1.4fr) minmax(330px,1.3fr) minmax(145px,.6fr)}
- .qline{font-size:8.3px}.qmeta{font-size:7px}
+ .topbar{grid-template-columns:minmax(150px,.7fr) minmax(300px,1.35fr) minmax(300px,1.05fr) minmax(145px,.6fr)}
+ .qline{font-size:10px}.qline b{font-size:10px}.qline .qprice{font-size:10.5px}.qmeta{font-size:8.5px}
 }
 @media(max-width:780px){
  .topbar{
@@ -149,9 +158,9 @@ tr.focusedRow td.cell{opacity:1!important;filter:none!important}
  .scenarioTime{font-size:8.2px}
  .quoteRail{
   grid-column:1/3;grid-row:3;min-height:auto;
-  grid-template-columns:1fr 1fr;gap:3px 8px;padding:5px 7px
+  grid-template-columns:1fr;gap:2px;padding:5px 7px
  }
- .qline{font-size:9px}.qline b{font-size:9px}.qline .qprice{font-size:9.5px}.qmeta{font-size:7.6px}
+ .qline{font-size:9.8px}.qline b{font-size:9.8px}.qline .qprice{font-size:10.3px}.qmeta{font-size:8.2px}
  .bigprice{font-size:27px}
  .controls{padding-left:5px;padding-right:5px}
  .ctrl{font-size:8px;padding:3px 6px}
@@ -166,13 +175,13 @@ tr.focusedRow td.cell{opacity:1!important;filter:none!important}
  .tooltip{width:min(230px,calc(100vw - 16px));font-size:8.5px}
 }
 @media(max-width:430px){
- .brand{font-size:16px}.brand span{font-size:7.5px}
- .small{font-size:7.2px}
+ .brand{font-size:17px}.brand span{font-size:8.3px}
+ .small{font-size:8px}
  .bigprice{font-size:24px}
- .priceTime{font-size:6.8px}
- .quoteRail{grid-template-columns:1fr 1fr}
- .qline{font-size:8.2px}
- .scenarioTitle{font-size:8px}.scenarioMain{font-size:11px}.scenarioLevels{font-size:8.7px}
+ .priceTime{font-size:7.8px}
+ .quoteRail{grid-template-columns:1fr}
+ .qline{font-size:9px}
+ .scenarioTitle{font-size:9px}.scenarioMain{font-size:12px}.scenarioLevels{font-size:9.5px}
  .controls{gap:3px}.ctrl{font-size:7.5px;padding:3px 5px}
  .wrap{height:64vh}
 }
@@ -210,6 +219,7 @@ tr.focusedRow td.cell{opacity:1!important;filter:none!important}
    <button class="ctrl metric" data-metric="gex">GEX</button>
    <button class="ctrl metric" data-metric="oi">OI</button>
    <button class="ctrl metric" data-metric="iv">IV</button>
+   <button class="ctrl metric" data-metric="probability">P%</button>
    <button class="ctrl" id="excel">Excel</button>
    <button class="ctrl icon" id="help">?</button>
    <button class="ctrl icon" id="reload">↻</button>
@@ -264,6 +274,8 @@ tr.focusedRow td.cell{opacity:1!important;filter:none!important}
   <p>Это относительный рейтинг заметности узла, а не вероятность движения цены. В нём учитываются величина экспозиции, близость страйка к spot и срок экспирации. 85–100 выделяется красно-оранжевым, 65–84 жёлтым, 45–64 зелёным.</p>
   <h3>Почему опционный срез не обновляется в обычном премаркете?</h3>
   <p>Цена акции NBIS обновляется в premarket отдельно. Сам опционный срез обновляем каждый час во время основной опционной сессии, потому что именно тогда обновляются реальные option quotes/IV. До открытия новый spot можно видеть сверху, но IV/OI остаются данными предыдущей/последней опционной сессии.</p>
+  <h3>P% — вероятностная матрица</h3>
+  <p>«Закрытие» — модельная вероятность закончить экспирацию за выбранным уровнем; «Касание» — вероятность хотя бы один раз коснуться уровня до экспирации. Расчёт использует spot, оставшееся время и strike-local IV. VEX/GEX/OI/volume показываются как контекст, но пока не добавляются в вероятность как произвольные «процентные пункты». Hover по ячейке показывает все внутридневные срезы и Δ.</p>
   <h3>⚡ События</h3>
   <p>Резкие изменения VEX/GEX/OI или цены относительно предыдущего текущего среза. Рабочая лента хранится 7 дней и ограничена по размеру.</p>
   <h3>Источники</h3>
@@ -277,7 +289,8 @@ tr.focusedRow td.cell{opacity:1!important;filter:none!important}
 </div>
 
 <script>
-let DATA=null, MARKET=null, METRIC="vex", MODE="previous_close", ACTIVE_INSIGHT=null;
+let DATA=null, MARKET=null, PROB={snapshots:[],events:[]}, METRIC="vex", MODE="previous_close", ACTIVE_INSIGHT=null;
+let PROB_KIND="close";
 let ZOOM=1.0;
 let TAP_TOOLTIP_TIMER=null;
 
@@ -311,6 +324,14 @@ function dayDate(iso,tz){
 function clock(iso,tz){
  if(!iso)return "—";
  return new Intl.DateTimeFormat("ru-RU",{timeZone:tz,hour:"2-digit",minute:"2-digit",hour12:false}).format(new Date(iso));
+}
+function fmtExpDate(exp){
+ if(!exp)return "—";
+ const d=new Date(exp+"T12:00:00Z");
+ const day=String(d.getUTCDate()).padStart(2,"0");
+ const mon=new Intl.DateTimeFormat("ru-RU",{month:"short",timeZone:"UTC"}).format(d).replace(".","");
+ const yy=String(d.getUTCFullYear()).slice(-2);
+ return `${day} ${mon} ${yy}`;
 }
 function timeDual(iso,primaryTz,primaryLabel){
  if(!iso)return "—";
@@ -385,7 +406,7 @@ function currentScale(metric){
 function renderScenario(){
  const s=DATA?.scenario;if(!s)return;
  document.getElementById("scenario").innerHTML=
-  `<div class="scenarioTitle">Модельный сценарий · уверенность ${s.confidence??0}%</div>
+  `<div class="scenarioTitle">Модельный сценарий · структурный score ${s.confidence??0}/100</div>
    <div class="scenarioMain">${s.bias||"—"}</div>
    <div class="scenarioLevels">База: ${s.primary!=null?"$"+s.primary:"—"} · альтернатива: ${s.alternative!=null?"$"+s.alternative:"—"}</div>
    <div class="scenarioTime">обновлено: ${dayDate(DATA.updated_et,"America/New_York")} · ${timeDual(DATA.updated_et,"America/New_York","ET")}</div>`;
@@ -419,7 +440,7 @@ function focusTagText(f){
  const s=Number(f.strike_min);
  return `$${s.toFixed(s%1?1:0)}${f.exp_min?" · "+f.exp_min:""}`;
 }
-function renderInsights(){
+function renderHeatmapInsights(){
  const list=document.getElementById("insightList"),arr=DATA?.insights||[];
  if(!arr.length){list.innerHTML='<div class="small" style="padding:9px">Пока нет инсайтов.</div>';return}
  list.innerHTML=arr.map((x,i)=>{
@@ -457,6 +478,122 @@ function selectInsight(i){
  document.querySelectorAll(".insightItem").forEach((b,j)=>b.classList.toggle("active",j===i));
  applyFocus(x.focus);
 }
+
+
+function latestProb(){return PROB?.snapshots?.length?PROB.snapshots[PROB.snapshots.length-1]:null}
+function probSnapEtDay(s){return String(s?.time_et||"").slice(0,10)}
+function probKey(t){return String(Number(t))}
+function probCellAt(s,target,exp){return s?.matrix?.[probKey(target)]?.[exp]||null}
+function probValueAt(s,target,exp,kind){const c=probCellAt(s,target,exp);return c&&isFinite(c[kind])?Number(c[kind]):null}
+function pp(v){return v==null?"—":(v*100).toFixed(1)+"%"}
+function probColor(p){
+ if(p==null||!isFinite(p))return "#091B16";
+ const x=Math.max(0,Math.min(1,p));
+ if(x<.5)return blend("#14242a","#197a70",x/.5);
+ return blend("#197a70","#ffe655",(x-.5)/.5);
+}
+function probDaySeries(target,exp,kind){
+ const latest=latestProb();if(!latest)return [];
+ const day=probSnapEtDay(latest);
+ return (PROB.snapshots||[]).filter(s=>probSnapEtDay(s)===day).map(s=>({
+   time:s.time_et||s.time,value:probValueAt(s,target,exp,kind),spot:s.spot
+ })).filter(x=>x.value!=null);
+}
+function probDeltaInfo(target,exp,kind){
+ const arr=probDaySeries(target,exp,kind);if(!arr.length)return {last:null,day:null,series:arr};
+ const last=arr[arr.length-1].value;
+ const prev=arr.length>1?arr[arr.length-2].value:null;
+ return {last:prev==null?null:last-prev,day:last-arr[0].value,series:arr};
+}
+function deltaMark(d){
+ if(d==null||Math.abs(d)<.005)return `<span class="probDelta probFlat">→</span>`;
+ const cls=d>0?"probUp":"probDown",arrow=d>0?"↗":"↘";
+ return `<span class="probDelta ${cls}">${arrow} ${d>0?"+":""}${(d*100).toFixed(1)} п.п.</span>`;
+}
+function probTooltipHtml(target,exp,c){
+ const d=probDeltaInfo(target,exp,PROB_KIND),series=d.series;
+ const kind=PROB_KIND==="touch"?"касания":"закрытия за уровнем";
+ const line=series.map(x=>`${clock(x.time,"America/New_York")} ${pp(x.value)}`).join(" → ");
+ const dr=c.drivers||{};
+ const dir=c.direction==="up"?"выше":"ниже";
+ return `<div class="ttTitle">$${target} · ${fmtExpDate(exp)} · P ${kind}</div>
+ <div style="font-size:10px;font-weight:850;margin-bottom:4px">${pp(c[PROB_KIND])} · ${dir} spot $${Number(latestProb()?.spot||0).toFixed(2)}</div>
+ <div class="small" style="font-size:8.5px;margin-bottom:5px">Сегодня: ${line||"первый срез"}</div>
+ <div class="ttGrid">
+  <span class="ttKey">Δ за срез</span><span class="ttVal">${d.last==null?"—":(d.last*100).toFixed(1)+" п.п."}</span>
+  <span class="ttKey">Δ за день</span><span class="ttVal">${d.day==null?"—":(d.day*100).toFixed(1)+" п.п."}</span>
+  <span class="ttKey">IV модели</span><span class="ttVal">${(c.iv*100).toFixed(1)}%</span>
+  <span class="ttKey">До экспирации</span><span class="ttVal">${Number(c.dte).toFixed(1)} дн.</span>
+  <span class="ttKey">OI</span><span class="ttVal">${fmtNum(dr.oi,"oi")}</span>
+  <span class="ttKey">Call/Put vol</span><span class="ttVal">${fmtNum(dr.call_volume,"oi")} / ${fmtNum(dr.put_volume,"oi")}</span>
+  <span class="ttKey">VEX</span><span class="ttVal">${fmtNum(dr.vex,"vex")}</span>
+  <span class="ttKey">GEX</span><span class="ttVal">${fmtNum(dr.gex,"gex")}</span>
+ </div>
+ <div class="small" style="font-size:7.8px;margin-top:5px">Число строится из spot + срока + strike-local IV. VEX/GEX/OI/volume — контекст изменения, пока без исторической калибровки.</div>`;
+}
+function attachProbEvents(){
+ document.querySelectorAll("td.probCell").forEach(td=>{
+   td.addEventListener("mouseenter",e=>{
+     const target=Number(td.dataset.target),exp=td.dataset.e,c=probCellAt(latestProb(),target,exp);if(!c)return;
+     const tt=document.getElementById("tooltip");tt.innerHTML=probTooltipHtml(target,exp,c);tt.classList.add("show");placeTooltip(e.clientX,e.clientY);
+   });
+   td.addEventListener("mousemove",e=>placeTooltip(e.clientX,e.clientY));
+   td.addEventListener("mouseleave",hideTooltip);
+   td.addEventListener("click",e=>{
+     if(matchMedia("(hover: none)").matches){
+       const target=Number(td.dataset.target),exp=td.dataset.e,c=probCellAt(latestProb(),target,exp);if(!c)return;
+       const r=td.getBoundingClientRect(),tt=document.getElementById("tooltip");tt.innerHTML=probTooltipHtml(target,exp,c);tt.classList.add("show");placeTooltip(r.left+r.width/2,r.top+r.height/2);
+       clearTimeout(TAP_TOOLTIP_TIMER);TAP_TOOLTIP_TIMER=setTimeout(()=>tt.classList.remove("show"),3200);
+     }
+   });
+ });
+}
+function renderProbabilityView(){
+ const s=latestProb();
+ document.getElementById("legendUnit").textContent="P · модельная вероятность";
+ if(!s){
+  document.getElementById("content").innerHTML=`<div class="error">Вероятностная история ещё не создана.<br><small>Она появится после первого current-среза в основной опционной сессии.</small></div>`;return;
+ }
+ let h=`<div class="probToolbar"><button class="probKind ${PROB_KIND==="close"?"active":""}" data-kind="close">Закрытие</button><button class="probKind ${PROB_KIND==="touch"?"active":""}" data-kind="touch">Касание</button><span class="probExplain">spot $${Number(s.spot).toFixed(2)} · hover = вся Δ за день</span></div>`;
+ h+="<table><thead><tr><th class='strike'>Цена</th>";
+ (s.expirations||[]).forEach(e=>h+=`<th>${fmtExpDate(e)}</th>`);h+="</tr></thead><tbody>";
+ [...(s.targets||[])].sort((a,b)=>b-a).forEach(target=>{
+   h+=`<tr data-target="${target}"><th class="strike">$${target}</th>`;
+   (s.expirations||[]).forEach(exp=>{
+     const c=probCellAt(s,target,exp);if(!c){h+="<td></td>";return}
+     const v=c[PROB_KIND],di=probDeltaInfo(target,exp,PROB_KIND);
+     h+=`<td class="cell probCell" data-target="${target}" data-e="${exp}" style="background:${probColor(v)}"><span class="val">${pp(v)}</span>${deltaMark(di.day)}</td>`;
+   });h+="</tr>";
+ });h+="</tbody></table>";
+ document.getElementById("content").innerHTML=h;
+ document.querySelectorAll(".probKind").forEach(b=>b.onclick=()=>{PROB_KIND=b.dataset.kind;renderProbabilityView();renderInsights()});
+ attachProbEvents();
+}
+function clearProbFocus(){document.querySelectorAll(".probFocused").forEach(x=>x.classList.remove("probFocused"));document.querySelector("#content tbody")?.classList.remove("probDim")}
+function applyProbFocus(f){
+ clearProbFocus();if(!f)return;
+ const td=document.querySelector(`td.probCell[data-target="${f.target}"][data-e="${f.exp}"]`);if(!td)return;
+ document.querySelector("#content tbody")?.classList.add("probDim");td.classList.add("probFocused");internalScrollToElement(td);
+}
+function probabilityInsightRows(){
+ const s=latestProb();if(!s)return [];
+ const current=(s.insights||[]).map(x=>({...x,_time:s.time}));
+ const events=(PROB.events||[]).slice(0,18).map(x=>({...x,kind:"prob_event",_time:x.time}));
+ const seen=new Set();return [...current,...events].filter(x=>{if(seen.has(x.id))return false;seen.add(x.id);return true}).slice(0,32);
+}
+function renderProbabilityInsights(){
+ const list=document.getElementById("insightList"),arr=probabilityInsightRows();
+ if(!arr.length){list.innerHTML='<div class="small" style="padding:9px">Вероятностные инсайты появятся после второго внутридневного среза.</div>';return}
+ list.innerHTML=arr.map((x,i)=>{const st=clampStrength(x.strength),tm=x._time?clock(x._time,"Europe/Moscow")+" МСК":"";return `<button class="insightItem ${x.kind==="prob_event"?"event":""}" data-pi="${i}"><div class="iRow"><span class="iTitle">${x.title}</span><span class="focusTag">${tm}</span><span class="iStrength" style="color:${strengthColor(st)}">сила ${st}/100</span></div><div class="iText">${cleanInsightText(x.text)}</div></button>`}).join("");
+ list.querySelectorAll(".insightItem").forEach(b=>b.onclick=()=>{
+   const i=Number(b.dataset.pi),x=arr[i];
+   const active=b.classList.contains("active");list.querySelectorAll(".insightItem").forEach(z=>z.classList.remove("active"));
+   if(active){clearProbFocus();return}
+   b.classList.add("active");if(x.prob_focus){PROB_KIND=x.prob_focus.kind||PROB_KIND;renderProbabilityView();applyProbFocus(x.prob_focus)}
+ });
+}
+function renderInsights(){if(METRIC==="probability")renderProbabilityInsights();else renderHeatmapInsights()}
+function renderActiveView(){if(METRIC==="probability")renderProbabilityView();else renderTable()}
 
 function expBetween(exp,a,b){if(!a&&!b)return true;return (!a||exp>=a)&&(!b||exp<=b)}
 
@@ -581,7 +718,7 @@ function renderTable(){
  const arrow=mv>0?"↑":mv<0?"↓":"→";
 
  let h="<table><thead><tr><th class='strike'>Strike</th>";
- exps.forEach(e=>h+=`<th>${e.slice(2)}</th>`);h+="</tr></thead><tbody>";
+ exps.forEach(e=>h+=`<th>${fmtExpDate(e)}</th>`);h+="</tr></thead><tbody>";
  rows.forEach((r,i)=>{
    const spotMark=i===nearest?`<span class="spotMark">${arrow} $${Number(currentPx).toFixed(2)}</span>`:"";
    h+=`<tr data-strike="${r.strike}" class="${i===nearest?"spotRow":""}"><th class="strike">${r.strike}${spotMark}</th>`;
@@ -603,7 +740,7 @@ function renderTable(){
 
 function render(){
  if(!DATA)return;
- renderScenario();renderTable();renderInsights();
+ renderScenario();renderActiveView();renderInsights();
  document.getElementById("snapshotInfo").innerHTML=
   `<b>${DATA.snapshot_label}</b> · OI: ${DATA.oi_settlement_date} · ${DATA.diagnostics?.strike_count||0} страйков (${DATA.diagnostics?.min_strike}…${DATA.diagnostics?.max_strike}) · ${DATA.diagnostics?.expiration_count||0} экспираций`;
 }
@@ -612,7 +749,7 @@ async function loadMarket(){
  try{
   const r=await fetch("data/market.json?t="+Date.now(),{cache:"no-store"});
   if(!r.ok)throw new Error("market.json");
-  MARKET=await r.json();renderMarket();if(DATA)renderTable();
+  MARKET=await r.json();renderMarket();if(DATA)renderActiveView();
  }catch(e){console.error(e)}
 }
 
@@ -632,9 +769,18 @@ async function loadLivePrice(){
        source:q.source||"live endpoint"
      };
      if(MARKET.us)MARKET.us.current_session=q.session||MARKET.us.current_session;
-     renderMarket();if(DATA)renderTable();
+     renderMarket();if(DATA)renderActiveView();
    }
  }catch(e){console.debug("live price unavailable",e)}
+}
+
+async function loadProbability(){
+ try{
+  const r=await fetch("data/probability_history.json?t="+Date.now(),{cache:"no-store"});
+  if(!r.ok)throw new Error("probability_history.json");
+  PROB=await r.json();
+ }catch(e){PROB={snapshots:[],events:[]};console.debug("probability history unavailable",e)}
+ if(METRIC==="probability"){renderProbabilityView();renderInsights()}
 }
 
 async function loadSnapshot(){
@@ -723,7 +869,7 @@ function exportExcel(){
 
 document.querySelectorAll(".metric").forEach(b=>b.onclick=()=>{
  document.querySelectorAll(".metric").forEach(x=>x.classList.remove("active"));
- b.classList.add("active");METRIC=b.dataset.metric;renderTable();
+ b.classList.add("active");METRIC=b.dataset.metric;ACTIVE_INSIGHT=null;clearFocus();clearProbFocus();renderActiveView();renderInsights();
 });
 document.querySelectorAll(".mode").forEach(b=>b.onclick=()=>{
  document.querySelectorAll(".mode").forEach(x=>x.classList.remove("active"));
@@ -734,13 +880,14 @@ document.getElementById("tableWrap").addEventListener("click",e=>{
   // A click on any free/background/header/empty-table area cancels the current focus.
   // Populated cells keep their tooltip/tap behavior.
   if(!e.target.closest("td.cell")){
-    resetInsightFocus();
+    if(METRIC==="probability"){clearProbFocus();document.querySelectorAll(".insightItem").forEach(b=>b.classList.remove("active"));}
+    else resetInsightFocus();
   }
 });
 
 document.getElementById("priceBox").onclick=focusSpot;
 document.getElementById("excel").onclick=exportExcel;
-document.getElementById("reload").onclick=()=>{loadMarket();loadSnapshot();loadLivePrice()};
+document.getElementById("reload").onclick=()=>{loadMarket();loadSnapshot();loadProbability();loadLivePrice()};
 document.getElementById("zoomOut").onclick=()=>setZoom(ZOOM-.1);
 document.getElementById("zoomIn").onclick=()=>setZoom(ZOOM+.1);
 document.getElementById("zoomReset").onclick=()=>setZoom(1);
@@ -752,7 +899,7 @@ document.addEventListener("scroll",()=>{if(!matchMedia("(hover: none)").matches)
 applyZoom();
 updateCountdown();
 setInterval(updateCountdown,1000);
-Promise.all([loadMarket(),loadSnapshot(),loadLivePrice()]);
+Promise.all([loadMarket(),loadSnapshot(),loadProbability(),loadLivePrice()]);
 setInterval(loadMarket,30000);
 if(LIVE_PRICE_ENDPOINT)setInterval(loadLivePrice,15000);
 </script>
