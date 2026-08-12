@@ -25,23 +25,23 @@ header{position:sticky;top:0;z-index:50;background:rgba(5,17,14,.975);backdrop-f
 }
 .brandBox{padding:4px 2px}
 .brand{font-size:18px;font-weight:900;line-height:1}.brand span{font-size:9px;color:var(--muted)}
-.small{font-size:9px;color:var(--muted);line-height:1.35}
-.scenario{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:6px 9px;min-height:62px}
-.scenarioTitle{font-size:8.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.045em}
-.scenarioMain{font-size:14px;font-weight:850;margin-top:2px;line-height:1.05}
-.scenarioLevels{font-size:9.5px;margin-top:3px;color:#d6f6eb}
-.scenarioTime{font-size:8px;color:var(--muted);margin-top:3px}
+.small{font-size:9.5px;color:var(--muted);line-height:1.35}
+.scenario{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:7px 10px;min-height:62px}
+.scenarioTitle{font-size:9.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.045em}
+.scenarioMain{font-size:15.5px;font-weight:850;margin-top:2px;line-height:1.05}
+.scenarioLevels{font-size:10.5px;margin-top:3px;color:#d6f6eb}
+.scenarioTime{font-size:9px;color:var(--muted);margin-top:3px}
 .quoteRail{
  background:var(--panel);border:1px solid var(--line);border-radius:10px;
- padding:5px 7px;display:grid;grid-template-columns:1fr 1fr;gap:3px 7px;
+ padding:6px 8px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px 10px;
  align-content:center;min-height:62px;
 }
-.qline{font-size:9px;color:#d9eee7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.qline b{font-size:9px}
-.qline .qprice{font-weight:850}
+.qline{font-size:10px;color:#d9eee7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.qline b{font-size:10px}
+.qline .qprice{font-weight:900;font-size:10.5px}
 .qline.pre .qprice,.qline.pre b{color:#d8bf48}
 .qline.post .qprice,.qline.post b{color:#b8734d}
-.qmeta{color:var(--muted);font-size:7.8px}
+.qmeta{color:var(--muted);font-size:8.4px}
 .priceBox{text-align:right;cursor:pointer;border-radius:10px;padding:5px 4px;min-height:62px}
 .priceBox:hover{background:rgba(67,240,182,.05)}
 .bigprice{font-size:29px;font-weight:900;line-height:.95}
@@ -63,7 +63,7 @@ main{padding:6px 5px 32px}
  display:flex;gap:10px;align-items:center;justify-content:space-between;
  font-size:8.5px;color:var(--muted);line-height:1.3;padding:0 2px 5px
 }
-.updateTimer{margin-left:auto;font-size:8px;color:#b9d8ce;white-space:nowrap;padding:2px 6px;border:1px solid var(--line);border-radius:6px;background:rgba(13,37,30,.65)}
+.updateTimer{margin-left:auto;font-size:9px;color:#b9d8ce;white-space:nowrap;padding:2px 6px;border:1px solid var(--line);border-radius:6px;background:rgba(13,37,30,.65)}
 .zoomCtl{display:flex;gap:3px;align-items:center;white-space:nowrap}
 .zoomBtn{
  border:1px solid var(--line);background:var(--panel2);color:var(--text);
@@ -106,21 +106,24 @@ tr.focusedRow td.cell{opacity:1!important;filter:none!important}
 .ttTitle{font-size:10px;font-weight:850;margin-bottom:5px}
 .ttGrid{display:grid;grid-template-columns:1fr 1fr;gap:3px 8px}
 .ttKey{color:var(--muted)}.ttVal{font-weight:750;text-align:right}
-.insights{display:grid;grid-template-columns:240px 1fr;gap:6px;margin-top:8px}
-.insightList{background:var(--panel);border:1px solid var(--line);border-radius:10px;max-height:230px;overflow:auto}
+.insights{display:block;margin-top:7px}
+.insightList{
+ background:var(--panel);border:1px solid var(--line);border-radius:10px;
+ max-height:235px;overflow:auto
+}
 .insightItem{
  width:100%;text-align:left;border:0;border-bottom:1px solid rgba(23,67,56,.55);
- background:transparent;color:var(--text);padding:7px 8px;cursor:pointer
+ background:transparent;color:var(--text);padding:5px 8px;cursor:pointer
 }
 .insightItem:last-child{border-bottom:0}
 .insightItem.active{background:#103128}
 .insightItem.event{border-left:3px solid var(--danger)}
-.iTitle{font-size:9px;font-weight:800}
-.iStrength{font-size:7.5px;color:var(--muted);margin-top:2px}
-.insightDetail{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:9px 10px;min-height:105px}
-.insightDetail h3{margin:0 0 5px;font-size:11px}
-.insightDetail p{margin:0;color:#c9e8de;font-size:9.5px;line-height:1.45}
-.focusTag{display:inline-block;margin-left:6px;font-size:7.5px;color:var(--yellow)}
+.iRow{display:flex;align-items:center;gap:8px;min-height:18px}
+.iTitle{font-size:10.5px;font-weight:800;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.iStrength{font-size:9px;font-weight:850;white-space:nowrap}
+.iText{display:none;font-size:9.5px;color:#c9e8de;line-height:1.35;padding:3px 0 2px}
+.insightItem.active .iText{display:block}
+.focusTag{font-size:8.5px;color:var(--yellow);white-space:nowrap}
 .note{font-size:8px;color:var(--muted);padding:7px 2px;line-height:1.4}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:100;display:none;padding:14px}
 .modal.show{display:flex;align-items:center;justify-content:center}
@@ -141,24 +144,25 @@ tr.focusedRow td.cell{opacity:1!important;filter:none!important}
  .brandBox{grid-column:1}
  .priceBox{grid-column:2;grid-row:1}
  .scenario{grid-column:1/3;grid-row:2;min-height:auto;padding:5px 7px}
- .scenarioMain{font-size:11px}
- .scenarioLevels{font-size:8.5px}
- .scenarioTime{font-size:7.3px}
+ .scenarioMain{font-size:12px}
+ .scenarioLevels{font-size:9.3px}
+ .scenarioTime{font-size:8.2px}
  .quoteRail{
   grid-column:1/3;grid-row:3;min-height:auto;
-  grid-template-columns:1fr 1fr;gap:2px 6px;padding:4px 6px
+  grid-template-columns:1fr 1fr;gap:3px 8px;padding:5px 7px
  }
- .qline{font-size:7.8px}.qmeta{font-size:6.8px}
+ .qline{font-size:9px}.qline b{font-size:9px}.qline .qprice{font-size:9.5px}.qmeta{font-size:7.6px}
  .bigprice{font-size:27px}
  .controls{padding-left:5px;padding-right:5px}
  .ctrl{font-size:8px;padding:3px 6px}
  main{padding:4px 3px 26px}
  .info{font-size:7.6px;gap:4px}
  .wrap{height:62vh;min-height:340px;border-radius:8px}
- .insights{grid-template-columns:1fr;gap:5px}
- .insightList{display:flex;max-height:none;overflow:auto}
- .insightItem{min-width:175px;border-bottom:0;border-right:1px solid var(--line);padding:6px 7px}
- .insightDetail{min-height:90px}
+ .insights{display:block}
+ .insightList{display:block;max-height:210px;overflow:auto}
+ .insightItem{min-width:0;border-right:0;padding:5px 7px}
+ .iTitle{font-size:10px}
+ .iText{font-size:9px}
  .tooltip{width:min(230px,calc(100vw - 16px));font-size:8.5px}
 }
 @media(max-width:430px){
@@ -166,9 +170,9 @@ tr.focusedRow td.cell{opacity:1!important;filter:none!important}
  .small{font-size:7.2px}
  .bigprice{font-size:24px}
  .priceTime{font-size:6.8px}
- .quoteRail{grid-template-columns:1fr}
- .qline{font-size:7.5px}
- .scenarioTitle{font-size:7px}.scenarioMain{font-size:10px}.scenarioLevels{font-size:7.8px}
+ .quoteRail{grid-template-columns:1fr 1fr}
+ .qline{font-size:8.2px}
+ .scenarioTitle{font-size:8px}.scenarioMain{font-size:11px}.scenarioLevels{font-size:8.7px}
  .controls{gap:3px}.ctrl{font-size:7.5px;padding:3px 5px}
  .wrap{height:64vh}
 }
@@ -232,10 +236,6 @@ tr.focusedRow td.cell{opacity:1!important;filter:none!important}
 
  <section class="insights">
   <div class="insightList" id="insightList"></div>
-  <div class="insightDetail" id="insightDetail">
-   <h3>Инсайты</h3>
-   <p>Выбери вывод слева. Прокрутится только таблица выше — сама страница останется на месте.</p>
-  </div>
  </section>
 
  <div class="note">
@@ -260,6 +260,10 @@ tr.focusedRow td.cell{opacity:1!important;filter:none!important}
   <p><b>Implied Volatility</b>. 65% означает IV = 0,65.</p>
   <h3>Цвета</h3>
   <p>Жёлтый — сильное положительное значение, фиолетовый — сильное отрицательное, бирюзовый — близко к нулю.</p>
+  <h3>Сила инсайта 0–100</h3>
+  <p>Это относительный рейтинг заметности узла, а не вероятность движения цены. В нём учитываются величина экспозиции, близость страйка к spot и срок экспирации. 85–100 выделяется красно-оранжевым, 65–84 жёлтым, 45–64 зелёным.</p>
+  <h3>Почему опционный срез не обновляется в обычном премаркете?</h3>
+  <p>Цена акции NBIS обновляется в premarket отдельно. Сам опционный срез обновляем каждый час во время основной опционной сессии, потому что именно тогда обновляются реальные option quotes/IV. До открытия новый spot можно видеть сверху, но IV/OI остаются данными предыдущей/последней опционной сессии.</p>
   <h3>⚡ События</h3>
   <p>Резкие изменения VEX/GEX/OI или цены относительно предыдущего текущего среза. Рабочая лента хранится 7 дней и ограничена по размеру.</p>
   <h3>Источники</h3>
@@ -395,25 +399,62 @@ function focusLabel(f){
  return "область";
 }
 
+function clampStrength(v){return Math.max(0,Math.min(100,Math.round(Number(v)||0)))}
+function strengthColor(v){
+ const s=clampStrength(v);
+ if(s>=85)return "#ff9b78";
+ if(s>=65)return "#ffd75f";
+ if(s>=45)return "#8fe2a7";
+ return "#8eafa5";
+}
+function cleanInsightText(t){
+ return String(t||"")
+  .replace(/\s*;?\s*это модельный уровень, а не гарантированная цель\.?/gi,"")
+  .replace(/\s*Это модельный уровень, а не гарантированная цель\.?/gi,"")
+  .replace(/\s{2,}/g," ")
+  .trim();
+}
+function focusTagText(f){
+ if(!f||f.strike_min==null)return "";
+ const s=Number(f.strike_min);
+ return `$${s.toFixed(s%1?1:0)}${f.exp_min?" · "+f.exp_min:""}`;
+}
 function renderInsights(){
  const list=document.getElementById("insightList"),arr=DATA?.insights||[];
  if(!arr.length){list.innerHTML='<div class="small" style="padding:9px">Пока нет инсайтов.</div>';return}
- list.innerHTML=arr.map((x,i)=>`<button class="insightItem ${x.kind==="event"?"event":""}" data-i="${i}">
-   <div class="iTitle">${x.title}</div><div class="iStrength">сила ${Math.round(x.strength||0)}/100</div></button>`).join("");
- list.querySelectorAll(".insightItem").forEach(b=>b.onclick=()=>selectInsight(Number(b.dataset.i)));
+ list.innerHTML=arr.map((x,i)=>{
+   const s=clampStrength(x.strength);
+   const tag=focusTagText(x.focus);
+   return `<button class="insightItem ${x.kind==="event"?"event":""}" data-i="${i}">
+    <div class="iRow">
+      <span class="iTitle">${x.title}</span>
+      ${tag?`<span class="focusTag">${tag}</span>`:""}
+      <span class="iStrength" style="color:${strengthColor(s)}">сила ${s}/100</span>
+    </div>
+    <div class="iText">${cleanInsightText(x.text)}</div>
+   </button>`;
+ }).join("");
+ list.querySelectorAll(".insightItem").forEach(b=>b.onclick=()=>{
+   const i=Number(b.dataset.i);
+   const x=arr[i];
+   if(ACTIVE_INSIGHT && ACTIVE_INSIGHT.id===x.id){
+     resetInsightFocus();
+   }else{
+     selectInsight(i);
+   }
+ });
+}
+
+function resetInsightFocus(){
+ ACTIVE_INSIGHT=null;
+ document.querySelectorAll(".insightItem").forEach(b=>b.classList.remove("active"));
+ clearFocus();
 }
 
 function selectInsight(i){
  const x=(DATA?.insights||[])[i];if(!x)return;
  ACTIVE_INSIGHT=x;
  document.querySelectorAll(".insightItem").forEach((b,j)=>b.classList.toggle("active",j===i));
- const f=x.focus||{};
- let tag="";
- if(f.strike_min!=null){
-   tag=`<span class="focusTag">фокус: $${Number(f.strike_min).toFixed(Number(f.strike_min)%1?1:0)}${f.exp_min?" · "+f.exp_min:""}</span>`;
- }
- document.getElementById("insightDetail").innerHTML=
-   `<h3>${x.title}${tag}</h3><p>${x.text}</p>`;
  applyFocus(x.focus);
 }
 
@@ -627,29 +668,27 @@ function etParts(date){
  const m={};parts.forEach(p=>{if(p.type!=="literal")m[p.type]=p.value});
  return {weekday:m.weekday,hour:Number(m.hour),minute:Number(m.minute)};
 }
-function nextTableSchedule(mode){
+function nextOptionSnapshot(){
  const now=Date.now();
- const targetMinute=mode==="current"?37:45;
- const targetHours=mode==="current"?new Set([9,10,11,12,13,14,15]):new Set([8]);
+ const targetHours=new Set([9,10,11,12,13,14,15]);
  const weekend=new Set(["Sat","Sun"]);
  let t=new Date(now+60000);t.setSeconds(0,0);
  for(let i=0;i<8*24*60;i++){
    const p=etParts(t);
-   if(!weekend.has(p.weekday)&&p.minute===targetMinute&&targetHours.has(p.hour))return t;
+   if(!weekend.has(p.weekday)&&p.minute===37&&targetHours.has(p.hour))return t;
    t=new Date(t.getTime()+60000);
  }
  return null;
 }
 function updateCountdown(){
  const el=document.getElementById("updateTimer");if(!el)return;
- const next=nextTableSchedule(MODE);
- if(!next){el.textContent="След. обновление: —";return}
+ const next=nextOptionSnapshot();
+ if(!next){el.textContent="След. опционный срез: —";return}
  let sec=Math.max(0,Math.floor((next.getTime()-Date.now())/1000));
  const h=Math.floor(sec/3600);sec%=3600;
  const m=Math.floor(sec/60),s=sec%60;
  const left=(h>0?String(h).padStart(2,"0")+":":"")+String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
- const kind=MODE==="current"?"таблицы":"пред. среза";
- el.textContent=`До обновления ${kind}: ${left} · ~${clock(next.toISOString(),"America/New_York")} ET`;
+ el.textContent=`След. опционный срез через ${left} · ${clock(next.toISOString(),"Europe/Moscow")} МСК`;
 }
 
 function aoaForMetric(metric){
@@ -690,6 +729,15 @@ document.querySelectorAll(".mode").forEach(b=>b.onclick=()=>{
  document.querySelectorAll(".mode").forEach(x=>x.classList.remove("active"));
  b.classList.add("active");MODE=b.dataset.mode;updateCountdown();loadSnapshot();
 });
+
+document.getElementById("tableWrap").addEventListener("click",e=>{
+  // A click on any free/background/header/empty-table area cancels the current focus.
+  // Populated cells keep their tooltip/tap behavior.
+  if(!e.target.closest("td.cell")){
+    resetInsightFocus();
+  }
+});
+
 document.getElementById("priceBox").onclick=focusSpot;
 document.getElementById("excel").onclick=exportExcel;
 document.getElementById("reload").onclick=()=>{loadMarket();loadSnapshot();loadLivePrice()};
