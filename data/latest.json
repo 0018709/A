@@ -1,0 +1,13 @@
+{
+  "symbol": "NBIS",
+  "spot": 0,
+  "updated_utc": null,
+  "updated_et": null,
+  "expirations": [],
+  "strikes": [],
+  "rows": [],
+  "method": {
+    "source": "Yahoo Finance via yfinance",
+    "note": "Placeholder. Run the GitHub Action once to populate real data."
+  }
+}
