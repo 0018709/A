@@ -4,19 +4,23 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "Snapshot mode"
+        description: "Что обновить"
         required: true
-        default: "previous_close"
+        default: "current"
         type: choice
         options:
-          - previous_close
           - current
+          - previous_close
+          - market_only
 
   schedule:
-    # Hourly candidate windows. Script step below checks New York local time.
+    # Price tape: hourly, broad UTC window covers Europe and US extended hours.
+    - cron: "7 0-2,6-23 * * *"
+
+    # Options current snapshot: hourly candidate across EDT/EST cash-session windows.
     - cron: "37 13-21 * * 1-5"
-    # Daily previous-close capture. Both UTC possibilities cover EDT/EST;
-    # the local-time gate keeps only ~08:45 ET.
+
+    # Previous-close model around 08:45 New York in both DST/EST possibilities.
     - cron: "45 12,13 * * 1-5"
 
 permissions:
@@ -34,9 +38,11 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Decide scheduled mode
+      - name: Decide mode
         id: decide
         shell: bash
+        env:
+          MANUAL_MODE: ${{ inputs.mode }}
         run: |
           python - <<'PY'
           from datetime import datetime
@@ -47,43 +53,36 @@ jobs:
           now = datetime.now(ZoneInfo("America/New_York"))
 
           if event == "workflow_dispatch":
-              mode = "${{ inputs.mode }}"
-              run = True
-          elif now.minute >= 40 and now.minute <= 50 and now.hour == 8:
+              mode = os.environ.get("MANUAL_MODE") or "current"
+          elif now.weekday() >= 5:
+              mode = "market_only"
+          elif now.hour == 8 and 40 <= now.minute <= 50:
               mode = "previous_close"
-              run = True
-          elif now.minute >= 32 and now.minute <= 42 and 9 <= now.hour <= 16:
+          elif 9 <= now.hour < 16 and 30 <= now.minute <= 44:
+              # :37 candidate during the US cash session.
               mode = "current"
-              run = True
           else:
-              mode = "current"
-              run = False
+              mode = "market_only"
 
           print("New York time:", now.isoformat())
-          print("Mode:", mode, "Run:", run)
-
+          print("Mode:", mode)
           with open(os.environ["GITHUB_OUTPUT"], "a") as f:
-              f.write(f"run={'true' if run else 'false'}\n")
               f.write(f"mode={mode}\n")
           PY
 
       - name: Set up Python
-        if: steps.decide.outputs.run == 'true'
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
           cache: "pip"
 
       - name: Install dependencies
-        if: steps.decide.outputs.run == 'true'
         run: pip install -r requirements.txt
 
-      - name: Fetch NBIS and calculate heatmap
-        if: steps.decide.outputs.run == 'true'
+      - name: Update data
         run: python fetch_nbis.py --mode "${{ steps.decide.outputs.mode }}"
 
-      - name: Commit updated snapshots
-        if: steps.decide.outputs.run == 'true'
+      - name: Commit generated data
         shell: bash
         run: |
           git config user.name "nbis-vex-bot"
@@ -93,6 +92,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Update NBIS ${{ steps.decide.outputs.mode }} snapshot"
+            git commit -m "Update NBIS ${{ steps.decide.outputs.mode }}"
             git push origin HEAD:main
           fi
