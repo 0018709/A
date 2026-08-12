@@ -20,33 +20,34 @@ button{font:inherit}
 header{position:sticky;top:0;z-index:50;background:rgba(5,17,14,.975);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .topbar{
  display:grid;
- grid-template-columns:minmax(180px,.62fr) minmax(330px,1.22fr) minmax(330px,1.00fr) minmax(165px,.55fr);
+ grid-template-columns:minmax(185px,.62fr) minmax(350px,1.18fr) minmax(430px,1.22fr) minmax(175px,.55fr);
  gap:8px;padding:7px 8px 5px;align-items:stretch;
 }
 .brandBox{padding:4px 2px}
-.brand{font-size:20px;font-weight:900;line-height:1}.brand span{font-size:10px;color:var(--muted)}
-.small{font-size:10px;color:var(--muted);line-height:1.35}
+.brand{font-size:21px;font-weight:900;line-height:1}.brand span{font-size:11px;color:var(--muted)}
+.small{font-size:10.5px;color:var(--muted);line-height:1.35}
+.brandBox #globalUpdate{font-size:11.8px;color:var(--text);font-weight:650;margin-top:4px}
 .scenario{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:7px 10px;min-height:62px}
-.scenarioTitle{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.045em}
-.scenarioMain{font-size:17px;font-weight:850;margin-top:2px;line-height:1.05}
-.scenarioLevels{font-size:11.5px;margin-top:3px;color:#d6f6eb}
-.scenarioTime{font-size:9.8px;color:var(--muted);margin-top:3px}
+.scenarioTitle{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.045em}
+.scenarioMain{font-size:18.5px;font-weight:850;margin-top:2px;line-height:1.05}
+.scenarioLevels{font-size:12.5px;margin-top:3px;color:#d6f6eb}
+.scenarioTime{font-size:10.8px;color:#cbe4dc;margin-top:3px}
 .quoteRail{
  background:var(--panel);border:1px solid var(--line);border-radius:10px;
  padding:6px 9px;display:grid;grid-template-columns:1fr;gap:2px;
  align-content:center;min-height:72px;
 }
-.qline{font-size:10.8px;color:#d9eee7;white-space:normal;overflow:visible;line-height:1.28}
-.qline b{font-size:10.8px}
-.qline .qprice{font-weight:900;font-size:11.4px}
+.qline{font-size:11.5px;color:#d9eee7;white-space:normal;overflow:visible;line-height:1.28}
+.qline b{font-size:11.5px}
+.qline .qprice{font-weight:900;font-size:12px}
 .qline.pre .qprice,.qline.pre b{color:#d8bf48}
 .qline.post .qprice,.qline.post b{color:#b8734d}
-.qmeta{color:var(--muted);font-size:9.2px}
+.qmeta{color:#bdd8cf;font-size:11.5px}
 .priceBox{text-align:right;cursor:pointer;border-radius:10px;padding:5px 4px;min-height:62px}
 .priceBox:hover{background:rgba(67,240,182,.05)}
-.bigprice{font-size:31px;font-weight:900;line-height:.95}
-.sessionBadge{display:inline-block;margin-top:4px;padding:2px 6px;border:1px solid var(--line);border-radius:99px;font-size:8.8px;font-weight:850}
-.priceTime{font-size:9px;color:var(--muted);margin-top:3px;line-height:1.3}
+.bigprice{font-size:37px;font-weight:900;line-height:.95}
+.sessionBadge{display:inline-block;margin-top:4px;padding:2px 7px;border:1px solid var(--line);border-radius:99px;font-size:10px;font-weight:850}
+.priceTime{font-size:10.5px;color:#cbe4dc;margin-top:3px;line-height:1.3}
 .controls{
  display:flex;gap:4px;overflow:auto;padding:0 8px 5px;
  -webkit-overflow-scrolling:touch;scrollbar-width:none;
@@ -61,15 +62,15 @@ header{position:sticky;top:0;z-index:50;background:rgba(5,17,14,.975);backdrop-f
 main{padding:6px 5px 32px}
 .info{
  display:flex;gap:10px;align-items:center;justify-content:space-between;
- font-size:8.5px;color:var(--muted);line-height:1.3;padding:0 2px 5px
+ font-size:10.5px;color:#bcd8cf;line-height:1.35;padding:0 2px 5px
 }
-.updateTimer{margin-left:auto;font-size:9px;color:#b9d8ce;white-space:nowrap;padding:2px 6px;border:1px solid var(--line);border-radius:6px;background:rgba(13,37,30,.65)}
+.updateTimer{margin-left:auto;font-size:10.5px;color:#d4eee5;white-space:nowrap;padding:3px 7px;border:1px solid var(--line);border-radius:6px;background:rgba(13,37,30,.65);font-weight:650}
 .zoomCtl{display:flex;gap:3px;align-items:center;white-space:nowrap}
 .zoomBtn{
  border:1px solid var(--line);background:var(--panel2);color:var(--text);
- border-radius:6px;padding:2px 6px;font-size:9px;cursor:pointer
+ border-radius:6px;padding:2px 6px;font-size:10px;cursor:pointer
 }
-.zoomPct{min-width:34px;text-align:center;font-size:8px;color:var(--muted)}
+.zoomPct{min-width:38px;text-align:center;font-size:10px;color:#cbe4dc}
 .legend{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:8px;padding:0 2px 4px}
 .grad{width:115px;height:7px;border-radius:20px;background:linear-gradient(90deg,#5a146f,#19495e,#1a806f,#a4bc40,#ffe655)}
 .wrap{
@@ -127,12 +128,12 @@ tr.focusedRow td.cell{opacity:1!important;filter:none!important}
 .insightItem:last-child{border-bottom:0}
 .insightItem.active{background:#103128}
 .insightItem.event{border-left:3px solid var(--danger)}
-.iRow{display:flex;align-items:center;gap:8px;min-height:18px}
-.iTitle{font-size:10.5px;font-weight:800;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.iStrength{font-size:9px;font-weight:850;white-space:nowrap}
-.iText{display:none;font-size:9.5px;color:#c9e8de;line-height:1.35;padding:3px 0 2px}
+.iRow{display:flex;align-items:center;gap:12px;min-height:24px}
+.iTitle{font-size:12.5px;font-weight:800;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.iStrength{font-size:12px;font-weight:850;white-space:nowrap}
+.iText{display:none;font-size:12.5px;color:#d7eee7;line-height:1.42;padding:5px 0 3px}
 .insightItem.active .iText{display:block}
-.focusTag{font-size:8.5px;color:var(--yellow);white-space:nowrap}
+.focusTag{font-size:11.5px;color:var(--yellow);white-space:nowrap;font-weight:750}
 .note{font-size:8px;color:var(--muted);padding:7px 2px;line-height:1.4}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:100;display:none;padding:14px}
 .modal.show{display:flex;align-items:center;justify-content:center}
@@ -153,35 +154,38 @@ tr.focusedRow td.cell{opacity:1!important;filter:none!important}
  .brandBox{grid-column:1}
  .priceBox{grid-column:2;grid-row:1}
  .scenario{grid-column:1/3;grid-row:2;min-height:auto;padding:5px 7px}
- .scenarioMain{font-size:12px}
- .scenarioLevels{font-size:9.3px}
- .scenarioTime{font-size:8.2px}
+ .scenarioMain{font-size:14px}
+ .scenarioLevels{font-size:10.8px}
+ .scenarioTime{font-size:9.6px}
  .quoteRail{
   grid-column:1/3;grid-row:3;min-height:auto;
   grid-template-columns:1fr;gap:2px;padding:5px 7px
  }
- .qline{font-size:9.8px}.qline b{font-size:9.8px}.qline .qprice{font-size:10.3px}.qmeta{font-size:8.2px}
- .bigprice{font-size:27px}
+ .qline{font-size:10.2px}.qline b{font-size:10.2px}.qline .qprice{font-size:10.8px}.qmeta{font-size:10.2px}
+ .bigprice{font-size:31px}
  .controls{padding-left:5px;padding-right:5px}
  .ctrl{font-size:8px;padding:3px 6px}
  main{padding:4px 3px 26px}
- .info{font-size:7.6px;gap:4px}
+ .info{font-size:9px;gap:5px;flex-wrap:wrap}
  .wrap{height:62vh;min-height:340px;border-radius:8px}
  .insights{display:block}
  .insightList{display:block;max-height:210px;overflow:auto}
  .insightItem{min-width:0;border-right:0;padding:5px 7px}
- .iTitle{font-size:10px}
- .iText{font-size:9px}
+ .iTitle{font-size:11.5px}
+ .iStrength{font-size:10.5px}
+ .focusTag{font-size:10px}
+ .iText{font-size:11.5px}
  .tooltip{width:min(230px,calc(100vw - 16px));font-size:8.5px}
 }
 @media(max-width:430px){
- .brand{font-size:17px}.brand span{font-size:8.3px}
- .small{font-size:8px}
- .bigprice{font-size:24px}
- .priceTime{font-size:7.8px}
+ .brand{font-size:18px}.brand span{font-size:9px}
+ .small{font-size:8.8px}
+ .brandBox #globalUpdate{font-size:9.5px}
+ .bigprice{font-size:28px}
+ .priceTime{font-size:9px}
  .quoteRail{grid-template-columns:1fr}
- .qline{font-size:9px}
- .scenarioTitle{font-size:9px}.scenarioMain{font-size:12px}.scenarioLevels{font-size:9.5px}
+ .qline{font-size:9.8px}.qline b{font-size:9.8px}.qline .qprice{font-size:10.4px}.qmeta{font-size:9.8px}
+ .scenarioTitle{font-size:9.5px}.scenarioMain{font-size:13px}.scenarioLevels{font-size:10px}
  .controls{gap:3px}.ctrl{font-size:7.5px;padding:3px 5px}
  .wrap{height:64vh}
 }
@@ -481,6 +485,12 @@ function selectInsight(i){
 
 
 function latestProb(){return PROB?.snapshots?.length?PROB.snapshots[PROB.snapshots.length-1]:null}
+function selectedProb(){
+ if(DATA?.probability?.matrix)return DATA.probability;
+ // Backward compatibility only for current snapshots created before v4.2.1.
+ if(MODE==="current")return latestProb();
+ return null;
+}
 function probSnapEtDay(s){return String(s?.time_et||"").slice(0,10)}
 function probKey(t){return String(Number(t))}
 function probCellAt(s,target,exp){return s?.matrix?.[probKey(target)]?.[exp]||null}
@@ -493,16 +503,20 @@ function probColor(p){
  return blend("#197a70","#ffe655",(x-.5)/.5);
 }
 function probDaySeries(target,exp,kind){
- const latest=latestProb();if(!latest)return [];
- const day=probSnapEtDay(latest);
- return (PROB.snapshots||[]).filter(s=>probSnapEtDay(s)===day).map(s=>({
-   time:s.time_et||s.time,value:probValueAt(s,target,exp,kind),spot:s.spot
- })).filter(x=>x.value!=null);
+ const base=selectedProb();if(!base)return [];
+ const day=probSnapEtDay(base);
+ const limit=base.time?new Date(base.time).getTime():Infinity;
+ return (PROB?.snapshots||[])
+  .filter(s=>probSnapEtDay(s)===day && (!s.time || new Date(s.time).getTime()<=limit+60000))
+  .map(s=>({time:s.time_et||s.time,value:probValueAt(s,target,exp,kind),spot:s.spot}))
+  .filter(x=>x.value!=null);
 }
 function probDeltaInfo(target,exp,kind){
  const arr=probDaySeries(target,exp,kind);if(!arr.length)return {last:null,day:null,series:arr};
- const last=arr[arr.length-1].value;
- const prev=arr.length>1?arr[arr.length-2].value:null;
+ const base=selectedProb(),baseV=probValueAt(base,target,exp,kind);
+ const last=baseV==null?arr[arr.length-1].value:baseV;
+ const prevCandidates=arr.filter(x=>!base?.time || new Date(x.time).getTime()<new Date(base.time).getTime()-30000);
+ const prev=prevCandidates.length?prevCandidates[prevCandidates.length-1].value:null;
  return {last:prev==null?null:last-prev,day:last-arr[0].value,series:arr};
 }
 function deltaMark(d){
@@ -511,14 +525,14 @@ function deltaMark(d){
  return `<span class="probDelta ${cls}">${arrow} ${d>0?"+":""}${(d*100).toFixed(1)} п.п.</span>`;
 }
 function probTooltipHtml(target,exp,c){
- const d=probDeltaInfo(target,exp,PROB_KIND),series=d.series;
+ const base=selectedProb(),d=probDeltaInfo(target,exp,PROB_KIND),series=d.series;
  const kind=PROB_KIND==="touch"?"касания":"закрытия за уровнем";
  const line=series.map(x=>`${clock(x.time,"America/New_York")} ${pp(x.value)}`).join(" → ");
  const dr=c.drivers||{};
  const dir=c.direction==="up"?"выше":"ниже";
  return `<div class="ttTitle">$${target} · ${fmtExpDate(exp)} · P ${kind}</div>
- <div style="font-size:10px;font-weight:850;margin-bottom:4px">${pp(c[PROB_KIND])} · ${dir} spot $${Number(latestProb()?.spot||0).toFixed(2)}</div>
- <div class="small" style="font-size:8.5px;margin-bottom:5px">Сегодня: ${line||"первый срез"}</div>
+ <div style="font-size:10.5px;font-weight:850;margin-bottom:4px">${pp(c[PROB_KIND])} · ${dir} spot $${Number(base?.spot||0).toFixed(2)}</div>
+ <div class="small" style="font-size:9px;margin-bottom:5px">Срезы дня: ${line||"истории пока нет"}</div>
  <div class="ttGrid">
   <span class="ttKey">Δ за срез</span><span class="ttVal">${d.last==null?"—":(d.last*100).toFixed(1)+" п.п."}</span>
   <span class="ttKey">Δ за день</span><span class="ttVal">${d.day==null?"—":(d.day*100).toFixed(1)+" п.п."}</span>
@@ -529,19 +543,19 @@ function probTooltipHtml(target,exp,c){
   <span class="ttKey">VEX</span><span class="ttVal">${fmtNum(dr.vex,"vex")}</span>
   <span class="ttKey">GEX</span><span class="ttVal">${fmtNum(dr.gex,"gex")}</span>
  </div>
- <div class="small" style="font-size:7.8px;margin-top:5px">Число строится из spot + срока + strike-local IV. VEX/GEX/OI/volume — контекст изменения, пока без исторической калибровки.</div>`;
+ <div class="small" style="font-size:8px;margin-top:5px">Вероятность: spot + срок + strike-local IV. VEX/GEX/OI/volume показываются как контекст.</div>`;
 }
 function attachProbEvents(){
  document.querySelectorAll("td.probCell").forEach(td=>{
    td.addEventListener("mouseenter",e=>{
-     const target=Number(td.dataset.target),exp=td.dataset.e,c=probCellAt(latestProb(),target,exp);if(!c)return;
+     const base=selectedProb(),target=Number(td.dataset.target),exp=td.dataset.e,c=probCellAt(base,target,exp);if(!c)return;
      const tt=document.getElementById("tooltip");tt.innerHTML=probTooltipHtml(target,exp,c);tt.classList.add("show");placeTooltip(e.clientX,e.clientY);
    });
    td.addEventListener("mousemove",e=>placeTooltip(e.clientX,e.clientY));
    td.addEventListener("mouseleave",hideTooltip);
    td.addEventListener("click",e=>{
      if(matchMedia("(hover: none)").matches){
-       const target=Number(td.dataset.target),exp=td.dataset.e,c=probCellAt(latestProb(),target,exp);if(!c)return;
+       const base=selectedProb(),target=Number(td.dataset.target),exp=td.dataset.e,c=probCellAt(base,target,exp);if(!c)return;
        const r=td.getBoundingClientRect(),tt=document.getElementById("tooltip");tt.innerHTML=probTooltipHtml(target,exp,c);tt.classList.add("show");placeTooltip(r.left+r.width/2,r.top+r.height/2);
        clearTimeout(TAP_TOOLTIP_TIMER);TAP_TOOLTIP_TIMER=setTimeout(()=>tt.classList.remove("show"),3200);
      }
@@ -549,12 +563,14 @@ function attachProbEvents(){
  });
 }
 function renderProbabilityView(){
- const s=latestProb();
+ const s=selectedProb();
  document.getElementById("legendUnit").textContent="P · модельная вероятность";
  if(!s){
-  document.getElementById("content").innerHTML=`<div class="error">Вероятностная история ещё не создана.<br><small>Она появится после первого current-среза в основной опционной сессии.</small></div>`;return;
+  const what=MODE==="previous_close"?"previous_close":"current";
+  document.getElementById("content").innerHTML=`<div class="error">В выбранном срезе ещё нет встроенной P%-матрицы.<br><small>Один раз запусти GitHub Action в режиме ${what} после установки v4.2.1.</small></div>`;return;
  }
- let h=`<div class="probToolbar"><button class="probKind ${PROB_KIND==="close"?"active":""}" data-kind="close">Закрытие</button><button class="probKind ${PROB_KIND==="touch"?"active":""}" data-kind="touch">Касание</button><span class="probExplain">spot $${Number(s.spot).toFixed(2)} · hover = вся Δ за день</span></div>`;
+ const historyCount=probDaySeries((s.targets||[])[0],(s.expirations||[])[0],PROB_KIND).length;
+ let h=`<div class="probToolbar"><button class="probKind ${PROB_KIND==="close"?"active":""}" data-kind="close">Закрытие</button><button class="probKind ${PROB_KIND==="touch"?"active":""}" data-kind="touch">Касание</button><span class="probExplain">срез $${Number(s.spot).toFixed(2)} · ${fmtExpDate(probSnapEtDay(s))} · ${historyCount?"hover = Δ/история":"история Δ ещё не накоплена"}</span></div>`;
  h+="<table><thead><tr><th class='strike'>Цена</th>";
  (s.expirations||[]).forEach(e=>h+=`<th>${fmtExpDate(e)}</th>`);h+="</tr></thead><tbody>";
  [...(s.targets||[])].sort((a,b)=>b-a).forEach(target=>{
@@ -576,14 +592,15 @@ function applyProbFocus(f){
  document.querySelector("#content tbody")?.classList.add("probDim");td.classList.add("probFocused");internalScrollToElement(td);
 }
 function probabilityInsightRows(){
- const s=latestProb();if(!s)return [];
+ const s=selectedProb();if(!s)return [];
  const current=(s.insights||[]).map(x=>({...x,_time:s.time}));
- const events=(PROB.events||[]).slice(0,18).map(x=>({...x,kind:"prob_event",_time:x.time}));
+ const selectedDay=probSnapEtDay(s);
+ const events=(PROB?.events||[]).filter(x=>!selectedDay||probSnapEtDay({time_et:x.time})===selectedDay).slice(0,18).map(x=>({...x,kind:"prob_event",_time:x.time}));
  const seen=new Set();return [...current,...events].filter(x=>{if(seen.has(x.id))return false;seen.add(x.id);return true}).slice(0,32);
 }
 function renderProbabilityInsights(){
  const list=document.getElementById("insightList"),arr=probabilityInsightRows();
- if(!arr.length){list.innerHTML='<div class="small" style="padding:9px">Вероятностные инсайты появятся после второго внутридневного среза.</div>';return}
+ if(!arr.length){list.innerHTML='<div class="small" style="padding:10px;font-size:11.5px;color:#d7eee7">Для этого среза пока нет вероятностных изменений. Базовые уровни уже видны в P%-матрице; Δ/⚡ появятся по мере накопления почасовых срезов.</div>';return}
  list.innerHTML=arr.map((x,i)=>{const st=clampStrength(x.strength),tm=x._time?clock(x._time,"Europe/Moscow")+" МСК":"";return `<button class="insightItem ${x.kind==="prob_event"?"event":""}" data-pi="${i}"><div class="iRow"><span class="iTitle">${x.title}</span><span class="focusTag">${tm}</span><span class="iStrength" style="color:${strengthColor(st)}">сила ${st}/100</span></div><div class="iText">${cleanInsightText(x.text)}</div></button>`}).join("");
  list.querySelectorAll(".insightItem").forEach(b=>b.onclick=()=>{
    const i=Number(b.dataset.pi),x=arr[i];
@@ -742,7 +759,7 @@ function render(){
  if(!DATA)return;
  renderScenario();renderActiveView();renderInsights();
  document.getElementById("snapshotInfo").innerHTML=
-  `<b>${DATA.snapshot_label}</b> · OI: ${DATA.oi_settlement_date} · ${DATA.diagnostics?.strike_count||0} страйков (${DATA.diagnostics?.min_strike}…${DATA.diagnostics?.max_strike}) · ${DATA.diagnostics?.expiration_count||0} экспираций`;
+  `<b>${DATA.snapshot_label}</b> · OI: ${fmtExpDate(DATA.oi_settlement_date)} · ${DATA.diagnostics?.strike_count||0} страйков (${DATA.diagnostics?.min_strike}…${DATA.diagnostics?.max_strike}) · ${DATA.diagnostics?.expiration_count||0} экспираций`;
 }
 
 async function loadMarket(){

@@ -832,13 +832,27 @@ def probability_target_levels(snapshot, max_targets=12):
     return vals
 
 
+def probability_asof_et(snapshot):
+    """Timestamp represented by the probability matrix, not merely file generation time."""
+    if snapshot.get("mode") == "previous_close":
+        try:
+            d = datetime.strptime(snapshot["previous_us_session"], "%Y-%m-%d")
+            return d.replace(hour=16, minute=0, second=0, microsecond=0, tzinfo=NY)
+        except Exception:
+            pass
+    try:
+        return datetime.fromisoformat(snapshot["updated_et"]).astimezone(NY)
+    except Exception:
+        return datetime.now(NY)
+
+
 def probability_cell(snapshot, target, exp):
     spot = safe_num(snapshot.get("spot"))
     if spot <= 0:
         return None
     try:
         exp_dt = datetime.strptime(exp, "%Y-%m-%d").replace(hour=16, tzinfo=NY)
-        now_et = datetime.fromisoformat(snapshot["updated_et"])
+        now_et = probability_asof_et(snapshot)
     except Exception:
         return None
     T = (exp_dt - now_et).total_seconds() / (365.0*24*3600)
@@ -894,9 +908,11 @@ def probability_snapshot(snapshot):
                 row[exp] = v
         if row:
             matrix[f"{target:g}"] = row
+    asof_et = probability_asof_et(snapshot)
     return {
-        "time": snapshot["updated_utc"],
-        "time_et": snapshot["updated_et"],
+        "time": asof_et.astimezone(UTC).isoformat(),
+        "time_et": asof_et.isoformat(),
+        "generated_utc": snapshot["updated_utc"],
         "spot": snapshot["spot"],
         "expirations": expirations,
         "targets": targets,
@@ -984,16 +1000,16 @@ def probability_insights(current, previous=None, day_first=None):
     return insights[:30]
 
 
-def update_probability_history(snapshot):
+def update_probability_history(snapshot, cur=None):
     """Store hourly probability snapshots for seven days. Only valid during US cash option hours."""
     now_et = datetime.fromisoformat(snapshot["updated_et"])
     if now_et.weekday() >= 5 or not (dtime(9,30) <= now_et.time() <= dtime(16,5)):
         print("Probability history skipped outside regular US option session")
-        return
+        return None
 
     doc = read_json(PROB_HISTORY, {}) or {}
     old = doc.get("snapshots", [])
-    cur = probability_snapshot(snapshot)
+    cur = cur or probability_snapshot(snapshot)
 
     # Previous snapshot and first snapshot of current ET day.
     prev = old[-1] if old else None
@@ -1037,6 +1053,7 @@ def update_probability_history(snapshot):
     }
     write_json(PROB_HISTORY, out)
     print("Wrote", PROB_HISTORY, "snapshots", len(snapshots))
+    return cur
 
 def build_snapshot(mode, market_tape):
     now_utc = datetime.now(UTC)
@@ -1188,8 +1205,15 @@ def build_snapshot(mode, market_tape):
     snapshot["insights"] = insights
     snapshot["scenario"] = scenario
     snapshot["recent_events"] = events[:30]
+
+    # Every snapshot owns its probability matrix. History is only an overlay for deltas/events.
+    prob = probability_snapshot(snapshot)
+    prob["insights"] = probability_insights(prob)
+    snapshot["probability"] = prob
     if mode == "current":
-        update_probability_history(snapshot)
+        enriched = update_probability_history(snapshot, prob)
+        if enriched is not None:
+            snapshot["probability"] = enriched
     return snapshot
 
 def main():
