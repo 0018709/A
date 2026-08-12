@@ -1,0 +1,11 @@
+{
+  "symbol": "NBIS",
+  "mode": "previous_close",
+  "snapshot_label": "Placeholder — run GitHub Action",
+  "spot": 0,
+  "expirations": [],
+  "strikes": [],
+  "rows": [],
+  "prices": {},
+  "diagnostics": {}
+}

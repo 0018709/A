@@ -1,194 +1,226 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-  <meta name="theme-color" content="#071411"/>
-  <title>NBIS VEX / GEX</title>
-  <style>
-    :root{
-      --bg:#04100d; --panel:#0a1a16; --panel2:#0e251f; --text:#eafff7;
-      --muted:#8eb6aa; --line:#173c32; --accent:#45e7b0; --spot:#ffd85b;
-    }
-    *{box-sizing:border-box}
-    body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
-    header{position:sticky;top:0;z-index:20;background:rgba(4,16,13,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:12px 12px 10px}
-    .top{display:flex;align-items:end;justify-content:space-between;gap:12px}
-    .symbol{font-weight:800;font-size:22px;letter-spacing:.3px}
-    .price{font-size:28px;font-weight:800}
-    .meta{font-size:12px;color:var(--muted);margin-top:3px}
-    .controls{display:flex;gap:8px;overflow:auto;padding-top:10px;-webkit-overflow-scrolling:touch}
-    button,select{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-weight:650}
-    button.active{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
-    main{padding:10px 8px 40px}
-    .legend{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:11px;padding:2px 4px 10px}
-    .grad{width:160px;height:10px;border-radius:20px;background:linear-gradient(90deg,#4a1365 0%,#19485f 26%,#1b7f72 50%,#a9bd42 76%,#ffe653 100%)}
-    .wrap{overflow:auto;border:1px solid var(--line);border-radius:14px;background:var(--panel);-webkit-overflow-scrolling:touch;max-height:76vh}
-    table{border-collapse:separate;border-spacing:0;min-width:760px;width:100%;font-size:11px}
-    th,td{border-right:1px solid rgba(23,60,50,.55);border-bottom:1px solid rgba(23,60,50,.55);padding:0;text-align:center;height:34px}
-    thead th{position:sticky;top:0;z-index:8;background:#0b211b;padding:6px 5px;height:42px}
-    .strike{position:sticky;left:0;z-index:7;background:#0b211b!important;width:64px;min-width:64px;font-weight:700}
-    thead .strike{z-index:10}
-    tr.nearspot .strike{color:var(--spot)}
-    td.cell{position:relative;min-width:96px;cursor:pointer}
-    td.cell .val{position:relative;z-index:2;font-variant-numeric:tabular-nums;font-weight:700;text-shadow:0 1px 2px rgba(0,0,0,.55)}
-    td.cell .bar{position:absolute;left:2px;right:2px;top:3px;bottom:3px;border-radius:5px;opacity:.9}
-    .spotline{position:absolute;left:0;right:0;height:2px;background:var(--spot);box-shadow:0 0 7px rgba(255,216,91,.8);pointer-events:none;z-index:6}
-    .card{margin-top:12px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px;display:none}
-    .card.show{display:block}
-    .card h3{margin:0 0 8px;font-size:15px}
-    .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-    .kv{background:#0c211b;border-radius:9px;padding:8px}
-    .kv b{display:block;font-size:12px}.kv span{font-size:11px;color:var(--muted)}
-    .warn{font-size:11px;color:var(--muted);line-height:1.4;margin-top:12px;padding:0 4px}
-    .error{padding:30px 16px;text-align:center;color:#ffb6b6}
-    @media (max-width:600px){
-      header{padding-top:max(10px,env(safe-area-inset-top))}
-      .price{font-size:24px}
-      table{min-width:700px}
-      td.cell{min-width:88px}
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#06120f">
+<title>NBIS VEX / GEX</title>
+<style>
+:root{
+ --bg:#05110e;--panel:#0a1b16;--panel2:#0d251e;--text:#eafff7;
+ --muted:#8caea4;--line:#173d32;--accent:#3fe6ad;--yellow:#ffe36a;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+header{position:sticky;top:0;z-index:30;background:rgba(5,17,14,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:10px 10px 9px}
+.headrow{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.title{font-size:20px;font-weight:850}.sub{font-size:11px;color:var(--muted);margin-top:2px}
+.mainprice{text-align:right;font-size:28px;font-weight:850;white-space:nowrap}
+.marketlines{margin-top:7px;display:grid;grid-template-columns:1fr;gap:3px;font-size:11px;color:var(--muted)}
+.marketlines b{color:var(--text);font-weight:700}
+.holiday{color:#ffc978!important;font-weight:800}
+.controls{display:flex;gap:7px;overflow:auto;padding-top:9px;-webkit-overflow-scrolling:touch}
+button{background:var(--panel2);color:var(--text);border:1px solid var(--line);border-radius:9px;padding:8px 11px;font-weight:700;white-space:nowrap}
+button.active{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+main{padding:9px 7px 35px}
+.snapshot{font-size:11px;color:var(--muted);padding:2px 3px 8px;line-height:1.45}
+.legend{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:10px;padding:0 3px 8px}
+.grad{width:145px;height:9px;border-radius:20px;background:linear-gradient(90deg,#52146f,#184a62,#167d70,#9ebd43,#ffe75d)}
+.wrap{overflow:auto;border:1px solid var(--line);border-radius:13px;background:var(--panel);max-height:73vh;-webkit-overflow-scrolling:touch}
+table{border-collapse:separate;border-spacing:0;width:max-content;min-width:100%;font-size:10px}
+th,td{height:32px;min-width:88px;border-right:1px solid rgba(23,61,50,.55);border-bottom:1px solid rgba(23,61,50,.55);text-align:center;padding:0}
+thead th{position:sticky;top:0;z-index:8;background:#0b211b;height:39px;padding:4px}
+.strike{position:sticky;left:0;z-index:7;background:#0b211b!important;min-width:58px;width:58px;font-weight:800}
+thead .strike{z-index:10}
+.nearspot .strike{color:var(--yellow)}
+td.cell{position:relative;cursor:pointer}
+.bar{position:absolute;inset:3px 2px;border-radius:5px;opacity:.92}
+.val{position:relative;z-index:2;font-weight:750;font-variant-numeric:tabular-nums;text-shadow:0 1px 2px #000}
+.card{display:none;margin-top:10px;background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:11px}
+.card.show{display:block}.card h3{margin:0 0 8px;font-size:14px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.kv{background:#0d211b;border-radius:8px;padding:8px}.kv b{display:block;font-size:12px}.kv span{font-size:10px;color:var(--muted)}
+.note{font-size:10px;color:var(--muted);padding:10px 3px;line-height:1.4}
+.error{text-align:center;padding:28px 14px;color:#ffb9b9}
+@media(max-width:600px){
+ header{padding-top:max(9px,env(safe-area-inset-top))}
+ .mainprice{font-size:25px}
+ th,td{min-width:84px}
+}
+</style>
 </head>
 <body>
 <header>
-  <div class="top">
-    <div>
-      <div class="symbol">NBIS <span style="color:var(--muted);font-weight:600;font-size:13px">options heatmap</span></div>
-      <div class="meta" id="updated">Загрузка данных…</div>
-    </div>
-    <div class="price" id="spot">—</div>
+ <div class="headrow">
+  <div>
+   <div class="title">NBIS <span style="font-size:12px;color:var(--muted);font-weight:650">VEX / GEX</span></div>
+   <div class="sub" id="priceUpdate">Загрузка…</div>
   </div>
-  <div class="controls">
-    <button class="metric active" data-metric="vex">VEX</button>
-    <button class="metric" data-metric="gex">GEX</button>
-    <button class="metric" data-metric="oi">OI</button>
-    <button class="metric" data-metric="iv">IV</button>
-    <button id="reload">↻ Refresh</button>
-  </div>
+  <div class="mainprice" id="spot">—</div>
+ </div>
+
+ <div class="marketlines">
+   <div id="usLine">NASDAQ: —</div>
+   <div id="preLine">Premarket: —</div>
+   <div id="euLine">Europe: —</div>
+ </div>
+
+ <div class="controls">
+   <button class="mode active" data-mode="previous_close">Prev close</button>
+   <button class="mode" data-mode="current">Current</button>
+   <button class="metric active" data-metric="vex">VEX</button>
+   <button class="metric" data-metric="gex">GEX</button>
+   <button class="metric" data-metric="oi">OI</button>
+   <button class="metric" data-metric="iv">IV</button>
+   <button id="reload">↻</button>
+ </div>
 </header>
 
 <main>
-  <div class="legend"><span>−</span><div class="grad"></div><span>+</span><span id="legendUnit"></span></div>
-  <div class="wrap" id="wrap">
-    <div id="content"><div class="error">Загрузка…</div></div>
-  </div>
-  <div class="card" id="details"></div>
-  <div class="warn">
-    VEX/GEX здесь — модель по публичным OI/IV Yahoo. Знак NET построен как calls − puts и не является фактически известной позицией дилеров.
-  </div>
+ <div class="snapshot" id="snapshotInfo"></div>
+ <div class="legend"><span>−</span><div class="grad"></div><span>+</span><span id="legendUnit"></span></div>
+ <div class="wrap"><div id="content"><div class="error">Загрузка…</div></div></div>
+ <div class="card" id="details"></div>
+ <div class="note">
+   OI: OCC, расчёты предыдущего торгового дня. IV: Yahoo. NET VEX/GEX = эвристика calls − puts, а не известная позиция дилеров.
+ </div>
 </main>
 
 <script>
-let DATA=null, METRIC="vex";
+let DATA=null, METRIC="vex", MODE="previous_close";
 
-function fmt(x, metric){
-  if(x==null || !isFinite(x)) return "—";
-  if(metric==="iv") return (x*100).toFixed(1)+"%";
-  if(metric==="oi") return Math.round(x).toLocaleString("en-US");
-  const a=Math.abs(x), s=x<0?"−":"+";
-  if(a>=1e9) return s+(a/1e9).toFixed(2)+"B";
-  if(a>=1e6) return s+(a/1e6).toFixed(2)+"M";
-  if(a>=1e3) return s+(a/1e3).toFixed(1)+"K";
-  return (x<0?"−":"")+a.toFixed(0);
+function fmtNum(x,metric){
+ if(x==null||!isFinite(x))return "—";
+ if(metric==="iv")return (x*100).toFixed(1)+"%";
+ if(metric==="oi")return Math.round(x).toLocaleString("en-US");
+ const a=Math.abs(x),s=x<0?"−":"+";
+ if(a>=1e9)return s+(a/1e9).toFixed(2)+"B";
+ if(a>=1e6)return s+(a/1e6).toFixed(2)+"M";
+ if(a>=1e3)return s+(a/1e3).toFixed(1)+"K";
+ return (x<0?"−":"")+a.toFixed(0);
 }
-
-function colorFor(v, maxAbs, metric){
-  if(v==null || !isFinite(v)) return "transparent";
-  if(metric==="oi" || metric==="iv"){
-    const t=Math.max(0,Math.min(1,v/(maxAbs||1)));
-    const h=165-70*t, l=25+28*t;
-    return `hsl(${h} 65% ${l}%)`;
-  }
-  const t=Math.max(-1,Math.min(1,v/(maxAbs||1)));
-  if(t<0){
-    const u=-t;
-    return `hsl(${200+80*u} ${55+15*u}% ${30-8*u}%)`;
-  }else{
-    return `hsl(${165-110*t} ${55+25*t}% ${30+20*t}%)`;
-  }
+function fmtPrice(x,currency="$"){
+ return x==null||!isFinite(x)?"—":currency+Number(x).toFixed(2);
 }
+function fmtTime(iso,tz){
+ if(!iso)return "—";
+ return new Date(iso).toLocaleString("ru-RU",{
+   timeZone:tz,day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"
+ });
+}
+function marketState(m){
+ if(!m)return "";
+ if(m.holiday)return " · <span class='holiday'>выходной</span>";
+ if(m.status==="open")return " · торги";
+ if(m.status==="pre")return " · до открытия";
+ return " · закрыто";
+}
+function renderPrices(){
+ const p=DATA.prices||{},us=p.us||{},eu=p.eu||{};
+ const reg=us.regular;
+ document.getElementById("spot").textContent=reg?fmtPrice(reg.price,"$"):fmtPrice(DATA.spot,"$");
+ document.getElementById("priceUpdate").textContent=
+   reg?"Цена обновлена "+fmtTime(reg.time,"America/New_York")+" ET":"Цена: нет свежей котировки";
 
+ document.getElementById("usLine").innerHTML=
+   `<b>NASDAQ</b>: ${reg?fmtPrice(reg.price,"$"):"—"} · ${reg?fmtTime(reg.time,"America/New_York")+" ET":"—"}${marketState(us.market)}`;
+
+ const pre=us.premarket;
+ document.getElementById("preLine").innerHTML=
+   `<b>Premarket</b>: ${pre?fmtPrice(pre.price,"$"):"—"}${pre?" · "+fmtTime(pre.time,"America/New_York")+" ET":""}${us.market?.holiday?" · <span class='holiday'>выходной</span>":""}`;
+
+ const er=eu.regular;
+ const eur=er?fmtPrice(er.price,"€"):"—";
+ const usd=eu.usd_price!=null?` ($${Number(eu.usd_price).toFixed(2)})`:"";
+ document.getElementById("euLine").innerHTML=
+   `<b>${eu.exchange||"Europe"} ${eu.symbol||"YDX"}</b>: ${eur}${usd}${er?" · "+fmtTime(er.time,"Europe/Berlin")+" CET/CEST":""}${marketState(eu.market)}`;
+}
+function colorFor(v,maxAbs,metric){
+ if(v==null||!isFinite(v))return "transparent";
+ if(metric==="oi"||metric==="iv"){
+   const t=Math.max(0,Math.min(1,v/(maxAbs||1)));
+   return `hsl(${165-70*t} ${55+20*t}% ${25+26*t}%)`;
+ }
+ const t=Math.max(-1,Math.min(1,v/(maxAbs||1)));
+ if(t<0){const u=-t;return `hsl(${205+75*u} ${55+15*u}% ${29-7*u}%)`}
+ return `hsl(${165-110*t} ${55+25*t}% ${29+21*t}%)`;
+}
 function render(){
-  if(!DATA) return;
-  const exps=DATA.expirations||[], rows=DATA.rows||[];
-  let vals=[];
-  rows.forEach(r=>exps.forEach(e=>{
-    const c=r.values?.[e];
-    if(c && isFinite(c[METRIC])) vals.push(METRIC==="iv"||METRIC==="oi" ? c[METRIC] : Math.abs(c[METRIC]));
-  }));
-  vals.sort((a,b)=>a-b);
-  const maxAbs = vals.length ? vals[Math.floor(vals.length*0.96)] || vals[vals.length-1] : 1;
+ if(!DATA)return;
+ renderPrices();
 
-  let html="<table><thead><tr><th class='strike'>Strike</th>";
-  exps.forEach(e=>html+=`<th>${e.slice(5)}</th>`);
-  html+="</tr></thead><tbody>";
+ const exps=DATA.expirations||[],rows=DATA.rows||[];
+ document.getElementById("snapshotInfo").innerHTML=
+   `<b>${DATA.snapshot_label||MODE}</b> · OI settlement: ${DATA.oi_settlement_date||"—"} · `+
+   `${rows.length} strikes (${DATA.diagnostics?.min_strike??"—"} … ${DATA.diagnostics?.max_strike??"—"}) · `+
+   `${exps.length} expirations · snapshot ${fmtTime(DATA.updated_et,"America/New_York")} ET`;
 
-  let nearest=null, nearestDist=Infinity;
-  rows.forEach((r,i)=>{
-    const d=Math.abs(r.strike-DATA.spot); if(d<nearestDist){nearestDist=d; nearest=i;}
-  });
+ let vals=[];
+ rows.forEach(r=>exps.forEach(e=>{
+   const c=r.values?.[e];
+   if(c&&isFinite(c[METRIC]))vals.push((METRIC==="oi"||METRIC==="iv")?c[METRIC]:Math.abs(c[METRIC]));
+ }));
+ vals.sort((a,b)=>a-b);
+ const maxAbs=vals.length?(vals[Math.floor(vals.length*.97)]||vals[vals.length-1]||1):1;
 
-  rows.forEach((r,i)=>{
-    html+=`<tr class="${i===nearest?'nearspot':''}"><th class="strike">${r.strike}</th>`;
-    exps.forEach(e=>{
-      const c=r.values?.[e];
-      if(!c){ html+="<td class='cell'></td>"; return; }
-      const v=c[METRIC];
-      const bg=colorFor(v,maxAbs,METRIC);
-      html+=`<td class="cell" data-strike="${r.strike}" data-exp="${e}">
-        <div class="bar" style="background:${bg}"></div><span class="val">${fmt(v,METRIC)}</span>
-      </td>`;
-    });
-    html+="</tr>";
-  });
-  html+="</tbody></table>";
-  document.getElementById("content").innerHTML=html;
+ let nearest=0,dist=Infinity;
+ rows.forEach((r,i)=>{const d=Math.abs(r.strike-DATA.spot);if(d<dist){dist=d;nearest=i}});
 
-  document.querySelectorAll("td.cell[data-strike]").forEach(td=>{
-    td.addEventListener("click",()=>showDetails(parseFloat(td.dataset.strike), td.dataset.exp));
-  });
-  document.getElementById("legendUnit").textContent = METRIC==="iv"?"IV":METRIC==="oi"?"Open interest":"heuristic exposure";
+ let h="<table><thead><tr><th class='strike'>Strike</th>";
+ exps.forEach(e=>h+=`<th>${e.slice(2)}</th>`);
+ h+="</tr></thead><tbody>";
+ rows.forEach((r,i)=>{
+   h+=`<tr class="${i===nearest?"nearspot":""}"><th class="strike">${r.strike}</th>`;
+   exps.forEach(e=>{
+     const c=r.values?.[e];
+     if(!c){h+="<td></td>";return}
+     const v=c[METRIC],bg=colorFor(v,maxAbs,METRIC);
+     h+=`<td class="cell" data-s="${r.strike}" data-e="${e}"><div class="bar" style="background:${bg}"></div><span class="val">${fmtNum(v,METRIC)}</span></td>`;
+   });
+   h+="</tr>";
+ });
+ h+="</tbody></table>";
+ document.getElementById("content").innerHTML=h;
+ document.getElementById("legendUnit").textContent=METRIC==="oi"?"Open interest":METRIC==="iv"?"IV":"exposure";
+
+ document.querySelectorAll("td.cell").forEach(td=>td.onclick=()=>showDetails(Number(td.dataset.s),td.dataset.e));
 }
-
-function showDetails(strike, exp){
-  const row=DATA.rows.find(r=>Number(r.strike)===Number(strike));
-  const c=row?.values?.[exp]; if(!c) return;
-  const d=document.getElementById("details");
-  d.innerHTML=`<h3>${DATA.symbol} ${strike} · ${exp}</h3>
-  <div class="grid">
-   <div class="kv"><b>${fmt(c.vex,"vex")}</b><span>Net VEX</span></div>
-   <div class="kv"><b>${fmt(c.gex,"gex")}</b><span>Net GEX</span></div>
-   <div class="kv"><b>${fmt(c.call.oi,"oi")}</b><span>Call OI · IV ${fmt(c.call.iv,"iv")}</span></div>
-   <div class="kv"><b>${fmt(c.put.oi,"oi")}</b><span>Put OI · IV ${fmt(c.put.iv,"iv")}</span></div>
-   <div class="kv"><b>${fmt(c.call.vex,"vex")}</b><span>Call VEX</span></div>
-   <div class="kv"><b>${fmt(c.put.vex,"vex")}</b><span>Put VEX</span></div>
-  </div>`;
-  d.classList.add("show");
-  d.scrollIntoView({behavior:"smooth",block:"nearest"});
+function showDetails(s,e){
+ const r=DATA.rows.find(x=>Number(x.strike)===Number(s)),c=r?.values?.[e];if(!c)return;
+ const d=document.getElementById("details");
+ d.innerHTML=`<h3>NBIS ${s} · ${e}</h3><div class="grid">
+  <div class="kv"><b>${fmtNum(c.vex,"vex")}</b><span>Net VEX</span></div>
+  <div class="kv"><b>${fmtNum(c.gex,"gex")}</b><span>Net GEX</span></div>
+  <div class="kv"><b>${fmtNum(c.call.oi,"oi")}</b><span>Call OI (OCC) · IV ${fmtNum(c.call.iv,"iv")}</span></div>
+  <div class="kv"><b>${fmtNum(c.put.oi,"oi")}</b><span>Put OI (OCC) · IV ${fmtNum(c.put.iv,"iv")}</span></div>
+  <div class="kv"><b>${fmtNum(c.call.vex,"vex")}</b><span>Call VEX</span></div>
+  <div class="kv"><b>${fmtNum(c.put.vex,"vex")}</b><span>Put VEX</span></div>
+ </div>`;
+ d.classList.add("show");d.scrollIntoView({behavior:"smooth",block:"nearest"});
 }
-
 async function load(){
-  document.getElementById("updated").textContent="Загрузка данных…";
-  try{
-    const r=await fetch("data/latest.json?ts="+Date.now(),{cache:"no-store"});
-    if(!r.ok) throw new Error("latest.json not found yet");
-    DATA=await r.json();
-    if(!DATA.spot || !DATA.rows || DATA.rows.length===0){
-      throw new Error("Первый снимок ещё не создан — запусти GitHub Action вручную один раз");
-    }
-    document.getElementById("spot").textContent="$"+Number(DATA.spot).toFixed(2);
-    const dt=new Date(DATA.updated_et);
-    document.getElementById("updated").textContent="Обновлено: "+dt.toLocaleString("ru-RU",{timeZone:"America/New_York",month:"short",day:"2-digit",hour:"2-digit",minute:"2-digit"})+" ET";
-    render();
-  }catch(e){
-    document.getElementById("content").innerHTML=`<div class="error">Данных ещё нет.<br><small>${e.message}</small><br><br>После первого запуска GitHub Action здесь появится карта.</div>`;
-    document.getElementById("updated").textContent="Нет данных";
-  }
+ const path=MODE==="previous_close"?"data/previous_close.json":"data/latest.json";
+ document.getElementById("snapshotInfo").textContent="Загрузка "+MODE+"…";
+ try{
+   let r=await fetch(path+"?t="+Date.now(),{cache:"no-store"});
+   if(!r.ok&&MODE==="previous_close"){
+     r=await fetch("data/latest.json?t="+Date.now(),{cache:"no-store"});
+   }
+   if(!r.ok)throw new Error("snapshot not found");
+   DATA=await r.json();
+   if(!DATA.rows||DATA.rows.length===0)throw new Error("snapshot empty");
+   render();
+ }catch(e){
+   document.getElementById("content").innerHTML=`<div class="error">${e.message}<br><small>Запусти GitHub Action для выбранного snapshot.</small></div>`;
+ }
 }
 document.querySelectorAll(".metric").forEach(b=>b.onclick=()=>{
-  document.querySelectorAll(".metric").forEach(x=>x.classList.remove("active"));
-  b.classList.add("active"); METRIC=b.dataset.metric; render();
+ document.querySelectorAll(".metric").forEach(x=>x.classList.remove("active"));
+ b.classList.add("active");METRIC=b.dataset.metric;render();
+});
+document.querySelectorAll(".mode").forEach(b=>b.onclick=()=>{
+ document.querySelectorAll(".mode").forEach(x=>x.classList.remove("active"));
+ b.classList.add("active");MODE=b.dataset.mode;load();
 });
 document.getElementById("reload").onclick=load;
 load();
