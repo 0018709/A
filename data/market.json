@@ -1,8 +1,8 @@
 {
   "symbol": "NBIS",
-  "updated_utc": "2026-08-13T21:57:32.067558+00:00",
-  "updated_et": "2026-08-13T17:57:32.067558-04:00",
-  "updated_msk": "2026-08-14T00:57:32.067558+03:00",
+  "updated_utc": "2026-08-13T22:23:00.818806+00:00",
+  "updated_et": "2026-08-13T18:23:00.818806-04:00",
+  "updated_msk": "2026-08-14T01:23:00.818806+03:00",
   "us": {
     "exchange": "NASDAQ",
     "currency": "USD",
@@ -26,21 +26,21 @@
       "date_et": "2026-08-13"
     },
     "postmarket": {
-      "price": 255.82,
-      "time": "2026-08-13T17:57:27-04:00",
+      "price": 256.6,
+      "time": "2026-08-13T18:22:53-04:00",
       "date_et": "2026-08-13"
     },
     "source": "Yahoo Finance via yfinance"
   },
   "active_us": {
     "session": "postmarket",
-    "price": 255.82,
-    "time": "2026-08-13T17:57:27-04:00",
+    "price": 256.6,
+    "time": "2026-08-13T18:22:53-04:00",
     "date_et": "2026-08-13",
     "move_from_last_update": {
-      "absolute": 0.01999999999998181,
-      "percent": 0.00781860828771297,
-      "from_time": "2026-08-13T17:26:32-04:00"
+      "absolute": 0.7800000000000296,
+      "percent": 0.3049018841372986,
+      "from_time": "2026-08-13T17:57:27-04:00"
     },
     "source": "Yahoo Finance via yfinance"
   },
@@ -51,19 +51,19 @@
     "market": {
       "calendar": "XETR",
       "holiday": false,
-      "status": "closed",
-      "date": "2026-08-13",
-      "open": "2026-08-13T07:00:00+00:00",
-      "close": "2026-08-13T15:30:00+00:00"
+      "status": "pre",
+      "date": "2026-08-14",
+      "open": "2026-08-14T07:00:00+00:00",
+      "close": "2026-08-14T15:30:00+00:00"
     },
     "regular": {
       "price": 228.1999969482422,
       "time": "2026-08-13T17:27:00+02:00"
     },
-    "usd_price": 263.1457439040787,
+    "usd_price": 263.2064622489088,
     "fx": {
-      "price": 1.1531364917755127,
-      "time": "2026-08-13T22:57:00+01:00"
+      "price": 1.15340256690979,
+      "time": "2026-08-13T23:22:00+01:00"
     },
     "source": "Yahoo Finance via yfinance"
   }
