@@ -84,15 +84,27 @@ def bs_gamma_vanna(S, K, T, sigma, r=RISK_FREE_RATE, q=0.0):
     vanna = -disc_q * phi * d2 / sigma
     return gamma, vanna
 
+_CALENDARS = {}
+
+def get_cal(name):
+    """Cached calendar with default (wide) bounds.
+
+    Never pass narrow start/end here: exchange_calendars snaps the bounds to
+    the nearest real sessions, so a start that lands on a weekend/holiday
+    becomes a *later* first_session and any query using the raw start date
+    then raises DateOutOfBounds.
+    """
+    cal = _CALENDARS.get(name)
+    if cal is None:
+        cal = xcals.get_calendar(name)
+        _CALENDARS[name] = cal
+    return cal
+
 def calendar_info(name, local_tz, now_utc):
     now_local = now_utc.astimezone(local_tz)
     d = pd.Timestamp(now_local.date())
-    cal = xcals.get_calendar(
-        name,
-        start=d - pd.Timedelta(days=15),
-        end=d + pd.Timedelta(days=15),
-    )
-    if not cal.is_session(d):
+    cal = get_cal(name)
+    if d < cal.first_session or d > cal.last_session or not cal.is_session(d):
         return {
             "calendar": name, "holiday": True, "status": "holiday",
             "date": str(now_local.date()), "open": None, "close": None,
@@ -110,12 +122,12 @@ def calendar_info(name, local_tz, now_utc):
 
 def previous_us_session(now_utc):
     today = pd.Timestamp(now_utc.astimezone(NY).date())
-    cal = xcals.get_calendar(
-        "XNYS",
-        start=today - pd.Timedelta(days=20),
-        end=today + pd.Timedelta(days=3),
-    )
-    sessions = cal.sessions_in_range(today - pd.Timedelta(days=20), today)
+    cal = get_cal("XNYS")
+    start = max(today - pd.Timedelta(days=20), cal.first_session)
+    end = min(today, cal.last_session)
+    if start > end:
+        raise RuntimeError("Could not determine previous US session")
+    sessions = cal.sessions_in_range(start, end)
     prior = [s for s in sessions if s.date() < today.date()]
     if not prior:
         raise RuntimeError("Could not determine previous US session")
