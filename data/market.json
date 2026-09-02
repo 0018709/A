@@ -1,8 +1,8 @@
 {
   "symbol": "NBIS",
-  "updated_utc": "2026-09-02T04:21:48.559883+00:00",
-  "updated_et": "2026-09-02T00:21:48.559883-04:00",
-  "updated_msk": "2026-09-02T07:21:48.559883+03:00",
+  "updated_utc": "2026-09-02T11:11:01.149393+00:00",
+  "updated_et": "2026-09-02T07:11:01.149393-04:00",
+  "updated_msk": "2026-09-02T14:11:01.149393+03:00",
   "us": {
     "exchange": "NASDAQ",
     "currency": "USD",
@@ -14,11 +14,11 @@
       "open": "2026-09-02T13:30:00+00:00",
       "close": "2026-09-02T20:00:00+00:00"
     },
-    "current_session": "closed",
+    "current_session": "premarket",
     "premarket": {
-      "price": 199.9,
-      "time": "2026-09-01T09:29:00-04:00",
-      "date_et": "2026-09-01"
+      "price": 194.4524,
+      "time": "2026-09-02T07:10:59-04:00",
+      "date_et": "2026-09-02"
     },
     "regular": {
       "price": 199.60000610351562,
@@ -33,14 +33,14 @@
     "source": "Yahoo Finance via yfinance"
   },
   "active_us": {
-    "session": "postmarket",
-    "price": 197.9,
-    "time": "2026-09-01T19:59:00-04:00",
-    "date_et": "2026-09-01",
+    "session": "premarket",
+    "price": 194.4524,
+    "time": "2026-09-02T07:10:59-04:00",
+    "date_et": "2026-09-02",
     "move_from_last_update": {
-      "absolute": 0.2600000000000193,
-      "percent": 0.1315523173446742,
-      "from_time": "2026-09-01T19:15:15-04:00"
+      "absolute": -3.4475999999999942,
+      "percent": -1.7420919656392142,
+      "from_time": "2026-09-01T19:59:00-04:00"
     },
     "source": "Yahoo Finance via yfinance"
   },
@@ -51,19 +51,19 @@
     "market": {
       "calendar": "XETR",
       "holiday": false,
-      "status": "pre",
+      "status": "open",
       "date": "2026-09-02",
       "open": "2026-09-02T07:00:00+00:00",
       "close": "2026-09-02T15:30:00+00:00"
     },
     "regular": {
-      "price": 173.0,
-      "time": "2026-09-01T17:29:00+02:00"
+      "price": 168.1199951171875,
+      "time": "2026-09-02T12:50:00+02:00"
     },
-    "usd_price": 200.30104279518127,
+    "usd_price": 194.60585354651266,
     "fx": {
-      "price": 1.1578094959259033,
-      "time": "2026-09-02T05:20:00+01:00"
+      "price": 1.1575413942337036,
+      "time": "2026-09-02T12:10:00+01:00"
     },
     "source": "Yahoo Finance via yfinance"
   }
