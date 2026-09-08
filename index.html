@@ -219,8 +219,8 @@ tr.focusedRow td.cell{opacity:1!important;filter:none!important}
  </div>
 
  <div class="controls">
-   <button class="ctrl mode active" data-mode="previous_close">Пред. срез</button>
-   <button class="ctrl mode" data-mode="current">Тек. срез</button>
+   <button class="ctrl mode" data-mode="previous_close">Пред. срез</button>
+   <button class="ctrl mode active" data-mode="current">Тек. срез</button>
    <button class="ctrl metric active" data-metric="vex">VEX</button>
    <button class="ctrl metric" data-metric="gex">GEX</button>
    <button class="ctrl metric" data-metric="oi">OI</button>
@@ -255,7 +255,9 @@ tr.focusedRow td.cell{opacity:1!important;filter:none!important}
  </section>
 
  <div class="note">
-   OI — открытые опционные контракты, источник OCC. IV/котировки — Yahoo Finance via yfinance.
+   Срез — текущие option quotes/IV/Volume на указанное время.
+   OI — открытые опционные контракты по последнему доступному settlement OCC, поэтому дата OI может быть старше даты текущего среза.
+   IV/котировки — Yahoo Finance via yfinance.
    VEX/GEX — модельные экспозиции; NET = calls − puts — эвристика, а не наблюдаемая позиция дилеров.
  </div>
 </main>
@@ -295,7 +297,7 @@ tr.focusedRow td.cell{opacity:1!important;filter:none!important}
 </div>
 
 <script>
-let DATA=null, MARKET=null, PROB={snapshots:[],events:[]}, METRIC="vex", MODE="previous_close", ACTIVE_INSIGHT=null;
+let DATA=null, MARKET=null, PROB={snapshots:[],events:[]}, METRIC="vex", MODE="current", ACTIVE_INSIGHT=null;
 let PROB_KIND="close";
 let ZOOM=1.0;
 let TAP_TOOLTIP_TIMER=null;
@@ -484,7 +486,6 @@ function selectInsight(i){
  document.querySelectorAll(".insightItem").forEach((b,j)=>b.classList.toggle("active",j===i));
  applyFocus(x.focus);
 }
-
 
 function latestProb(){return PROB?.snapshots?.length?PROB.snapshots[PROB.snapshots.length-1]:null}
 function selectedProb(){
@@ -791,9 +792,37 @@ function renderTable(){
 
 function render(){
  if(!DATA)return;
- renderScenario();renderActiveView();renderInsights();
- document.getElementById("snapshotInfo").innerHTML=
-  `<b>${DATA.snapshot_label}</b> · OI: ${fmtExpDate(DATA.oi_settlement_date)} · ${DATA.diagnostics?.strike_count||0} страйков (${DATA.diagnostics?.min_strike}…${DATA.diagnostics?.max_strike}) · ${DATA.diagnostics?.expiration_count||0} экспираций`;
+
+ renderScenario();
+ renderActiveView();
+ renderInsights();
+
+ // Дата именно опционного среза.
+ // spot_basis_time приоритетнее updated_et, чтобы previous_close
+ // не выглядел как сегодняшний срез только из-за времени генерации JSON.
+ const snapTs =
+   DATA.spot_basis_time ||
+   DATA.updated_et ||
+   DATA.updated_utc ||
+   null;
+
+ const snapDate = snapTs
+   ? dayDate(snapTs,"America/New_York")
+   : "—";
+
+ const snapTime = snapTs
+   ? timeDual(snapTs,"America/New_York","ET")
+   : "—";
+
+ const oiDate = fmtExpDate(DATA.oi_settlement_date);
+
+ document.getElementById("snapshotInfo").innerHTML =
+   `<b>${DATA.snapshot_label}</b> · ` +
+   `<b>${snapDate}</b> · ${snapTime} · ` +
+   `<span title="Open Interest публикуется по последнему завершённому клирингу">OI settlement: ${oiDate}</span> · ` +
+   `${DATA.diagnostics?.strike_count||0} страйков ` +
+   `(${DATA.diagnostics?.min_strike}…${DATA.diagnostics?.max_strike}) · ` +
+   `${DATA.diagnostics?.expiration_count||0} экспираций`;
 }
 
 async function loadMarket(){
@@ -856,7 +885,6 @@ function applyZoom(){
  document.getElementById("zoomPct").textContent=Math.round(ZOOM*100)+"%";
 }
 function setZoom(z){ZOOM=Math.max(.62,Math.min(1.5,z));applyZoom()}
-
 
 function etParts(date){
  const parts=new Intl.DateTimeFormat("en-US",{
