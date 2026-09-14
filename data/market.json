@@ -1,20 +1,20 @@
 {
   "symbol": "NBIS",
-  "updated_utc": "2026-09-14T00:58:56.261733+00:00",
-  "updated_et": "2026-09-13T20:58:56.261733-04:00",
-  "updated_msk": "2026-09-14T03:58:56.261733+03:00",
+  "updated_utc": "2026-09-14T06:09:27.259110+00:00",
+  "updated_et": "2026-09-14T02:09:27.259110-04:00",
+  "updated_msk": "2026-09-14T09:09:27.259110+03:00",
   "us": {
     "exchange": "NASDAQ",
     "currency": "USD",
     "market": {
       "calendar": "XNYS",
-      "holiday": true,
-      "status": "holiday",
-      "date": "2026-09-13",
-      "open": null,
-      "close": null
+      "holiday": false,
+      "status": "pre",
+      "date": "2026-09-14",
+      "open": "2026-09-14T13:30:00+00:00",
+      "close": "2026-09-14T20:00:00+00:00"
     },
-    "current_session": "holiday",
+    "current_session": "closed",
     "premarket": {
       "price": 235.06,
       "time": "2026-09-11T09:29:00-04:00",
@@ -60,10 +60,10 @@
       "price": 196.8000030517578,
       "time": "2026-09-11T17:28:00+02:00"
     },
-    "usd_price": 228.12102938583848,
+    "usd_price": 227.5933817870191,
     "fx": {
-      "price": 1.159151554107666,
-      "time": "2026-09-14T01:57:00+01:00"
+      "price": 1.1564704179763794,
+      "time": "2026-09-14T07:08:00+01:00"
     },
     "source": "Yahoo Finance via yfinance"
   }
