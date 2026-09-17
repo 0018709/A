@@ -1,8 +1,8 @@
 {
   "symbol": "NBIS",
-  "updated_utc": "2026-09-17T21:43:35.289040+00:00",
-  "updated_et": "2026-09-17T17:43:35.289040-04:00",
-  "updated_msk": "2026-09-18T00:43:35.289040+03:00",
+  "updated_utc": "2026-09-17T23:31:22.791335+00:00",
+  "updated_et": "2026-09-17T19:31:22.791335-04:00",
+  "updated_msk": "2026-09-18T02:31:22.791335+03:00",
   "us": {
     "exchange": "NASDAQ",
     "currency": "USD",
@@ -26,21 +26,21 @@
       "date_et": "2026-09-17"
     },
     "postmarket": {
-      "price": 216.5,
-      "time": "2026-09-17T17:43:32-04:00",
+      "price": 216.0,
+      "time": "2026-09-17T19:31:17-04:00",
       "date_et": "2026-09-17"
     },
     "source": "Yahoo Finance via yfinance"
   },
   "active_us": {
     "session": "postmarket",
-    "price": 216.5,
-    "time": "2026-09-17T17:43:32-04:00",
+    "price": 216.0,
+    "time": "2026-09-17T19:31:17-04:00",
     "date_et": "2026-09-17",
     "move_from_last_update": {
-      "absolute": -0.4300000000000068,
-      "percent": -0.19822062416448016,
-      "from_time": "2026-09-17T16:14:47-04:00"
+      "absolute": -0.5,
+      "percent": -0.2309468822170868,
+      "from_time": "2026-09-17T17:43:32-04:00"
     },
     "source": "Yahoo Finance via yfinance"
   },
@@ -51,19 +51,19 @@
     "market": {
       "calendar": "XETR",
       "holiday": false,
-      "status": "closed",
-      "date": "2026-09-17",
-      "open": "2026-09-17T07:00:00+00:00",
-      "close": "2026-09-17T15:30:00+00:00"
+      "status": "pre",
+      "date": "2026-09-18",
+      "open": "2026-09-18T07:00:00+00:00",
+      "close": "2026-09-18T15:30:00+00:00"
     },
     "regular": {
       "price": 183.72000122070312,
       "time": "2026-09-17T17:21:00+02:00"
     },
-    "usd_price": 210.95418880438228,
+    "usd_price": 210.9057435030045,
     "fx": {
-      "price": 1.1482374668121338,
-      "time": "2026-09-17T22:42:00+01:00"
+      "price": 1.1479737758636475,
+      "time": "2026-09-18T00:30:00+01:00"
     },
     "source": "Yahoo Finance via yfinance"
   }
