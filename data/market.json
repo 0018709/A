@@ -1,8 +1,8 @@
 {
   "symbol": "NBIS",
-  "updated_utc": "2026-09-24T20:27:14.257517+00:00",
-  "updated_et": "2026-09-24T16:27:14.257517-04:00",
-  "updated_msk": "2026-09-24T23:27:14.257517+03:00",
+  "updated_utc": "2026-09-24T21:46:12.927775+00:00",
+  "updated_et": "2026-09-24T17:46:12.927775-04:00",
+  "updated_msk": "2026-09-25T00:46:12.927775+03:00",
   "us": {
     "exchange": "NASDAQ",
     "currency": "USD",
@@ -26,21 +26,21 @@
       "date_et": "2026-09-24"
     },
     "postmarket": {
-      "price": 241.83,
-      "time": "2026-09-24T16:27:07-04:00",
+      "price": 243.26,
+      "time": "2026-09-24T17:46:08-04:00",
       "date_et": "2026-09-24"
     },
     "source": "Yahoo Finance via yfinance"
   },
   "active_us": {
     "session": "postmarket",
-    "price": 241.83,
-    "time": "2026-09-24T16:27:07-04:00",
+    "price": 243.26,
+    "time": "2026-09-24T17:46:08-04:00",
     "date_et": "2026-09-24",
     "move_from_last_update": {
-      "absolute": -6.494996948242175,
-      "percent": -2.6155228140789633,
-      "from_time": "2026-09-24T13:56:00-04:00"
+      "absolute": 1.4299999999999784,
+      "percent": 0.591324484141742,
+      "from_time": "2026-09-24T16:27:07-04:00"
     },
     "source": "Yahoo Finance via yfinance"
   },
@@ -60,10 +60,10 @@
       "price": 210.75,
       "time": "2026-09-24T17:28:00+02:00"
     },
-    "usd_price": 239.73381292819977,
+    "usd_price": 239.84294879436493,
     "fx": {
-      "price": 1.1375269889831543,
-      "time": "2026-09-24T21:27:00+01:00"
+      "price": 1.138044834136963,
+      "time": "2026-09-24T22:46:00+01:00"
     },
     "source": "Yahoo Finance via yfinance"
   }
