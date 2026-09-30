@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-09-30T13:37:04.211698+00:00",
+  "updated_utc": "2026-09-30T18:33:08.772717+00:00",
   "retention_days": 7,
   "snapshots": [
     {
@@ -5677,9 +5677,1584 @@
           }
         }
       ]
+    },
+    {
+      "model_version": "expiry-surface-v2",
+      "time": "2026-09-30T18:33:08.772717+00:00",
+      "time_et": "2026-09-30T14:33:08.772717-04:00",
+      "generated_utc": "2026-09-30T18:33:08.772717+00:00",
+      "spot": 237.60000610351562,
+      "expirations": [
+        "2026-10-02",
+        "2026-10-09",
+        "2026-10-16",
+        "2026-10-23"
+      ],
+      "targets": [
+        190.0,
+        200.0,
+        210.0,
+        220.0,
+        230.0,
+        235.0,
+        237.5,
+        240.0,
+        250.0,
+        260.0,
+        270.0,
+        280.0,
+        300.0
+      ],
+      "matrix": {
+        "190": {
+          "2026-10-02": {
+            "target": 190.0,
+            "source_strike": 190.0,
+            "direction": "down",
+            "close": 0.00010494,
+            "touch": 0.00020857,
+            "raw_close": 0.00010494,
+            "raw_touch": 0.00020857,
+            "iv": 0.797121,
+            "iv_quality": "high",
+            "expected_move": 14.2296,
+            "dte": 2.06,
+            "drivers": {
+              "vex": -156481.54878785717,
+              "gex": 22871.394130797547,
+              "oi": 1596,
+              "call_volume": 50,
+              "put_volume": 388,
+              "call_oi": 300,
+              "put_oi": 1296
+            }
+          },
+          "2026-10-09": {
+            "target": 190.0,
+            "source_strike": 190.0,
+            "direction": "down",
+            "close": 0.0334191,
+            "touch": 0.06554553,
+            "raw_close": 0.0334191,
+            "raw_touch": 0.06554553,
+            "iv": 0.753282,
+            "iv_quality": "high",
+            "expected_move": 28.1987,
+            "dte": 9.06,
+            "drivers": {
+              "vex": 1253101.2734309002,
+              "gex": -34357.50766628816,
+              "oi": 766,
+              "call_volume": 1,
+              "put_volume": 59,
+              "call_oi": 179,
+              "put_oi": 587
+            }
+          },
+          "2026-10-16": {
+            "target": 190.0,
+            "source_strike": 190.0,
+            "direction": "down",
+            "close": 0.0889282,
+            "touch": 0.17256935,
+            "raw_close": 0.0889282,
+            "raw_touch": 0.17256935,
+            "iv": 0.753088,
+            "iv_quality": "high",
+            "expected_move": 37.5338,
+            "dte": 16.06,
+            "drivers": {
+              "vex": 31302150.56804303,
+              "gex": -1077055.0606334195,
+              "oi": 6654,
+              "call_volume": 3,
+              "put_volume": 160,
+              "call_oi": 485,
+              "put_oi": 6169
+            }
+          },
+          "2026-10-23": {
+            "target": 190.0,
+            "source_strike": 190.0,
+            "direction": "down",
+            "close": 0.14548203,
+            "touch": 0.2791391,
+            "raw_close": 0.14548203,
+            "raw_touch": 0.2791391,
+            "iv": 0.779477,
+            "iv_quality": "high",
+            "expected_move": 46.5517,
+            "dte": 23.06,
+            "drivers": {
+              "vex": 2105566.8071328243,
+              "gex": -74669.61410317746,
+              "oi": 402,
+              "call_volume": 2,
+              "put_volume": 24,
+              "call_oi": 29,
+              "put_oi": 373
+            }
+          }
+        },
+        "200": {
+          "2026-10-02": {
+            "target": 200.0,
+            "source_strike": 200.0,
+            "direction": "down",
+            "close": 0.00218356,
+            "touch": 0.00433398,
+            "raw_close": 0.00218356,
+            "raw_touch": 0.00433398,
+            "iv": 0.797121,
+            "iv_quality": "high",
+            "expected_move": 14.2296,
+            "dte": 2.06,
+            "drivers": {
+              "vex": 1093488.7493284354,
+              "gex": -44734.48566444023,
+              "oi": 2206,
+              "call_volume": 652,
+              "put_volume": 1020,
+              "call_oi": 178,
+              "put_oi": 2028
+            }
+          },
+          "2026-10-09": {
+            "target": 200.0,
+            "source_strike": 200.0,
+            "direction": "down",
+            "close": 0.08067169,
+            "touch": 0.15775696,
+            "raw_close": 0.08067169,
+            "raw_touch": 0.15775696,
+            "iv": 0.753282,
+            "iv_quality": "high",
+            "expected_move": 28.1987,
+            "dte": 9.06,
+            "drivers": {
+              "vex": 8074375.949941989,
+              "gex": -335867.68109607894,
+              "oi": 2317,
+              "call_volume": 30,
+              "put_volume": 623,
+              "call_oi": 434,
+              "put_oi": 1883
+            }
+          },
+          "2026-10-16": {
+            "target": 200.0,
+            "source_strike": 200.0,
+            "direction": "down",
+            "close": 0.15322884,
+            "touch": 0.296258,
+            "raw_close": 0.15322884,
+            "raw_touch": 0.296258,
+            "iv": 0.753088,
+            "iv_quality": "high",
+            "expected_move": 37.5338,
+            "dte": 16.06,
+            "drivers": {
+              "vex": 7928220.013017053,
+              "gex": -222041.4579709469,
+              "oi": 6363,
+              "call_volume": 17,
+              "put_volume": 391,
+              "call_oi": 2788,
+              "put_oi": 3575
+            }
+          },
+          "2026-10-23": {
+            "target": 200.0,
+            "source_strike": 200.0,
+            "direction": "down",
+            "close": 0.2135371,
+            "touch": 0.40799317,
+            "raw_close": 0.2135371,
+            "raw_touch": 0.40799317,
+            "iv": 0.779477,
+            "iv_quality": "high",
+            "expected_move": 46.5517,
+            "dte": 23.06,
+            "drivers": {
+              "vex": 5106343.408063384,
+              "gex": -238214.7935378048,
+              "oi": 844,
+              "call_volume": 2,
+              "put_volume": 85,
+              "call_oi": 24,
+              "put_oi": 820
+            }
+          }
+        },
+        "210": {
+          "2026-10-02": {
+            "target": 210.0,
+            "source_strike": 210.0,
+            "direction": "down",
+            "close": 0.02089179,
+            "touch": 0.04138683,
+            "raw_close": 0.02089179,
+            "raw_touch": 0.04138683,
+            "iv": 0.797121,
+            "iv_quality": "high",
+            "expected_move": 14.2296,
+            "dte": 2.06,
+            "drivers": {
+              "vex": 8703477.97226384,
+              "gex": -486273.85668978153,
+              "oi": 4889,
+              "call_volume": 5,
+              "put_volume": 2433,
+              "call_oi": 493,
+              "put_oi": 4396
+            }
+          },
+          "2026-10-09": {
+            "target": 210.0,
+            "source_strike": 210.0,
+            "direction": "down",
+            "close": 0.16121757,
+            "touch": 0.31415424,
+            "raw_close": 0.16121757,
+            "raw_touch": 0.31415424,
+            "iv": 0.753282,
+            "iv_quality": "high",
+            "expected_move": 28.1987,
+            "dte": 9.06,
+            "drivers": {
+              "vex": 6032921.689783223,
+              "gex": -343087.04816093267,
+              "oi": 1175,
+              "call_volume": 2,
+              "put_volume": 1810,
+              "call_oi": 184,
+              "put_oi": 991
+            }
+          },
+          "2026-10-16": {
+            "target": 210.0,
+            "source_strike": 210.0,
+            "direction": "down",
+            "close": 0.237667,
+            "touch": 0.45759638,
+            "raw_close": 0.237667,
+            "raw_touch": 0.45759638,
+            "iv": 0.753088,
+            "iv_quality": "high",
+            "expected_move": 37.5338,
+            "dte": 16.06,
+            "drivers": {
+              "vex": 12101117.170241069,
+              "gex": -691246.4549641493,
+              "oi": 5443,
+              "call_volume": 6,
+              "put_volume": 111,
+              "call_oi": 1925,
+              "put_oi": 3518
+            }
+          },
+          "2026-10-23": {
+            "target": 210.0,
+            "source_strike": 210.0,
+            "direction": "down",
+            "close": 0.29281371,
+            "touch": 0.55686985,
+            "raw_close": 0.29281371,
+            "raw_touch": 0.55686985,
+            "iv": 0.779477,
+            "iv_quality": "high",
+            "expected_move": 46.5517,
+            "dte": 23.06,
+            "drivers": {
+              "vex": 981659.2975432613,
+              "gex": -56594.80802172101,
+              "oi": 573,
+              "call_volume": 3,
+              "put_volume": 20,
+              "call_oi": 218,
+              "put_oi": 355
+            }
+          }
+        },
+        "220": {
+          "2026-10-02": {
+            "target": 220.0,
+            "source_strike": 220.0,
+            "direction": "down",
+            "close": 0.10403422,
+            "touch": 0.20552491,
+            "raw_close": 0.10403422,
+            "raw_touch": 0.20552491,
+            "iv": 0.797121,
+            "iv_quality": "high",
+            "expected_move": 14.2296,
+            "dte": 2.06,
+            "drivers": {
+              "vex": 27300925.389855873,
+              "gex": -2506041.432802242,
+              "oi": 5131,
+              "call_volume": 38,
+              "put_volume": 2631,
+              "call_oi": 463,
+              "put_oi": 4668
+            }
+          },
+          "2026-10-09": {
+            "target": 220.0,
+            "source_strike": 220.0,
+            "direction": "down",
+            "close": 0.27508928,
+            "touch": 0.5337762,
+            "raw_close": 0.27508928,
+            "raw_touch": 0.5337762,
+            "iv": 0.753282,
+            "iv_quality": "high",
+            "expected_move": 28.1987,
+            "dte": 9.06,
+            "drivers": {
+              "vex": 2063860.1023632172,
+              "gex": -158489.28143059165,
+              "oi": 1098,
+              "call_volume": 10,
+              "put_volume": 2510,
+              "call_oi": 442,
+              "put_oi": 656
+            }
+          },
+          "2026-10-16": {
+            "target": 220.0,
+            "source_strike": 220.0,
+            "direction": "down",
+            "close": 0.33748307,
+            "touch": 0.64670009,
+            "raw_close": 0.33748307,
+            "raw_touch": 0.64670009,
+            "iv": 0.753088,
+            "iv_quality": "high",
+            "expected_move": 37.5338,
+            "dte": 16.06,
+            "drivers": {
+              "vex": 7045069.110080877,
+              "gex": -621474.4316015916,
+              "oi": 5284,
+              "call_volume": 66,
+              "put_volume": 480,
+              "call_oi": 2128,
+              "put_oi": 3156
+            }
+          },
+          "2026-10-23": {
+            "target": 220.0,
+            "source_strike": 220.0,
+            "direction": "down",
+            "close": 0.37913807,
+            "touch": 0.71737314,
+            "raw_close": 0.37913807,
+            "raw_touch": 0.71737314,
+            "iv": 0.779477,
+            "iv_quality": "high",
+            "expected_move": 46.5517,
+            "dte": 23.06,
+            "drivers": {
+              "vex": 460352.1982908291,
+              "gex": -42165.72876820022,
+              "oi": 467,
+              "call_volume": 5,
+              "put_volume": 14,
+              "call_oi": 194,
+              "put_oi": 273
+            }
+          }
+        },
+        "230": {
+          "2026-10-02": {
+            "target": 230.0,
+            "source_strike": 230.0,
+            "direction": "down",
+            "close": 0.30269863,
+            "touch": 0.59558113,
+            "raw_close": 0.30269863,
+            "raw_touch": 0.59558113,
+            "iv": 0.797121,
+            "iv_quality": "high",
+            "expected_move": 14.2296,
+            "dte": 2.06,
+            "drivers": {
+              "vex": 5917379.753697568,
+              "gex": -1026940.0239077152,
+              "oi": 2693,
+              "call_volume": 186,
+              "put_volume": 1383,
+              "call_oi": 1065,
+              "put_oi": 1628
+            }
+          },
+          "2026-10-09": {
+            "target": 230.0,
+            "source_strike": 230.0,
+            "direction": "down",
+            "close": 0.41178879,
+            "touch": 0.79497174,
+            "raw_close": 0.41178879,
+            "raw_touch": 0.79497174,
+            "iv": 0.753282,
+            "iv_quality": "high",
+            "expected_move": 28.1987,
+            "dte": 9.06,
+            "drivers": {
+              "vex": 848977.6849723209,
+              "gex": -136568.486825042,
+              "oi": 1325,
+              "call_volume": 28,
+              "put_volume": 118,
+              "call_oi": 611,
+              "put_oi": 714
+            }
+          },
+          "2026-10-16": {
+            "target": 230.0,
+            "source_strike": 230.0,
+            "direction": "down",
+            "close": 0.44514015,
+            "touch": 0.84842736,
+            "raw_close": 0.44514015,
+            "raw_touch": 0.84842736,
+            "iv": 0.753088,
+            "iv_quality": "high",
+            "expected_move": 37.5338,
+            "dte": 16.06,
+            "drivers": {
+              "vex": -1413122.4153887364,
+              "gex": 776021.2187651825,
+              "oi": 5045,
+              "call_volume": 191,
+              "put_volume": 145,
+              "call_oi": 3311,
+              "put_oi": 1734
+            }
+          },
+          "2026-10-23": {
+            "target": 230.0,
+            "source_strike": 230.0,
+            "direction": "down",
+            "close": 0.46777521,
+            "touch": 0.88016414,
+            "raw_close": 0.46777521,
+            "raw_touch": 0.88016414,
+            "iv": 0.779477,
+            "iv_quality": "high",
+            "expected_move": 46.5517,
+            "dte": 23.06,
+            "drivers": {
+              "vex": -88523.09934537881,
+              "gex": 86737.30422377697,
+              "oi": 700,
+              "call_volume": 19,
+              "put_volume": 72,
+              "call_oi": 456,
+              "put_oi": 244
+            }
+          }
+        },
+        "235": {
+          "2026-10-02": {
+            "target": 235.0,
+            "source_strike": 235.0,
+            "direction": "down",
+            "close": 0.43740505,
+            "touch": 0.85830661,
+            "raw_close": 0.43740505,
+            "raw_touch": 0.85830661,
+            "iv": 0.797121,
+            "iv_quality": "high",
+            "expected_move": 14.2296,
+            "dte": 2.06,
+            "drivers": {
+              "vex": -8865491.431752851,
+              "gex": 8329319.849585872,
+              "oi": 8617,
+              "call_volume": 6677,
+              "put_volume": 1283,
+              "call_oi": 7175,
+              "put_oi": 1442
+            }
+          },
+          "2026-10-09": {
+            "target": 235.0,
+            "source_strike": 235.0,
+            "direction": "down",
+            "close": 0.48335435,
+            "touch": 0.93043449,
+            "raw_close": 0.48335435,
+            "raw_touch": 0.93043449,
+            "iv": 0.753282,
+            "iv_quality": "high",
+            "expected_move": 28.1987,
+            "dte": 9.06,
+            "drivers": {
+              "vex": -23928.01460963124,
+              "gex": 162814.77212205375,
+              "oi": 768,
+              "call_volume": 124,
+              "put_volume": 97,
+              "call_oi": 507,
+              "put_oi": 261
+            }
+          },
+          "2026-10-16": {
+            "target": 235.0,
+            "source_strike": 235.0,
+            "direction": "down",
+            "close": 0.49927831,
+            "touch": 0.94882612,
+            "raw_close": 0.49927831,
+            "raw_touch": 0.94882612,
+            "iv": 0.753088,
+            "iv_quality": "high",
+            "expected_move": 37.5338,
+            "dte": 16.06,
+            "drivers": {
+              "vex": 33436.57034211137,
+              "gex": 28204.86972560425,
+              "oi": 403,
+              "call_volume": 87,
+              "put_volume": 49,
+              "call_oi": 234,
+              "put_oi": 169
+            }
+          },
+          "2026-10-23": {
+            "target": 235.0,
+            "source_strike": 235.0,
+            "direction": "down",
+            "close": 0.51152943,
+            "touch": 0.95963706,
+            "raw_close": 0.51152943,
+            "raw_touch": 0.95963706,
+            "iv": 0.779477,
+            "iv_quality": "high",
+            "expected_move": 46.5517,
+            "dte": 23.06,
+            "drivers": {
+              "vex": 43887.312566025874,
+              "gex": -2014.2538013114245,
+              "oi": 466,
+              "call_volume": 25,
+              "put_volume": 12,
+              "call_oi": 242,
+              "put_oi": 224
+            }
+          }
+        },
+        "237.5": {
+          "2026-10-02": {
+            "target": 237.5,
+            "source_strike": 237.5,
+            "direction": "down",
+            "close": 0.50763715,
+            "touch": 0.99457236,
+            "raw_close": 0.50763715,
+            "raw_touch": 0.99457236,
+            "iv": 0.797121,
+            "iv_quality": "high",
+            "expected_move": 14.2296,
+            "dte": 2.06,
+            "drivers": {
+              "vex": 211693.52999009678,
+              "gex": 915671.6895096139,
+              "oi": 2448,
+              "call_volume": 1764,
+              "put_volume": 934,
+              "call_oi": 1593,
+              "put_oi": 855
+            }
+          },
+          "2026-10-09": {
+            "target": 237.5,
+            "source_strike": 237.5,
+            "direction": "down",
+            "close": 0.51891369,
+            "touch": 0.99734639,
+            "raw_close": 0.51891369,
+            "raw_touch": 0.99734639,
+            "iv": 0.753282,
+            "iv_quality": "high",
+            "expected_move": 28.1987,
+            "dte": 9.06,
+            "drivers": {
+              "vex": 61369.59942636029,
+              "gex": 60859.069084805276,
+              "oi": 382,
+              "call_volume": 48,
+              "put_volume": 97,
+              "call_oi": 238,
+              "put_oi": 144
+            }
+          },
+          "2026-10-16": {
+            "target": 237.5,
+            "source_strike": 237.5,
+            "direction": "down",
+            "close": 0.52598418,
+            "touch": 0.99804921,
+            "raw_close": 0.52598418,
+            "raw_touch": 0.99804921,
+            "iv": 0.753088,
+            "iv_quality": "high",
+            "expected_move": 37.5338,
+            "dte": 16.06,
+            "drivers": {
+              "vex": -12393.315197431744,
+              "gex": -20912.204224736735,
+              "oi": 341,
+              "call_volume": 166,
+              "put_volume": 228,
+              "call_oi": 160,
+              "put_oi": 181
+            }
+          },
+          "2026-10-23": {
+            "target": 237.5,
+            "source_strike": 237.5,
+            "direction": "down",
+            "close": 0.53304047,
+            "touch": 0.99846186,
+            "raw_close": 0.53304047,
+            "raw_touch": 0.99846186,
+            "iv": 0.779477,
+            "iv_quality": "high",
+            "expected_move": 46.5517,
+            "dte": 23.06,
+            "drivers": {
+              "vex": 0.0,
+              "gex": 0.0,
+              "oi": 0,
+              "call_volume": 0,
+              "put_volume": 0,
+              "call_oi": 0,
+              "put_oi": 0
+            }
+          }
+        },
+        "240": {
+          "2026-10-02": {
+            "target": 240.0,
+            "source_strike": 240.0,
+            "direction": "up",
+            "close": 0.42309157,
+            "touch": 0.8628922,
+            "raw_close": 0.42309157,
+            "raw_touch": 0.8628922,
+            "iv": 0.797121,
+            "iv_quality": "high",
+            "expected_move": 14.2296,
+            "dte": 2.06,
+            "drivers": {
+              "vex": 293246.0842477116,
+              "gex": 502770.99039300624,
+              "oi": 3265,
+              "call_volume": 5315,
+              "put_volume": 1679,
+              "call_oi": 1903,
+              "put_oi": 1362
+            }
+          },
+          "2026-10-09": {
+            "target": 240.0,
+            "source_strike": 240.0,
+            "direction": "up",
+            "close": 0.44604598,
+            "touch": 0.92841828,
+            "raw_close": 0.44604598,
+            "raw_touch": 0.92841828,
+            "iv": 0.753282,
+            "iv_quality": "high",
+            "expected_move": 28.1987,
+            "dte": 9.06,
+            "drivers": {
+              "vex": 3197478.868601352,
+              "gex": 1501138.9742660765,
+              "oi": 2306,
+              "call_volume": 431,
+              "put_volume": 73,
+              "call_oi": 2113,
+              "put_oi": 193
+            }
+          },
+          "2026-10-16": {
+            "target": 240.0,
+            "source_strike": 240.0,
+            "direction": "up",
+            "close": 0.44770367,
+            "touch": 0.94507595,
+            "raw_close": 0.44770367,
+            "raw_touch": 0.94507595,
+            "iv": 0.753088,
+            "iv_quality": "high",
+            "expected_move": 37.5338,
+            "dte": 16.06,
+            "drivers": {
+              "vex": 5782694.201024314,
+              "gex": 2061562.4862244264,
+              "oi": 6676,
+              "call_volume": 625,
+              "put_volume": 211,
+              "call_oi": 5199,
+              "put_oi": 1477
+            }
+          },
+          "2026-10-23": {
+            "target": 240.0,
+            "source_strike": 240.0,
+            "direction": "up",
+            "close": 0.44576812,
+            "touch": 0.95477512,
+            "raw_close": 0.44576812,
+            "raw_touch": 0.95477512,
+            "iv": 0.779477,
+            "iv_quality": "high",
+            "expected_move": 46.5517,
+            "dte": 23.06,
+            "drivers": {
+              "vex": 476158.9028626812,
+              "gex": 135597.3468178064,
+              "oi": 511,
+              "call_volume": 110,
+              "put_volume": 6,
+              "call_oi": 404,
+              "put_oi": 107
+            }
+          }
+        },
+        "250": {
+          "2026-10-02": {
+            "target": 250.0,
+            "source_strike": 250.0,
+            "direction": "up",
+            "close": 0.19061779,
+            "touch": 0.38687027,
+            "raw_close": 0.19061779,
+            "raw_touch": 0.38687027,
+            "iv": 0.797121,
+            "iv_quality": "high",
+            "expected_move": 14.2296,
+            "dte": 2.06,
+            "drivers": {
+              "vex": 37093463.35679436,
+              "gex": 5715781.603521008,
+              "oi": 5897,
+              "call_volume": 6620,
+              "put_volume": 208,
+              "call_oi": 5465,
+              "put_oi": 432
+            }
+          },
+          "2026-10-09": {
+            "target": 250.0,
+            "source_strike": 250.0,
+            "direction": "up",
+            "close": 0.31574877,
+            "touch": 0.65349932,
+            "raw_close": 0.31574877,
+            "raw_touch": 0.65349932,
+            "iv": 0.753282,
+            "iv_quality": "high",
+            "expected_move": 28.1987,
+            "dte": 9.06,
+            "drivers": {
+              "vex": 5442682.860571722,
+              "gex": 736411.1036654635,
+              "oi": 1179,
+              "call_volume": 1090,
+              "put_volume": 203,
+              "call_oi": 1093,
+              "put_oi": 86
+            }
+          },
+          "2026-10-16": {
+            "target": 250.0,
+            "source_strike": 250.0,
+            "direction": "up",
+            "close": 0.34831255,
+            "touch": 0.73089772,
+            "raw_close": 0.34831255,
+            "raw_touch": 0.73089772,
+            "iv": 0.753088,
+            "iv_quality": "high",
+            "expected_move": 37.5338,
+            "dte": 16.06,
+            "drivers": {
+              "vex": 13001052.60632293,
+              "gex": 1676610.760762421,
+              "oi": 5620,
+              "call_volume": 2778,
+              "put_volume": 223,
+              "call_oi": 4361,
+              "put_oi": 1259
+            }
+          },
+          "2026-10-23": {
+            "target": 250.0,
+            "source_strike": 250.0,
+            "direction": "up",
+            "close": 0.36515396,
+            "touch": 0.77724382,
+            "raw_close": 0.36515396,
+            "raw_touch": 0.77724382,
+            "iv": 0.779477,
+            "iv_quality": "high",
+            "expected_move": 46.5517,
+            "dte": 23.06,
+            "drivers": {
+              "vex": 1593821.1625537465,
+              "gex": 186152.8883904118,
+              "oi": 481,
+              "call_volume": 334,
+              "put_volume": 2,
+              "call_oi": 440,
+              "put_oi": 41
+            }
+          }
+        },
+        "260": {
+          "2026-10-02": {
+            "target": 260.0,
+            "source_strike": 260.0,
+            "direction": "up",
+            "close": 0.06294458,
+            "touch": 0.12734919,
+            "raw_close": 0.06294458,
+            "raw_touch": 0.12734919,
+            "iv": 0.797121,
+            "iv_quality": "high",
+            "expected_move": 14.2296,
+            "dte": 2.06,
+            "drivers": {
+              "vex": 18913433.358594153,
+              "gex": 1694506.409083105,
+              "oi": 3326,
+              "call_volume": 2441,
+              "put_volume": 13,
+              "call_oi": 3181,
+              "put_oi": 145
+            }
+          },
+          "2026-10-09": {
+            "target": 260.0,
+            "source_strike": 260.0,
+            "direction": "up",
+            "close": 0.20894411,
+            "touch": 0.43054208,
+            "raw_close": 0.20894411,
+            "raw_touch": 0.43054208,
+            "iv": 0.753282,
+            "iv_quality": "high",
+            "expected_move": 28.1987,
+            "dte": 9.06,
+            "drivers": {
+              "vex": 4369237.722964535,
+              "gex": 351222.6784477568,
+              "oi": 586,
+              "call_volume": 1160,
+              "put_volume": 60,
+              "call_oi": 576,
+              "put_oi": 10
+            }
+          },
+          "2026-10-16": {
+            "target": 260.0,
+            "source_strike": 260.0,
+            "direction": "up",
+            "close": 0.26168518,
+            "touch": 0.54644237,
+            "raw_close": 0.26168518,
+            "raw_touch": 0.54644237,
+            "iv": 0.753088,
+            "iv_quality": "high",
+            "expected_move": 37.5338,
+            "dte": 16.06,
+            "drivers": {
+              "vex": 10958472.382534776,
+              "gex": 881752.981393584,
+              "oi": 2992,
+              "call_volume": 287,
+              "put_volume": 34,
+              "call_oi": 2377,
+              "put_oi": 615
+            }
+          },
+          "2026-10-23": {
+            "target": 260.0,
+            "source_strike": 260.0,
+            "direction": "up",
+            "close": 0.2929117,
+            "touch": 0.62019547,
+            "raw_close": 0.2929117,
+            "raw_touch": 0.62019547,
+            "iv": 0.779477,
+            "iv_quality": "high",
+            "expected_move": 46.5517,
+            "dte": 23.06,
+            "drivers": {
+              "vex": 282448.7349650352,
+              "gex": 23895.913692187605,
+              "oi": 273,
+              "call_volume": 107,
+              "put_volume": 2,
+              "call_oi": 167,
+              "put_oi": 106
+            }
+          }
+        },
+        "270": {
+          "2026-10-02": {
+            "target": 270.0,
+            "source_strike": 270.0,
+            "direction": "up",
+            "close": 0.01535964,
+            "touch": 0.03101014,
+            "raw_close": 0.01535964,
+            "raw_touch": 0.03101014,
+            "iv": 0.797121,
+            "iv_quality": "high",
+            "expected_move": 14.2296,
+            "dte": 2.06,
+            "drivers": {
+              "vex": 10639018.190191329,
+              "gex": 702650.1679330197,
+              "oi": 3370,
+              "call_volume": 2001,
+              "put_volume": 20,
+              "call_oi": 3283,
+              "put_oi": 87
+            }
+          },
+          "2026-10-09": {
+            "target": 270.0,
+            "source_strike": 270.0,
+            "direction": "up",
+            "close": 0.12964158,
+            "touch": 0.26620446,
+            "raw_close": 0.12964158,
+            "raw_touch": 0.26620446,
+            "iv": 0.753282,
+            "iv_quality": "high",
+            "expected_move": 28.1987,
+            "dte": 9.06,
+            "drivers": {
+              "vex": 7704026.746288182,
+              "gex": 450881.3389323387,
+              "oi": 1001,
+              "call_volume": 545,
+              "put_volume": 6,
+              "call_oi": 968,
+              "put_oi": 33
+            }
+          },
+          "2026-10-16": {
+            "target": 270.0,
+            "source_strike": 270.0,
+            "direction": "up",
+            "close": 0.19022541,
+            "touch": 0.39562007,
+            "raw_close": 0.19022541,
+            "raw_touch": 0.39562007,
+            "iv": 0.753088,
+            "iv_quality": "high",
+            "expected_move": 37.5338,
+            "dte": 16.06,
+            "drivers": {
+              "vex": 15444659.248783318,
+              "gex": 956542.4148520052,
+              "oi": 5752,
+              "call_volume": 271,
+              "put_volume": 14,
+              "call_oi": 3970,
+              "put_oi": 1782
+            }
+          },
+          "2026-10-23": {
+            "target": 270.0,
+            "source_strike": 270.0,
+            "direction": "up",
+            "close": 0.23040159,
+            "touch": 0.48565751,
+            "raw_close": 0.23040159,
+            "raw_touch": 0.48565751,
+            "iv": 0.779477,
+            "iv_quality": "high",
+            "expected_move": 46.5517,
+            "dte": 23.06,
+            "drivers": {
+              "vex": 1872209.502804581,
+              "gex": 103847.85071709237,
+              "oi": 302,
+              "call_volume": 27,
+              "put_volume": 21,
+              "call_oi": 278,
+              "put_oi": 24
+            }
+          }
+        },
+        "280": {
+          "2026-10-02": {
+            "target": 280.0,
+            "source_strike": 280.0,
+            "direction": "up",
+            "close": 0.00282055,
+            "touch": 0.00568612,
+            "raw_close": 0.00282055,
+            "raw_touch": 0.00568612,
+            "iv": 0.797121,
+            "iv_quality": "high",
+            "expected_move": 14.2296,
+            "dte": 2.06,
+            "drivers": {
+              "vex": 4179744.416342627,
+              "gex": 220001.82945272862,
+              "oi": 3164,
+              "call_volume": 713,
+              "put_volume": 24,
+              "call_oi": 3126,
+              "put_oi": 38
+            }
+          },
+          "2026-10-09": {
+            "target": 280.0,
+            "source_strike": 280.0,
+            "direction": "up",
+            "close": 0.0757123,
+            "touch": 0.15503323,
+            "raw_close": 0.0757123,
+            "raw_touch": 0.15503323,
+            "iv": 0.753282,
+            "iv_quality": "high",
+            "expected_move": 28.1987,
+            "dte": 9.06,
+            "drivers": {
+              "vex": 3880126.0225375956,
+              "gex": 180533.07604148236,
+              "oi": 518,
+              "call_volume": 365,
+              "put_volume": 2,
+              "call_oi": 516,
+              "put_oi": 2
+            }
+          },
+          "2026-10-16": {
+            "target": 280.0,
+            "source_strike": 280.0,
+            "direction": "up",
+            "close": 0.13408565,
+            "touch": 0.27792423,
+            "raw_close": 0.13408565,
+            "raw_touch": 0.27792423,
+            "iv": 0.753088,
+            "iv_quality": "high",
+            "expected_move": 37.5338,
+            "dte": 16.06,
+            "drivers": {
+              "vex": 12332003.732780568,
+              "gex": 576536.4754993101,
+              "oi": 2227,
+              "call_volume": 180,
+              "put_volume": 16,
+              "call_oi": 1868,
+              "put_oi": 359
+            }
+          },
+          "2026-10-23": {
+            "target": 280.0,
+            "source_strike": 280.0,
+            "direction": "up",
+            "close": 0.17796574,
+            "touch": 0.37369119,
+            "raw_close": 0.17796574,
+            "raw_touch": 0.37369119,
+            "iv": 0.779477,
+            "iv_quality": "high",
+            "expected_move": 46.5517,
+            "dte": 23.06,
+            "drivers": {
+              "vex": 1532185.0034990315,
+              "gex": 67625.487689362,
+              "oi": 190,
+              "call_volume": 19,
+              "put_volume": 1,
+              "call_oi": 187,
+              "put_oi": 3
+            }
+          }
+        },
+        "300": {
+          "2026-10-02": {
+            "target": 300.0,
+            "source_strike": 300.0,
+            "direction": "up",
+            "close": 4.428e-05,
+            "touch": 8.91e-05,
+            "raw_close": 4.428e-05,
+            "raw_touch": 8.91e-05,
+            "iv": 0.797121,
+            "iv_quality": "high",
+            "expected_move": 14.2296,
+            "dte": 2.06,
+            "drivers": {
+              "vex": 1232936.070862563,
+              "gex": 52513.576190199725,
+              "oi": 4055,
+              "call_volume": 689,
+              "put_volume": 2,
+              "call_oi": 4034,
+              "put_oi": 21
+            }
+          },
+          "2026-10-09": {
+            "target": 300.0,
+            "source_strike": 300.0,
+            "direction": "up",
+            "close": 0.02190807,
+            "touch": 0.04467524,
+            "raw_close": 0.02190807,
+            "raw_touch": 0.04467524,
+            "iv": 0.753282,
+            "iv_quality": "high",
+            "expected_move": 28.1987,
+            "dte": 9.06,
+            "drivers": {
+              "vex": 10187512.181510938,
+              "gex": 356129.6171568664,
+              "oi": 2065,
+              "call_volume": 668,
+              "put_volume": 0,
+              "call_oi": 2060,
+              "put_oi": 5
+            }
+          },
+          "2026-10-16": {
+            "target": 300.0,
+            "source_strike": 300.0,
+            "direction": "up",
+            "close": 0.06129071,
+            "touch": 0.12637261,
+            "raw_close": 0.06129071,
+            "raw_touch": 0.12637261,
+            "iv": 0.753088,
+            "iv_quality": "high",
+            "expected_move": 37.5338,
+            "dte": 16.06,
+            "drivers": {
+              "vex": 63139271.966260776,
+              "gex": 2171992.8963523083,
+              "oi": 10443,
+              "call_volume": 2204,
+              "put_volume": 3,
+              "call_oi": 9427,
+              "put_oi": 1016
+            }
+          },
+          "2026-10-23": {
+            "target": 300.0,
+            "source_strike": 300.0,
+            "direction": "up",
+            "close": 0.10110423,
+            "touch": 0.21098708,
+            "raw_close": 0.10110423,
+            "raw_touch": 0.21098708,
+            "iv": 0.779477,
+            "iv_quality": "high",
+            "expected_move": 46.5517,
+            "dte": 23.06,
+            "drivers": {
+              "vex": 5219989.198567933,
+              "gex": 169088.78960883967,
+              "oi": 617,
+              "call_volume": 50,
+              "put_volume": 0,
+              "call_oi": 617,
+              "put_oi": 0
+            }
+          }
+        }
+      },
+      "expiry_models": {
+        "2026-10-02": {
+          "reference_iv": 0.7971211694335938,
+          "quality": "high",
+          "clean_samples": 166,
+          "samples": 166,
+          "quoted_clean_samples": 108,
+          "dte": 2.06,
+          "expected_move": 14.2296
+        },
+        "2026-10-09": {
+          "reference_iv": 0.7532824990556826,
+          "quality": "high",
+          "clean_samples": 122,
+          "samples": 122,
+          "quoted_clean_samples": 79,
+          "dte": 9.06,
+          "expected_move": 28.1987
+        },
+        "2026-10-16": {
+          "reference_iv": 0.7530881112421111,
+          "quality": "high",
+          "clean_samples": 119,
+          "samples": 119,
+          "quoted_clean_samples": 79,
+          "dte": 16.06,
+          "expected_move": 37.5338
+        },
+        "2026-10-23": {
+          "reference_iv": 0.7794770496895447,
+          "quality": "high",
+          "clean_samples": 79,
+          "samples": 79,
+          "quoted_clean_samples": 50,
+          "dte": 23.06,
+          "expected_move": 46.5517
+        }
+      },
+      "monotonic_adjustments": 0,
+      "method": {
+        "label": "model-implied GBM probability from robust expiry-level IV surface",
+        "close": "terminal probability beyond target at expiry",
+        "touch": "first-passage probability of touching target before expiry",
+        "rate": 0.04,
+        "iv": "one robust near-ATM reference IV per expiry; Yahoo sentinel-like IV values are down-weighted/filtered",
+        "monotonic": "probabilities are constrained to a coherent monotone CDF on each side of spot",
+        "note": "OI/volume/VEX/GEX are context drivers; they do not arbitrarily add percentage points to probability."
+      },
+      "status": "regular_live",
+      "insights": [
+        {
+          "id": "prob-touch-230.0-2026-10-23-2026-09-30T18:33:08.772717+00:00",
+          "kind": "probability",
+          "title": "P выросла · $230 · 2026-10-23",
+          "strength": 100,
+          "text": "P(касания) 88.0%. за час +86.4 п.п.. за день +86.4 п.п..",
+          "prob_focus": {
+            "target": 230.0,
+            "exp": "2026-10-23",
+            "kind": "touch"
+          }
+        },
+        {
+          "id": "prob-touch-230.0-2026-10-16-2026-09-30T18:33:08.772717+00:00",
+          "kind": "probability",
+          "title": "P выросла · $230 · 2026-10-16",
+          "strength": 100,
+          "text": "P(касания) 84.8%. за час +84.6 п.п.. за день +84.6 п.п..",
+          "prob_focus": {
+            "target": 230.0,
+            "exp": "2026-10-16",
+            "kind": "touch"
+          }
+        },
+        {
+          "id": "prob-touch-240.0-2026-10-09-2026-09-30T18:33:08.772717+00:00",
+          "kind": "probability",
+          "title": "P выросла · $240 · 2026-10-09",
+          "strength": 100,
+          "text": "P(касания) 92.8%. за час +80.8 п.п.. за день +80.8 п.п..",
+          "prob_focus": {
+            "target": 240.0,
+            "exp": "2026-10-09",
+            "kind": "touch"
+          }
+        },
+        {
+          "id": "prob-touch-230.0-2026-10-09-2026-09-30T18:33:08.772717+00:00",
+          "kind": "probability",
+          "title": "P выросла · $230 · 2026-10-09",
+          "strength": 100,
+          "text": "P(касания) 79.5%. за час +79.5 п.п.. за день +79.5 п.п..",
+          "prob_focus": {
+            "target": 230.0,
+            "exp": "2026-10-09",
+            "kind": "touch"
+          }
+        },
+        {
+          "id": "prob-touch-240.0-2026-10-02-2026-09-30T18:33:08.772717+00:00",
+          "kind": "probability",
+          "title": "P выросла · $240 · 2026-10-02",
+          "strength": 100,
+          "text": "P(касания) 86.3%. за час +77.5 п.п.. за день +77.5 п.п..",
+          "prob_focus": {
+            "target": 240.0,
+            "exp": "2026-10-02",
+            "kind": "touch"
+          }
+        },
+        {
+          "id": "prob-touch-240.0-2026-10-16-2026-09-30T18:33:08.772717+00:00",
+          "kind": "probability",
+          "title": "P выросла · $240 · 2026-10-16",
+          "strength": 100,
+          "text": "P(касания) 94.5%. за час +74.2 п.п.. за день +74.2 п.п..",
+          "prob_focus": {
+            "target": 240.0,
+            "exp": "2026-10-16",
+            "kind": "touch"
+          }
+        },
+        {
+          "id": "prob-touch-220.0-2026-10-23-2026-09-30T18:33:08.772717+00:00",
+          "kind": "probability",
+          "title": "P выросла · $220 · 2026-10-23",
+          "strength": 100,
+          "text": "P(касания) 71.7%. за час +71.7 п.п.. за день +71.7 п.п..",
+          "prob_focus": {
+            "target": 220.0,
+            "exp": "2026-10-23",
+            "kind": "touch"
+          }
+        },
+        {
+          "id": "prob-touch-220.0-2026-10-16-2026-09-30T18:33:08.772717+00:00",
+          "kind": "probability",
+          "title": "P выросла · $220 · 2026-10-16",
+          "strength": 100,
+          "text": "P(касания) 64.7%. за час +64.7 п.п.. за день +64.7 п.п..",
+          "prob_focus": {
+            "target": 220.0,
+            "exp": "2026-10-16",
+            "kind": "touch"
+          }
+        },
+        {
+          "id": "prob-touch-240.0-2026-10-23-2026-09-30T18:33:08.772717+00:00",
+          "kind": "probability",
+          "title": "P выросла · $240 · 2026-10-23",
+          "strength": 100,
+          "text": "P(касания) 95.5%. за час +63.7 п.п.. за день +63.7 п.п..",
+          "prob_focus": {
+            "target": 240.0,
+            "exp": "2026-10-23",
+            "kind": "touch"
+          }
+        },
+        {
+          "id": "prob-touch-230.0-2026-10-02-2026-09-30T18:33:08.772717+00:00",
+          "kind": "probability",
+          "title": "P выросла · $230 · 2026-10-02",
+          "strength": 100,
+          "text": "P(касания) 59.6%. за час +59.6 п.п.. за день +59.6 п.п..",
+          "prob_focus": {
+            "target": 230.0,
+            "exp": "2026-10-02",
+            "kind": "touch"
+          }
+        },
+        {
+          "id": "prob-touch-210.0-2026-10-23-2026-09-30T18:33:08.772717+00:00",
+          "kind": "probability",
+          "title": "P выросла · $210 · 2026-10-23",
+          "strength": 100,
+          "text": "P(касания) 55.7%. за час +55.7 п.п.. за день +55.7 п.п..",
+          "prob_focus": {
+            "target": 210.0,
+            "exp": "2026-10-23",
+            "kind": "touch"
+          }
+        },
+        {
+          "id": "prob-touch-220.0-2026-10-09-2026-09-30T18:33:08.772717+00:00",
+          "kind": "probability",
+          "title": "P выросла · $220 · 2026-10-09",
+          "strength": 100,
+          "text": "P(касания) 53.4%. за час +53.4 п.п.. за день +53.4 п.п..",
+          "prob_focus": {
+            "target": 220.0,
+            "exp": "2026-10-09",
+            "kind": "touch"
+          }
+        },
+        {
+          "id": "prob-level-down-237.5-2026-10-09-2026-09-30T18:33:08.772717+00:00",
+          "kind": "probability",
+          "title": "Ближайший вероятностный уровень · $237.5",
+          "strength": 100,
+          "text": "Касание до 2026-10-09: 99.7%; закрытие за уровнем: 51.9%.",
+          "prob_focus": {
+            "target": 237.5,
+            "exp": "2026-10-09",
+            "kind": "touch"
+          }
+        },
+        {
+          "id": "prob-level-up-240.0-2026-10-09-2026-09-30T18:33:08.772717+00:00",
+          "kind": "probability",
+          "title": "Ближайший вероятностный уровень · $240",
+          "strength": 95,
+          "text": "Касание до 2026-10-09: 92.8%; закрытие за уровнем: 44.6%.",
+          "prob_focus": {
+            "target": 240.0,
+            "exp": "2026-10-09",
+            "kind": "touch"
+          }
+        }
+      ]
     }
   ],
   "events": [
+    {
+      "id": "prob-touch-220.0-2026-10-09-2026-09-30T18:33:08.772717+00:00",
+      "time": "2026-09-30T18:33:08.772717+00:00",
+      "title": "⚡ P выросла · $220 · 2026-10-09",
+      "text": "P(касания) 53.4%. за час +53.4 п.п.. за день +53.4 п.п..",
+      "strength": 100,
+      "prob_focus": {
+        "target": 220.0,
+        "exp": "2026-10-09",
+        "kind": "touch"
+      },
+      "model_version": "expiry-surface-v2"
+    },
+    {
+      "id": "prob-touch-210.0-2026-10-23-2026-09-30T18:33:08.772717+00:00",
+      "time": "2026-09-30T18:33:08.772717+00:00",
+      "title": "⚡ P выросла · $210 · 2026-10-23",
+      "text": "P(касания) 55.7%. за час +55.7 п.п.. за день +55.7 п.п..",
+      "strength": 100,
+      "prob_focus": {
+        "target": 210.0,
+        "exp": "2026-10-23",
+        "kind": "touch"
+      },
+      "model_version": "expiry-surface-v2"
+    },
+    {
+      "id": "prob-touch-230.0-2026-10-02-2026-09-30T18:33:08.772717+00:00",
+      "time": "2026-09-30T18:33:08.772717+00:00",
+      "title": "⚡ P выросла · $230 · 2026-10-02",
+      "text": "P(касания) 59.6%. за час +59.6 п.п.. за день +59.6 п.п..",
+      "strength": 100,
+      "prob_focus": {
+        "target": 230.0,
+        "exp": "2026-10-02",
+        "kind": "touch"
+      },
+      "model_version": "expiry-surface-v2"
+    },
+    {
+      "id": "prob-touch-240.0-2026-10-23-2026-09-30T18:33:08.772717+00:00",
+      "time": "2026-09-30T18:33:08.772717+00:00",
+      "title": "⚡ P выросла · $240 · 2026-10-23",
+      "text": "P(касания) 95.5%. за час +63.7 п.п.. за день +63.7 п.п..",
+      "strength": 100,
+      "prob_focus": {
+        "target": 240.0,
+        "exp": "2026-10-23",
+        "kind": "touch"
+      },
+      "model_version": "expiry-surface-v2"
+    },
+    {
+      "id": "prob-touch-220.0-2026-10-16-2026-09-30T18:33:08.772717+00:00",
+      "time": "2026-09-30T18:33:08.772717+00:00",
+      "title": "⚡ P выросла · $220 · 2026-10-16",
+      "text": "P(касания) 64.7%. за час +64.7 п.п.. за день +64.7 п.п..",
+      "strength": 100,
+      "prob_focus": {
+        "target": 220.0,
+        "exp": "2026-10-16",
+        "kind": "touch"
+      },
+      "model_version": "expiry-surface-v2"
+    },
+    {
+      "id": "prob-touch-220.0-2026-10-23-2026-09-30T18:33:08.772717+00:00",
+      "time": "2026-09-30T18:33:08.772717+00:00",
+      "title": "⚡ P выросла · $220 · 2026-10-23",
+      "text": "P(касания) 71.7%. за час +71.7 п.п.. за день +71.7 п.п..",
+      "strength": 100,
+      "prob_focus": {
+        "target": 220.0,
+        "exp": "2026-10-23",
+        "kind": "touch"
+      },
+      "model_version": "expiry-surface-v2"
+    },
+    {
+      "id": "prob-touch-240.0-2026-10-16-2026-09-30T18:33:08.772717+00:00",
+      "time": "2026-09-30T18:33:08.772717+00:00",
+      "title": "⚡ P выросла · $240 · 2026-10-16",
+      "text": "P(касания) 94.5%. за час +74.2 п.п.. за день +74.2 п.п..",
+      "strength": 100,
+      "prob_focus": {
+        "target": 240.0,
+        "exp": "2026-10-16",
+        "kind": "touch"
+      },
+      "model_version": "expiry-surface-v2"
+    },
+    {
+      "id": "prob-touch-240.0-2026-10-02-2026-09-30T18:33:08.772717+00:00",
+      "time": "2026-09-30T18:33:08.772717+00:00",
+      "title": "⚡ P выросла · $240 · 2026-10-02",
+      "text": "P(касания) 86.3%. за час +77.5 п.п.. за день +77.5 п.п..",
+      "strength": 100,
+      "prob_focus": {
+        "target": 240.0,
+        "exp": "2026-10-02",
+        "kind": "touch"
+      },
+      "model_version": "expiry-surface-v2"
+    },
+    {
+      "id": "prob-touch-230.0-2026-10-09-2026-09-30T18:33:08.772717+00:00",
+      "time": "2026-09-30T18:33:08.772717+00:00",
+      "title": "⚡ P выросла · $230 · 2026-10-09",
+      "text": "P(касания) 79.5%. за час +79.5 п.п.. за день +79.5 п.п..",
+      "strength": 100,
+      "prob_focus": {
+        "target": 230.0,
+        "exp": "2026-10-09",
+        "kind": "touch"
+      },
+      "model_version": "expiry-surface-v2"
+    },
+    {
+      "id": "prob-touch-240.0-2026-10-09-2026-09-30T18:33:08.772717+00:00",
+      "time": "2026-09-30T18:33:08.772717+00:00",
+      "title": "⚡ P выросла · $240 · 2026-10-09",
+      "text": "P(касания) 92.8%. за час +80.8 п.п.. за день +80.8 п.п..",
+      "strength": 100,
+      "prob_focus": {
+        "target": 240.0,
+        "exp": "2026-10-09",
+        "kind": "touch"
+      },
+      "model_version": "expiry-surface-v2"
+    },
+    {
+      "id": "prob-touch-230.0-2026-10-16-2026-09-30T18:33:08.772717+00:00",
+      "time": "2026-09-30T18:33:08.772717+00:00",
+      "title": "⚡ P выросла · $230 · 2026-10-16",
+      "text": "P(касания) 84.8%. за час +84.6 п.п.. за день +84.6 п.п..",
+      "strength": 100,
+      "prob_focus": {
+        "target": 230.0,
+        "exp": "2026-10-16",
+        "kind": "touch"
+      },
+      "model_version": "expiry-surface-v2"
+    },
+    {
+      "id": "prob-touch-230.0-2026-10-23-2026-09-30T18:33:08.772717+00:00",
+      "time": "2026-09-30T18:33:08.772717+00:00",
+      "title": "⚡ P выросла · $230 · 2026-10-23",
+      "text": "P(касания) 88.0%. за час +86.4 п.п.. за день +86.4 п.п..",
+      "strength": 100,
+      "prob_focus": {
+        "target": 230.0,
+        "exp": "2026-10-23",
+        "kind": "touch"
+      },
+      "model_version": "expiry-surface-v2"
+    },
     {
       "id": "prob-touch-230.0-2026-10-02-2026-09-30T13:37:04.211698+00:00",
       "time": "2026-09-30T13:37:04.211698+00:00",
