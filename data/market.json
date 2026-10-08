@@ -1,46 +1,46 @@
 {
   "symbol": "NBIS",
-  "updated_utc": "2026-10-08T19:24:40.964910+00:00",
-  "updated_et": "2026-10-08T15:24:40.964910-04:00",
-  "updated_msk": "2026-10-08T22:24:40.964910+03:00",
+  "updated_utc": "2026-10-08T21:16:00.679013+00:00",
+  "updated_et": "2026-10-08T17:16:00.679013-04:00",
+  "updated_msk": "2026-10-09T00:16:00.679013+03:00",
   "us": {
     "exchange": "NASDAQ",
     "currency": "USD",
     "market": {
       "calendar": "XNYS",
       "holiday": false,
-      "status": "open",
+      "status": "closed",
       "date": "2026-10-08",
       "open": "2026-10-08T13:30:00+00:00",
       "close": "2026-10-08T20:00:00+00:00"
     },
-    "current_session": "regular",
+    "current_session": "postmarket",
     "premarket": {
       "price": 233.01,
       "time": "2026-10-08T09:29:00-04:00",
       "date_et": "2026-10-08"
     },
     "regular": {
-      "price": 219.84500122070312,
-      "time": "2026-10-08T15:24:00-04:00",
+      "price": 219.72999572753906,
+      "time": "2026-10-08T15:59:00-04:00",
       "date_et": "2026-10-08"
     },
     "postmarket": {
-      "price": 237.15,
-      "time": "2026-10-07T16:00:00-04:00",
-      "date_et": "2026-10-07"
+      "price": 222.14,
+      "time": "2026-10-08T17:15:49-04:00",
+      "date_et": "2026-10-08"
     },
     "source": "Yahoo Finance via yfinance"
   },
   "active_us": {
-    "session": "regular",
-    "price": 219.84500122070312,
-    "time": "2026-10-08T15:24:00-04:00",
+    "session": "postmarket",
+    "price": 222.14,
+    "time": "2026-10-08T17:15:49-04:00",
     "date_et": "2026-10-08",
     "move_from_last_update": {
-      "absolute": 0.2649993896484375,
-      "percent": 0.12068466501440334,
-      "from_time": "2026-10-08T15:00:00-04:00"
+      "absolute": 2.2949987792968614,
+      "percent": 1.0439167443215602,
+      "from_time": "2026-10-08T15:24:00-04:00"
     },
     "source": "Yahoo Finance via yfinance"
   },
@@ -63,7 +63,7 @@
     "usd_price": 228.72041841039572,
     "fx": {
       "price": 1.1214534044265747,
-      "time": "2026-10-08T20:23:00+01:00"
+      "time": "2026-10-08T22:15:00+01:00"
     },
     "source": "Yahoo Finance via yfinance"
   }
