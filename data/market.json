@@ -1,18 +1,18 @@
 {
   "symbol": "NBIS",
-  "updated_utc": "2026-10-14T01:49:50.145365+00:00",
-  "updated_et": "2026-10-13T21:49:50.145365-04:00",
-  "updated_msk": "2026-10-14T04:49:50.145365+03:00",
+  "updated_utc": "2026-10-14T07:30:12.635679+00:00",
+  "updated_et": "2026-10-14T03:30:12.635679-04:00",
+  "updated_msk": "2026-10-14T10:30:12.635679+03:00",
   "us": {
     "exchange": "NASDAQ",
     "currency": "USD",
     "market": {
       "calendar": "XNYS",
       "holiday": false,
-      "status": "closed",
-      "date": "2026-10-13",
-      "open": "2026-10-13T13:30:00+00:00",
-      "close": "2026-10-13T20:00:00+00:00"
+      "status": "pre",
+      "date": "2026-10-14",
+      "open": "2026-10-14T13:30:00+00:00",
+      "close": "2026-10-14T20:00:00+00:00"
     },
     "current_session": "closed",
     "premarket": {
@@ -38,9 +38,9 @@
     "time": "2026-10-13T19:59:00-04:00",
     "date_et": "2026-10-13",
     "move_from_last_update": {
-      "absolute": -0.44999999999998863,
-      "percent": -0.21505376344085336,
-      "from_time": "2026-10-13T19:50:43-04:00"
+      "absolute": 0.0,
+      "percent": 0.0,
+      "from_time": "2026-10-13T19:59:00-04:00"
     },
     "source": "Yahoo Finance via yfinance"
   },
@@ -51,19 +51,19 @@
     "market": {
       "calendar": "XETR",
       "holiday": false,
-      "status": "pre",
+      "status": "open",
       "date": "2026-10-14",
       "open": "2026-10-14T07:00:00+00:00",
       "close": "2026-10-14T15:30:00+00:00"
     },
     "regular": {
-      "price": 180.97999572753906,
-      "time": "2026-10-13T17:28:00+02:00"
+      "price": 184.89999389648438,
+      "time": "2026-10-14T09:14:00+02:00"
     },
-    "usd_price": 202.84689159508162,
+    "usd_price": 207.26375533429746,
     "fx": {
-      "price": 1.120824933052063,
-      "time": "2026-10-14T02:49:00+01:00"
+      "price": 1.1209505796432495,
+      "time": "2026-10-14T08:29:00+01:00"
     },
     "source": "Yahoo Finance via yfinance"
   }
