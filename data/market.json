@@ -1,8 +1,8 @@
 {
   "symbol": "NBIS",
-  "updated_utc": "2026-10-15T21:44:08.085905+00:00",
-  "updated_et": "2026-10-15T17:44:08.085905-04:00",
-  "updated_msk": "2026-10-16T00:44:08.085905+03:00",
+  "updated_utc": "2026-10-15T22:11:10.492777+00:00",
+  "updated_et": "2026-10-15T18:11:10.492777-04:00",
+  "updated_msk": "2026-10-16T01:11:10.492777+03:00",
   "us": {
     "exchange": "NASDAQ",
     "currency": "USD",
@@ -26,21 +26,21 @@
       "date_et": "2026-10-15"
     },
     "postmarket": {
-      "price": 189.9356,
-      "time": "2026-10-15T17:44:05-04:00",
+      "price": 191.1,
+      "time": "2026-10-15T18:11:00-04:00",
       "date_et": "2026-10-15"
     },
     "source": "Yahoo Finance via yfinance"
   },
   "active_us": {
     "session": "postmarket",
-    "price": 189.9356,
-    "time": "2026-10-15T17:44:05-04:00",
+    "price": 191.1,
+    "time": "2026-10-15T18:11:00-04:00",
     "date_et": "2026-10-15",
     "move_from_last_update": {
-      "absolute": 10.280601220703119,
-      "percent": 5.722413119900249,
-      "from_time": "2026-10-15T14:13:00-04:00"
+      "absolute": 1.1644000000000005,
+      "percent": 0.613049896912421,
+      "from_time": "2026-10-15T17:44:05-04:00"
     },
     "source": "Yahoo Finance via yfinance"
   },
@@ -51,19 +51,19 @@
     "market": {
       "calendar": "XETR",
       "holiday": false,
-      "status": "closed",
-      "date": "2026-10-15",
-      "open": "2026-10-15T07:00:00+00:00",
-      "close": "2026-10-15T15:30:00+00:00"
+      "status": "pre",
+      "date": "2026-10-16",
+      "open": "2026-10-16T07:00:00+00:00",
+      "close": "2026-10-16T15:30:00+00:00"
     },
     "regular": {
       "price": 157.75999450683594,
       "time": "2026-10-15T17:29:00+02:00"
     },
-    "usd_price": 177.01974340134075,
+    "usd_price": 177.03960301978987,
     "fx": {
-      "price": 1.1220825910568237,
-      "time": "2026-10-15T22:43:00+01:00"
+      "price": 1.1222084760665894,
+      "time": "2026-10-15T23:10:00+01:00"
     },
     "source": "Yahoo Finance via yfinance"
   }
