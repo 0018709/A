@@ -1,8 +1,8 @@
 {
   "symbol": "NBIS",
-  "updated_utc": "2026-10-25T16:04:46.245488+00:00",
-  "updated_et": "2026-10-25T12:04:46.245488-04:00",
-  "updated_msk": "2026-10-25T19:04:46.245488+03:00",
+  "updated_utc": "2026-10-25T18:58:47.849967+00:00",
+  "updated_et": "2026-10-25T14:58:47.849967-04:00",
+  "updated_msk": "2026-10-25T21:58:47.849967+03:00",
   "us": {
     "exchange": "NASDAQ",
     "currency": "USD",
@@ -15,33 +15,14 @@
       "close": null
     },
     "current_session": "holiday",
-    "premarket": {
-      "price": 159.25,
-      "time": "2026-10-23T09:29:00-04:00",
-      "date_et": "2026-10-23"
-    },
-    "regular": {
-      "price": 158.74000549316406,
-      "time": "2026-10-23T15:59:00-04:00",
-      "date_et": "2026-10-23"
-    },
-    "postmarket": {
-      "price": 158.7355,
-      "time": "2026-10-23T19:59:00-04:00",
-      "date_et": "2026-10-23"
-    },
+    "premarket": null,
+    "regular": null,
+    "postmarket": null,
     "source": "Yahoo Finance via yfinance"
   },
   "active_us": {
-    "session": "postmarket",
-    "price": 158.7355,
-    "time": "2026-10-23T19:59:00-04:00",
-    "date_et": "2026-10-23",
-    "move_from_last_update": {
-      "absolute": 0.0,
-      "percent": 0.0,
-      "from_time": "2026-10-23T19:59:00-04:00"
-    },
+    "session": "none",
+    "move_from_last_update": null,
     "source": "Yahoo Finance via yfinance"
   },
   "eu": {
