@@ -1,8 +1,8 @@
 {
   "symbol": "NBIS",
-  "updated_utc": "2026-10-29T20:14:06.442419+00:00",
-  "updated_et": "2026-10-29T16:14:06.442419-04:00",
-  "updated_msk": "2026-10-29T23:14:06.442419+03:00",
+  "updated_utc": "2026-10-29T23:33:36.218073+00:00",
+  "updated_et": "2026-10-29T19:33:36.218073-04:00",
+  "updated_msk": "2026-10-30T02:33:36.218073+03:00",
   "us": {
     "exchange": "NASDAQ",
     "currency": "USD",
@@ -26,21 +26,21 @@
       "date_et": "2026-10-29"
     },
     "postmarket": {
-      "price": 163.6,
-      "time": "2026-10-29T16:14:01-04:00",
+      "price": 162.0,
+      "time": "2026-10-29T19:33:32-04:00",
       "date_et": "2026-10-29"
     },
     "source": "Yahoo Finance via yfinance"
   },
   "active_us": {
     "session": "postmarket",
-    "price": 163.6,
-    "time": "2026-10-29T16:14:01-04:00",
+    "price": 162.0,
+    "time": "2026-10-29T19:33:32-04:00",
     "date_et": "2026-10-29",
     "move_from_last_update": {
-      "absolute": -6.319998168945318,
-      "percent": -3.7193963259472107,
-      "from_time": "2026-10-29T15:11:00-04:00"
+      "absolute": -1.5999999999999943,
+      "percent": -0.9779951100244433,
+      "from_time": "2026-10-29T16:14:01-04:00"
     },
     "source": "Yahoo Finance via yfinance"
   },
@@ -51,19 +51,19 @@
     "market": {
       "calendar": "XETR",
       "holiday": false,
-      "status": "closed",
-      "date": "2026-10-29",
-      "open": "2026-10-29T08:00:00+00:00",
-      "close": "2026-10-29T16:30:00+00:00"
+      "status": "pre",
+      "date": "2026-10-30",
+      "open": "2026-10-30T08:00:00+00:00",
+      "close": "2026-10-30T16:30:00+00:00"
     },
     "regular": {
       "price": 158.72000122070312,
       "time": "2026-10-29T17:28:00+01:00"
     },
-    "usd_price": 177.40024489464486,
+    "usd_price": 177.5987440416793,
     "fx": {
-      "price": 1.1176930665969849,
-      "time": "2026-10-29T20:13:00+00:00"
+      "price": 1.118943691253662,
+      "time": "2026-10-29T23:32:00+00:00"
     },
     "source": "Yahoo Finance via yfinance"
   }
