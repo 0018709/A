@@ -1,8 +1,8 @@
 {
   "symbol": "NBIS",
-  "updated_utc": "2026-11-01T19:34:26.649532+00:00",
-  "updated_et": "2026-11-01T14:34:26.649532-05:00",
-  "updated_msk": "2026-11-01T22:34:26.649532+03:00",
+  "updated_utc": "2026-11-01T23:31:26.457836+00:00",
+  "updated_et": "2026-11-01T18:31:26.457836-05:00",
+  "updated_msk": "2026-11-02T02:31:26.457836+03:00",
   "us": {
     "exchange": "NASDAQ",
     "currency": "USD",
@@ -50,11 +50,11 @@
     "currency": "EUR",
     "market": {
       "calendar": "XETR",
-      "holiday": true,
-      "status": "holiday",
-      "date": "2026-11-01",
-      "open": null,
-      "close": null
+      "holiday": false,
+      "status": "pre",
+      "date": "2026-11-02",
+      "open": "2026-11-02T08:00:00+00:00",
+      "close": "2026-11-02T16:30:00+00:00"
     },
     "regular": {
       "price": 140.63999938964844,
