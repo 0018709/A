@@ -1,29 +1,29 @@
 {
   "symbol": "NBIS",
-  "updated_utc": "2026-11-16T06:14:35.362814+00:00",
-  "updated_et": "2026-11-16T01:14:35.362814-05:00",
-  "updated_msk": "2026-11-16T09:14:35.362814+03:00",
+  "updated_utc": "2026-11-16T16:56:47.002827+00:00",
+  "updated_et": "2026-11-16T11:56:47.002827-05:00",
+  "updated_msk": "2026-11-16T19:56:47.002827+03:00",
   "us": {
     "exchange": "NASDAQ",
     "currency": "USD",
     "market": {
       "calendar": "XNYS",
       "holiday": false,
-      "status": "pre",
+      "status": "open",
       "date": "2026-11-16",
       "open": "2026-11-16T14:30:00+00:00",
       "close": "2026-11-16T21:00:00+00:00"
     },
-    "current_session": "closed",
+    "current_session": "regular",
     "premarket": {
-      "price": 123.61,
-      "time": "2026-11-13T09:29:00-05:00",
-      "date_et": "2026-11-13"
+      "price": 106.84,
+      "time": "2026-11-16T09:29:00-05:00",
+      "date_et": "2026-11-16"
     },
     "regular": {
-      "price": 115.80999755859375,
-      "time": "2026-11-13T15:59:00-05:00",
-      "date_et": "2026-11-13"
+      "price": 109.58999633789062,
+      "time": "2026-11-16T11:56:00-05:00",
+      "date_et": "2026-11-16"
     },
     "postmarket": {
       "price": 112.8,
@@ -33,13 +33,13 @@
     "source": "Yahoo Finance via yfinance"
   },
   "active_us": {
-    "session": "postmarket",
-    "price": 112.8,
-    "time": "2026-11-13T19:59:00-05:00",
-    "date_et": "2026-11-13",
+    "session": "regular",
+    "price": 109.58999633789062,
+    "time": "2026-11-16T11:56:00-05:00",
+    "date_et": "2026-11-16",
     "move_from_last_update": {
-      "absolute": 0.0,
-      "percent": 0.0,
+      "absolute": -3.210003662109372,
+      "percent": -2.8457479274019204,
       "from_time": "2026-11-13T19:59:00-05:00"
     },
     "source": "Yahoo Finance via yfinance"
@@ -51,19 +51,19 @@
     "market": {
       "calendar": "XETR",
       "holiday": false,
-      "status": "pre",
+      "status": "closed",
       "date": "2026-11-16",
       "open": "2026-11-16T08:00:00+00:00",
       "close": "2026-11-16T16:30:00+00:00"
     },
     "regular": {
-      "price": 104.72000122070312,
-      "time": "2026-11-13T17:29:00+01:00"
+      "price": 99.43000030517578,
+      "time": "2026-11-16T17:27:00+01:00"
     },
-    "usd_price": 115.44482164486908,
+    "usd_price": 109.45618691779873,
     "fx": {
-      "price": 1.1024142503738403,
-      "time": "2026-11-16T06:13:00+00:00"
+      "price": 1.1008366346359253,
+      "time": "2026-11-16T16:56:00+00:00"
     },
     "source": "Yahoo Finance via yfinance"
   }
