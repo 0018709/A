@@ -1,8 +1,8 @@
 {
   "symbol": "NBIS",
-  "updated_utc": "2026-11-21T00:45:25.178704+00:00",
-  "updated_et": "2026-11-20T19:45:25.178704-05:00",
-  "updated_msk": "2026-11-21T03:45:25.178704+03:00",
+  "updated_utc": "2026-11-21T02:48:05.102047+00:00",
+  "updated_et": "2026-11-20T21:48:05.102047-05:00",
+  "updated_msk": "2026-11-21T05:48:05.102047+03:00",
   "us": {
     "exchange": "NASDAQ",
     "currency": "USD",
@@ -14,7 +14,7 @@
       "open": "2026-11-20T14:30:00+00:00",
       "close": "2026-11-20T21:00:00+00:00"
     },
-    "current_session": "postmarket",
+    "current_session": "closed",
     "premarket": {
       "price": 93.84,
       "time": "2026-11-20T09:29:00-05:00",
@@ -26,21 +26,21 @@
       "date_et": "2026-11-20"
     },
     "postmarket": {
-      "price": 84.4752,
-      "time": "2026-11-20T19:45:10-05:00",
+      "price": 84.53,
+      "time": "2026-11-20T19:59:00-05:00",
       "date_et": "2026-11-20"
     },
     "source": "Yahoo Finance via yfinance"
   },
   "active_us": {
     "session": "postmarket",
-    "price": 84.4752,
-    "time": "2026-11-20T19:45:10-05:00",
+    "price": 84.53,
+    "time": "2026-11-20T19:59:00-05:00",
     "date_et": "2026-11-20",
     "move_from_last_update": {
-      "absolute": 1.1951999999999998,
-      "percent": 1.435158501440914,
-      "from_time": "2026-11-20T16:30:20-05:00"
+      "absolute": 0.05480000000000018,
+      "percent": 0.06487111010096136,
+      "from_time": "2026-11-20T19:45:10-05:00"
     },
     "source": "Yahoo Finance via yfinance"
   },
