@@ -1,8 +1,8 @@
 {
   "symbol": "NBIS",
-  "updated_utc": "2026-11-25T22:43:28.892447+00:00",
-  "updated_et": "2026-11-25T17:43:28.892447-05:00",
-  "updated_msk": "2026-11-26T01:43:28.892447+03:00",
+  "updated_utc": "2026-11-26T00:58:38.149591+00:00",
+  "updated_et": "2026-11-25T19:58:38.149591-05:00",
+  "updated_msk": "2026-11-26T03:58:38.149591+03:00",
   "us": {
     "exchange": "NASDAQ",
     "currency": "USD",
@@ -26,21 +26,21 @@
       "date_et": "2026-11-25"
     },
     "postmarket": {
-      "price": 85.35,
-      "time": "2026-11-25T17:41:54-05:00",
+      "price": 88.2753,
+      "time": "2026-11-25T19:58:29-05:00",
       "date_et": "2026-11-25"
     },
     "source": "Yahoo Finance via yfinance"
   },
   "active_us": {
     "session": "postmarket",
-    "price": 85.35,
-    "time": "2026-11-25T17:41:54-05:00",
+    "price": 88.2753,
+    "time": "2026-11-25T19:58:29-05:00",
     "date_et": "2026-11-25",
     "move_from_last_update": {
-      "absolute": 0.7099999999999937,
-      "percent": 0.8388468809073624,
-      "from_time": "2026-11-25T16:58:25-05:00"
+      "absolute": 2.925300000000007,
+      "percent": 3.427416520210902,
+      "from_time": "2026-11-25T17:41:54-05:00"
     },
     "source": "Yahoo Finance via yfinance"
   },
@@ -51,19 +51,19 @@
     "market": {
       "calendar": "XETR",
       "holiday": false,
-      "status": "closed",
-      "date": "2026-11-25",
-      "open": "2026-11-25T08:00:00+00:00",
-      "close": "2026-11-25T16:30:00+00:00"
+      "status": "pre",
+      "date": "2026-11-26",
+      "open": "2026-11-26T08:00:00+00:00",
+      "close": "2026-11-26T16:30:00+00:00"
     },
     "regular": {
       "price": 70.41000366210938,
       "time": "2026-11-25T17:28:00+01:00"
     },
-    "usd_price": 77.2971859401332,
+    "usd_price": 77.28870008482772,
     "fx": {
-      "price": 1.0978153944015503,
-      "time": "2026-11-25T22:42:00+00:00"
+      "price": 1.0976948738098145,
+      "time": "2026-11-26T00:57:00+00:00"
     },
     "source": "Yahoo Finance via yfinance"
   }
